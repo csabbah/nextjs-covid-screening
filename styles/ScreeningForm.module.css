@@ -1,0 +1,97 @@
+.form {
+  box-sizing: border-box;
+  margin-top: 25px;
+  display: grid;
+  grid-template: 1fr 1fr / 345px 345px;
+  gap: 20px;
+  justify-content: center;
+}
+
+.inputWrapper {
+  border-radius: 10px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeader {
+  letter-spacing: 1px;
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  text-transform: uppercase;
+  font-size: 22.5px;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hr {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.fullCol {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.vaccineQuantity {
+  width: 40px;
+  margin: 7px 0;
+  margin-left: 5px;
+}
+
+.yesCheckbox {
+  margin-right: 4px;
+}
+
+.noCheckbox {
+  margin-right: 4px;
+  margin-left: 10px;
+}
+
+.noVaccine {
+  margin-left: 3px;
+}
+
+.emphasize {
+  text-transform: capitalize;
+  font-family: 'PoppinsHeader';
+}
+
+.symptomsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.symptomHeader {
+  margin-top: 7px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.submitBtn {
+  width: 225px;
+}
+
+@media (max-width: 815px) {
+  .form {
+    grid-template: 1fr 1fr / 41vw 41vw;
+  }
+}
+
+@media (max-width: 520px) {
+  .inputWrapper {
+    grid-column-start: 1 !important;
+    grid-column-end: 4 !important;
+    margin-top: 0;
+  }
+
+  .hr,
+  .sectionHeader {
+    grid-column-end: 4;
+  }
+}

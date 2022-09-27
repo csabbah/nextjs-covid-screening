@@ -1,0 +1,116 @@
+.form {
+  box-sizing: border-box;
+  margin-top: 25px;
+  display: grid;
+  grid-template: 1fr 1fr / 250px 250px 250px;
+  gap: 20px;
+  justify-content: center;
+}
+
+.inputWrapper {
+  border-radius: 10px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeader {
+  letter-spacing: 1px;
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  text-transform: uppercase;
+  font-size: 22.5px;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sectionHeader2 {
+  letter-spacing: 1px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  text-transform: capitalize;
+  text-decoration: underline;
+  font-size: 22.5px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.hr {
+  margin: 0;
+  margin-top: 20px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.fullCol {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.medCol {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.contact {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.yesCheckbox {
+  margin-right: 4px;
+}
+
+.noCheckbox {
+  margin-right: 4px;
+  margin-left: 10px;
+}
+
+.physicalExam {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.physicalExamLabel {
+  width: 500px;
+}
+
+.smoke {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+.checkboxWrapper {
+  display: flex;
+}
+
+.submitBtn {
+  width: 225px;
+}
+
+.shortText {
+  height: 115px;
+}
+
+.shorterText {
+  height: 80px;
+}
+
+@media (max-width: 815px) {
+  .form {
+    grid-template: 1fr 1fr / 27.3vw 27.3vw 27.3vw;
+  }
+}
+
+@media (max-width: 640px) {
+  .inputWrapper {
+    grid-column-start: 1 !important;
+    grid-column-end: 4 !important;
+    margin-top: 0;
+  }
+}
