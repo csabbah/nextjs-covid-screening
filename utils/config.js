@@ -1,3 +1,5 @@
 const dev = process.env.NODE_ENV !== 'production';
 
-export const server = dev ? 'http://localhost:3000' : '<LIVE_URL>';
+export const server = dev
+  ? 'http://localhost:3000'
+  : 'nextjs-covid-screening-o566.vercel.app';
