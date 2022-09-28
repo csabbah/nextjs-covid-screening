@@ -255,28 +255,35 @@ const RegistryForm = ({ formData }) => {
             type="text"
           />
         </div>
-        <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
+        <hr className={styles.hr}></hr>
+        <div
+          className={`${styles.inputWrapper} ${styles.fullCol} ${styles.confirm}`}
+        >
           I confirm that the above is true and accurate to the best of my
           knowledge.
         </div>
-        <div className={`${styles.inputWrapper} ${styles.medCol}`}>
-          <label>Signature</label>
-          <SignatureCanvas
-            penColor="black"
-            backgroundColor="rgba(0,0,0, 0.1)"
-            ref={(ref) => {
-              captureSignature = ref;
-            }}
-            canvasProps={{
-              Width: 500,
-              Height: 200,
-              className: 'sigCanvas',
-            }}
-          />
-        </div>
-        <div className={`${styles.inputWrapper}`}>
-          <label>Date</label>
-          <input type="date" id="dateOfSignature" name="dateOfSignature" />
+        <div className={`${styles.signWrapper} ${styles.fullCol}`}>
+          <div className={styles.signInnerWrapper}>
+            <div className={styles.signInnerItems}>
+              <label>Signature</label>
+              <SignatureCanvas
+                penColor="black"
+                backgroundColor="rgba(0,0,0, 0.1)"
+                ref={(ref) => {
+                  captureSignature = ref;
+                }}
+                canvasProps={{
+                  width: 360,
+                  height: 200,
+                  className: 'sigCanvas',
+                }}
+              />
+            </div>
+            <div className={styles.signInnerItems}>
+              <label>Date</label>
+              <input type="date" id="dateOfSignature" name="dateOfSignature" />
+            </div>
+          </div>
         </div>
         {signatureImg && (
           <Image

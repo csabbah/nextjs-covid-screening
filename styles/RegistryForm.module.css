@@ -14,6 +14,32 @@
   flex-direction: column;
 }
 
+.signWrapper {
+  margin-top: -5px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.signInnerWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.signInnerItems {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.signInnerItems:last-child {
+  margin-right: 0;
+}
+
+.signInnerItems:last-child input {
+  width: 300px;
+}
+
 .sectionHeader {
   letter-spacing: 1px;
   text-align: center;
@@ -44,6 +70,7 @@
 .hr {
   margin: 0;
   margin-top: 20px;
+  margin-bottom: 15px;
   grid-column-start: 1;
   grid-column-end: 4;
 }
@@ -89,21 +116,44 @@
   display: flex;
 }
 
-.submitBtn {
-  width: 225px;
-}
-
 .shortText {
   height: 115px;
 }
 
 .shorterText {
-  height: 80px;
+  height: 90px;
+}
+
+.confirm {
+  margin-top: 5px;
+}
+
+.submitBtn {
+  width: 225px;
+  margin-top: 10px;
 }
 
 @media (max-width: 815px) {
   .form {
     grid-template: 1fr 1fr / 27.3vw 27.3vw 27.3vw;
+  }
+
+  .signInnerWrapper {
+    flex-direction: column;
+    width: fit-content;
+  }
+
+  .signWrapper {
+    flex-direction: column;
+  }
+
+  .signInnerItems:last-child {
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+
+  .confirm {
+    margin-top: 5px;
   }
 }
 
