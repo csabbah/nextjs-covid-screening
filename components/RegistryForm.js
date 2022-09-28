@@ -267,7 +267,11 @@ const RegistryForm = ({ formData }) => {
             ref={(ref) => {
               captureSignature = ref;
             }}
-            canvasProps={{ width: 500, height: 200, className: 'sigCanvas' }}
+            canvasProps={{
+              Width: 500,
+              Height: 200,
+              className: 'sigCanvas',
+            }}
           />
         </div>
         <div className={`${styles.inputWrapper}`}>
