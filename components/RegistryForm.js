@@ -3,6 +3,7 @@ import styles from '../styles/RegistryForm.module.css';
 import { useRouter } from 'next/router';
 import SignatureCanvas from 'react-signature-canvas';
 import Image from 'next/image';
+import Select from 'react-select';
 
 const RegistryForm = ({ formData }) => {
   const router = useRouter();
@@ -27,6 +28,11 @@ const RegistryForm = ({ formData }) => {
   // State object to contain signature image URL
   const [signatureImg, setSignatureImg] = useState('');
 
+  // Clear signature box
+  const clear = () => {
+    captureSignature.clear();
+  };
+
   return (
     <div className={styles.container}>
       <form onSubmit={(e) => handleSecondSubmit(e)} className={styles.form}>
@@ -43,9 +49,13 @@ const RegistryForm = ({ formData }) => {
           <label>Sex:</label>
           <select>
             <option defaultChecked="Select">Choose...</option>
-            <option label="Male" name="male"></option>
-            <option label="Female" name="female"></option>
-            <option label="Non-binary" name="female"></option>
+            <option value="male" label="Male" name="male"></option>
+            <option value="female" label="Female" name="female"></option>
+            <option
+              value="non-binary"
+              label="Non-binary"
+              name="female"
+            ></option>
           </select>
         </div>
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
@@ -80,11 +90,15 @@ const RegistryForm = ({ formData }) => {
           <label>Marital Status</label>
           <select>
             <option defaultChecked="Select">Choose...</option>
-            <option label="Married" name="married"></option>
-            <option label="Single" name="single"></option>
-            <option label="Divorced" name="divorced"></option>
-            <option label="Widow" name="widow"></option>
-            <option label="Prefer not to say" name="prefer-not-to-say"></option>
+            <option value="Married" label="Married" name="married"></option>
+            <option value="Single" label="Single" name="single"></option>
+            <option value="Divorced" label="Divorced" name="divorced"></option>
+            <option value="Widow" label="Widow" name="widow"></option>
+            <option
+              value="Prefer not to say"
+              label="Prefer not to say"
+              name="prefer-not-to-say"
+            ></option>
           </select>
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
@@ -278,10 +292,21 @@ const RegistryForm = ({ formData }) => {
                   className: 'sigCanvas',
                 }}
               />
+              <button
+                className={`${styles.buttons} ${styles.clearSig}`}
+                onClick={clear}
+              >
+                Clear
+              </button>
             </div>
             <div className={styles.signInnerItems}>
               <label>Date</label>
-              <input type="date" id="dateOfSignature" name="dateOfSignature" />
+              <input
+                className={styles.dateSelect}
+                type="date"
+                id="dateOfSignature"
+                name="dateOfSignature"
+              />
             </div>
           </div>
         </div>

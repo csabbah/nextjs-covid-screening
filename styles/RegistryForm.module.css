@@ -128,6 +128,16 @@
   margin-top: 5px;
 }
 
+.clearSig {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  width: 125px !important;
+}
+
+.dateSelect {
+  width: 175px !important;
+}
+
 .submitBtn {
   width: 225px;
   margin-top: 10px;
@@ -150,6 +160,10 @@
   .signInnerItems:last-child {
     margin-top: 15px;
     margin-bottom: 0px;
+  }
+
+  .signInnerItems {
+    margin-right: 0;
   }
 
   .confirm {

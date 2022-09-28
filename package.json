@@ -25,6 +25,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
+    "react-select": "^5.4.0",
     "react-signature-canvas": "^1.0.6",
     "redux": "^4.2.0"
   },

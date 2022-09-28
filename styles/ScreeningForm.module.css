@@ -77,6 +77,10 @@
   width: 225px;
 }
 
+.dateOfVisit {
+  width: 175px !important;
+}
+
 @media (max-width: 815px) {
   .form {
     grid-template: 1fr 1fr / 41vw 41vw;
