@@ -49,13 +49,15 @@ const RegistryForm = ({ formData }) => {
           <label>Sex:</label>
           <select>
             <option defaultChecked="Select">Choose...</option>
-            <option value="male" label="Male" name="male"></option>
-            <option value="female" label="Female" name="female"></option>
-            <option
-              value="non-binary"
-              label="Non-binary"
-              name="female"
-            ></option>
+            <option value="male" label="Male" name="male">
+              Male
+            </option>
+            <option value="female" label="Female" name="female">
+              Female
+            </option>
+            <option value="non-binary" label="Non-binary" name="female">
+              Non Binary
+            </option>
           </select>
         </div>
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
@@ -90,15 +92,25 @@ const RegistryForm = ({ formData }) => {
           <label>Marital Status</label>
           <select>
             <option defaultChecked="Select">Choose...</option>
-            <option value="Married" label="Married" name="married"></option>
-            <option value="Single" label="Single" name="single"></option>
-            <option value="Divorced" label="Divorced" name="divorced"></option>
-            <option value="Widow" label="Widow" name="widow"></option>
+            <option value="Married" label="Married" name="married">
+              Married
+            </option>
+            <option value="Single" label="Single" name="single">
+              Single
+            </option>
+            <option value="Divorced" label="Divorced" name="divorced">
+              Divorced
+            </option>
+            <option value="Widow" label="Widow" name="widow">
+              Widow
+            </option>
             <option
               value="Prefer not to say"
               label="Prefer not to say"
               name="prefer-not-to-say"
-            ></option>
+            >
+              Prefer not to say
+            </option>
           </select>
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
