@@ -30,8 +30,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
     // If symptoms exist, add them to the form on submission
     if (checkedSymptoms.length >= 1) {
       setFormData({
-        ...formData,
-        anySymptoms: checkedSymptoms,
+        screeningData: {
+          ...formData.screeningData,
+          anySymptoms: checkedSymptoms,
+        },
       });
     }
 
@@ -103,7 +105,12 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
         <label htmlFor="firstName">First Name</label>
         <input
           onChange={(e) =>
-            setFormData({ ...formData, [e.target.name]: e.target.value.trim() })
+            setFormData({
+              screeningData: {
+                ...formData.screeningData,
+                [e.target.name]: e.target.value.trim(),
+              },
+            })
           }
           type="text"
           id="firstName"
@@ -115,7 +122,12 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
         <label htmlFor="lastName">Last Name</label>
         <input
           onChange={(e) =>
-            setFormData({ ...formData, [e.target.name]: e.target.value.trim() })
+            setFormData({
+              screeningData: {
+                ...formData.screeningData,
+                [e.target.name]: e.target.value.trim(),
+              },
+            })
           }
           type="text"
           id="lastName"
@@ -127,7 +139,12 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
         <label>Date of Visit</label>
         <input
           onChange={(e) =>
-            setFormData({ ...formData, [e.target.name]: e.target.value.trim() })
+            setFormData({
+              screeningData: {
+                ...formData.screeningData,
+                [e.target.name]: e.target.value.trim(),
+              },
+            })
           }
           type="date"
           id="dateOfVisit"
@@ -145,10 +162,12 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               displayItems(e.target.id, 0);
               setFormData({
-                ...formData,
-                [e.target.name]: {
-                  ...formData.proofOfVaccine,
-                  answer: e.target.id,
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: {
+                    ...formData.screeningData.proofOfVaccine,
+                    answer: e.target.id,
+                  },
                 },
               });
             }}
@@ -162,9 +181,11 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               displayItems(e.target.id, 0);
               setFormData({
-                ...formData,
-                [e.target.name]: {
-                  answer: e.target.id,
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: {
+                    answer: e.target.id,
+                  },
                 },
               });
             }}
@@ -182,10 +203,12 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               onChange={(e) => {
                 displayItems(e.target.id, 0);
                 setFormData({
-                  ...formData,
-                  [e.target.name]: {
-                    ...formData.proofOfVaccine,
-                    vaccineQuantity: e.target.value,
+                  screeningData: {
+                    ...formData.screeningData,
+                    [e.target.name]: {
+                      ...formData.screeningData.proofOfVaccine,
+                      vaccineQuantity: e.target.value,
+                    },
                   },
                 });
               }}
@@ -201,10 +224,12 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               onChange={(e) => {
                 displayItems(e.target.id, 0);
                 setFormData({
-                  ...formData,
-                  [e.target.name]: {
-                    ...formData.proofOfVaccine,
-                    certificateFile: e.target.value,
+                  screeningData: {
+                    ...formData.screeningData,
+                    [e.target.name]: {
+                      ...formData.screeningData.proofOfVaccine,
+                      certificateFile: e.target.value,
+                    },
                   },
                 });
               }}
@@ -223,8 +248,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               switchCheck(e.target, 1);
               setFormData({
-                ...formData,
-                [e.target.name]: 'yes',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'yes',
+                },
               });
             }}
             id="yesRapid"
@@ -238,8 +265,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               switchCheck(e.target, 1);
               setFormData({
-                ...formData,
-                [e.target.name]: 'no',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'no',
+                },
               });
             }}
             name="positiveRapid"
@@ -259,8 +288,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               switchCheck(e.target, 2);
               setFormData({
-                ...formData,
-                [e.target.name]: 'yes',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'yes',
+                },
               });
             }}
             name="CallToIsolate"
@@ -273,8 +304,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               switchCheck(e.target, 2);
               setFormData({
-                ...formData,
-                [e.target.name]: 'yes',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'no',
+                },
               });
             }}
             name="CallToIsolate"
@@ -302,8 +335,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               displayItems(e.target.id, 1);
               setFormData({
-                ...formData,
-                [e.target.name]: 'no',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'no',
+                },
               });
             }}
             id="noSymptoms"
@@ -350,8 +385,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               switchCheck(e.target, 3);
               setFormData({
-                ...formData,
-                [e.target.name]: 'yes',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'yes',
+                },
               });
             }}
             name="covidPositive"
@@ -364,8 +401,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               switchCheck(e.target, 3);
               setFormData({
-                ...formData,
-                [e.target.name]: 'no',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'no',
+                },
               });
             }}
             id="noPositive"
@@ -390,8 +429,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               switchCheck(e.target, 4);
               setFormData({
-                ...formData,
-                [e.target.name]: 'yes',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'yes',
+                },
               });
             }}
             id="yesOlder"
@@ -404,8 +445,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             onChange={(e) => {
               switchCheck(e.target, 4);
               setFormData({
-                ...formData,
-                [e.target.name]: 'no',
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: 'no',
+                },
               });
             }}
             id="noOlder"

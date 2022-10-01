@@ -6,15 +6,17 @@ import RegistryForm from './RegistryForm';
 const Forms = () => {
   const [showForm, setShowForm] = useState(1);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfVisit: '',
-    proofOfVaccine: { answer: '', vaccineQuantity: '', certificateFile: '' },
-    positiveRapid: '',
-    CallToIsolate: '',
-    anySymptoms: null,
-    covidPositive: '',
-    olderAndExpSym: '',
+    screeningData: {
+      firstName: '',
+      lastName: '',
+      dateOfVisit: '',
+      proofOfVaccine: { answer: '', vaccineQuantity: '', certificateFile: '' },
+      positiveRapid: '',
+      CallToIsolate: '',
+      anySymptoms: null,
+      covidPositive: '',
+      olderAndExpSym: '',
+    },
   });
 
   return (
