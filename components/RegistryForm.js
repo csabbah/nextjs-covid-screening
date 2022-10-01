@@ -8,6 +8,11 @@ import Select from 'react-select';
 const RegistryForm = ({ formData }) => {
   const router = useRouter();
 
+  const [alcohol, setAlcohol] = useState(false);
+  const [smoke, setSmoke] = useState(false);
+  const [allergies, setAllergy] = useState(false);
+  const [staph, setStaph] = useState(false);
+
   const handleSecondSubmit = (e) => {
     e.preventDefault();
 
@@ -31,6 +36,87 @@ const RegistryForm = ({ formData }) => {
   // Clear signature box
   const clear = () => {
     captureSignature.clear();
+  };
+
+  const switchCheck = (e, index) => {
+    let checkBoxAction = e.className.split(' ')[0];
+    let checkBoxSection = e.className.split(' ')[1];
+
+    console.log(checkBoxSection, checkBoxAction, index);
+
+    if (checkBoxAction == 'yes') {
+      if (checkBoxSection == 'alcohol') {
+        setAlcohol(!alcohol);
+      }
+      if (checkBoxSection == 'staph') {
+        setStaph(!staph);
+      }
+
+      if (checkBoxSection == 'smoke') {
+        setSmoke(!smoke);
+      }
+
+      if (checkBoxSection == 'allergies') {
+        setAllergy(!allergies);
+      }
+    }
+    if (
+      checkBoxAction == 'yes' &&
+      document.querySelector(`.${checkBoxSection}`).checked
+    ) {
+      if (checkBoxSection == 'alcohol') {
+        setAlcohol(true);
+      }
+      if (checkBoxSection == 'staph') {
+        setStaph(true);
+      }
+
+      if (checkBoxSection == 'smoke') {
+        setSmoke(true);
+      }
+
+      if (checkBoxSection == 'allergies') {
+        setAllergy(true);
+      }
+      document.querySelectorAll(`.no`)[index].checked = false;
+    }
+
+    if (checkBoxAction == 'no') {
+      if (checkBoxSection == 'alcohol') {
+        setAlcohol(false);
+      }
+      if (checkBoxSection == 'staph') {
+        setStaph(false);
+      }
+
+      if (checkBoxSection == 'smoke') {
+        setSmoke(false);
+      }
+
+      if (checkBoxSection == 'allergies') {
+        setAllergy(false);
+      }
+    }
+    if (
+      checkBoxAction == 'no' &&
+      document.querySelector(`.${checkBoxSection}`).checked
+    ) {
+      if (checkBoxSection == 'alcohol') {
+        setAlcohol(false);
+      }
+      if (checkBoxSection == 'staph') {
+        setStaph(false);
+      }
+
+      if (checkBoxSection == 'smoke') {
+        setSmoke(false);
+      }
+
+      if (checkBoxSection == 'allergies') {
+        setAllergy(false);
+      }
+      document.querySelectorAll(`.yes`)[index].checked = false;
+    }
   };
 
   return (
@@ -169,40 +255,66 @@ const RegistryForm = ({ formData }) => {
           <label>Do you smoke?</label>
           <div className={styles.checkboxWrapper}>
             <div>
-              <input className={styles.yesCheckbox} type="checkbox" />
+              <input
+                onChange={(e) => switchCheck(e.target, 0)}
+                className={`yes smoke ${styles.yesCheckbox}`}
+                type="checkbox"
+              />
               <label>Yes</label>
             </div>
             <div>
-              <input className={styles.noCheckbox} type="checkbox" />
+              <input
+                onChange={(e) => switchCheck(e.target, 0)}
+                className={`no smoke ${styles.noCheckbox}`}
+                type="checkbox"
+              />
               <label>No</label>
             </div>
           </div>
         </div>
-        <div className={`${styles.inputWrapper}`}>
-          <label>How many packs a day?</label>
-          <input placeholder="1" type="text" />
-        </div>
-        <div className={`${styles.inputWrapper}`}>
-          <label>For how long?</label>
-          <input placeholder="1 year" type="text" />
-        </div>
+        {smoke ? (
+          <>
+            <div className={`${styles.inputWrapper}`}>
+              <label>How many packs a day?</label>
+              <input placeholder="1" type="text" />
+            </div>
+            <div className={`${styles.inputWrapper}`}>
+              <label>For how long?</label>
+              <input placeholder="1 year" type="text" />
+            </div>
+          </>
+        ) : (
+          ''
+        )}
         <div className={`${styles.inputWrapper} ${styles.alcohol}`}>
           <label>Do you drink alcohol?</label>
           <div className={styles.checkboxWrapper}>
             <div>
-              <input className={styles.yesCheckbox} type="checkbox" />
+              <input
+                onChange={(e) => switchCheck(e.target, 1)}
+                className={`yes alcohol ${styles.yesCheckbox}`}
+                type="checkbox"
+              />
               <label>Yes</label>
             </div>
             <div>
-              <input className={styles.noCheckbox} type="checkbox" />
+              <input
+                onChange={(e) => switchCheck(e.target, 1)}
+                className={`no alcohol ${styles.noCheckbox}`}
+                type="checkbox"
+              />
               <label>No</label>
             </div>
           </div>
         </div>
-        <div className={`${styles.inputWrapper}`}>
-          <label>How many drinks a week?</label>
-          <input placeholder="2" type="text" />
-        </div>
+        {alcohol ? (
+          <div className={`${styles.inputWrapper}`}>
+            <label>How many drinks a week?</label>
+            <input placeholder="2" type="text" />
+          </div>
+        ) : (
+          ''
+        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>
             Have you ever had any previous cosmetic or surgical procedures? If
@@ -244,42 +356,70 @@ const RegistryForm = ({ formData }) => {
           <label>Do you have any known allergies? Yes No</label>
           <div className={styles.checkboxWrapper}>
             <div>
-              <input className={styles.yesCheckbox} type="checkbox" />
+              <input
+                onChange={(e) => switchCheck(e.target, 2)}
+                className={`yes allergies ${styles.yesCheckbox}`}
+                type="checkbox"
+              />
               <label>Yes</label>
             </div>
             <div>
-              <input className={styles.noCheckbox} type="checkbox" />
+              <input
+                onChange={(e) => switchCheck(e.target, 2)}
+                className={`no allergies ${styles.noCheckbox}`}
+                type="checkbox"
+              />
               <label>No</label>
             </div>
           </div>
-          <label>What medication and describe the reaction:</label>
-          <textarea
-            className={styles.shorterText}
-            placeholder="I take the medication and this is the reaction..."
-            type="text"
-          />
+          {allergies ? (
+            <>
+              <label>What medication and describe the reaction:</label>
+              <textarea
+                className={styles.shorterText}
+                placeholder="I take the medication and this is the reaction..."
+                type="text"
+              />
+            </>
+          ) : (
+            ''
+          )}
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Have you ever had a Staph/MRSA infection in the past?</label>
           <div className={styles.checkboxWrapper}>
             <div>
-              <input className={styles.yesCheckbox} type="checkbox" />
+              <input
+                onChange={(e) => switchCheck(e.target, 3)}
+                className={`yes staph ${styles.yesCheckbox}`}
+                type="checkbox"
+              />
               <label>Yes</label>
             </div>
             <div>
-              <input className={styles.noCheckbox} type="checkbox" />
+              <input
+                onChange={(e) => switchCheck(e.target, 3)}
+                className={`no staph ${styles.noCheckbox}`}
+                type="checkbox"
+              />
               <label>No</label>
             </div>
           </div>
-          <label>
-            Please indicate where on your body the infection was located and
-            how/when it was treated:
-          </label>
-          <textarea
-            className={styles.shorterText}
-            placeholder="The infection is located here and this is how i treated it..."
-            type="text"
-          />
+          {staph ? (
+            <>
+              <label>
+                Please indicate where on your body the infection was located and
+                how/when it was treated:
+              </label>
+              <textarea
+                className={styles.shorterText}
+                placeholder="The infection is located here and this is how i treated it..."
+                type="text"
+              />
+            </>
+          ) : (
+            ''
+          )}
         </div>
         <hr className={styles.hr}></hr>
         <div
