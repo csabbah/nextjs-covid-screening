@@ -405,7 +405,10 @@ const RegistryForm = ({ formData, setFormData }) => {
           {medicalConditions.map((medical, i) => {
             if (i == 25) {
               return (
-                <div key={i}>
+                <div
+                  style={{ display: 'flex', flexDirection: 'column' }}
+                  key={i}
+                >
                   <label htmlFor="Other">Other:</label>
                   <textarea
                     onChange={(e) => setOtherCond(e.target.value)}

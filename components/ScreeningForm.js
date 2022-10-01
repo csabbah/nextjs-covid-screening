@@ -166,7 +166,6 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
                   ...formData.screeningData,
                   [e.target.name]: {
                     ...formData.screeningData.proofOfVaccine,
-                    answer: e.target.id,
                   },
                 },
               });
@@ -183,9 +182,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: {
-                    answer: e.target.id,
-                  },
+                  [e.target.name]: 'no',
                 },
               });
             }}
