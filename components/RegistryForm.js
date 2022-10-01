@@ -12,6 +12,46 @@ const RegistryForm = ({ formData, setFormData }) => {
   const [allergies, setAllergy] = useState(false);
   const [staph, setStaph] = useState(false);
 
+  const medicalConditions = [
+    'Angina/chest pain',
+    'Anemia',
+    'Arthritis',
+    'Depression',
+    'Asthma',
+    'Psychiatric disorder',
+    'Anxiety',
+    'Cancer',
+    'Seizures',
+    'Heart disease',
+    'hyroid disease',
+    'High blood pressure',
+    'Lung disease',
+    'Diabetes type I Type II',
+    'Shortness of breath',
+    'Colitis/ IBS',
+    'Ankle swelling',
+    'Hepatitis A/B/C',
+    'Bleeding disorder',
+    'HIV/AIDS',
+    'Blood clots',
+    'Anesthesia problems',
+    'Weight loss',
+    'Breast Cancer',
+    'Kidney disease',
+    'Other:',
+  ];
+
+  const [checkedConditions, setCheckedConditions] = useState([]);
+  const handleMedicals = (e, condition, ID) => {
+    if (e.target.checked) {
+      setCheckedConditions([...checkedConditions, { condition, id: ID }]);
+    } else {
+      setCheckedConditions(checkedConditions.filter((cond) => cond.id !== ID));
+    }
+  };
+
+  const [otherCond, setOtherCond] = useState('');
+
   const handleSecondSubmit = (e) => {
     e.preventDefault();
 
@@ -21,6 +61,7 @@ const RegistryForm = ({ formData, setFormData }) => {
   };
 
   console.log(formData);
+
   // Trims the Signature field
   let captureSignature = {};
   const trim = () => {
@@ -246,7 +287,7 @@ const RegistryForm = ({ formData, setFormData }) => {
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="weight">Weight (lbs)</label>
-          <input id="weight" placeholder="174lbs" type="text" />
+          <input id="weight" placeholder="174" type="text" />
         </div>
         <div className={`${styles.inputWrapper} ${styles.physicalExam}`}>
           <label className={styles.physicalExamLabel}>
@@ -361,6 +402,32 @@ const RegistryForm = ({ formData, setFormData }) => {
             Please check any medical condition that you currently suffer from,
             or have experienced in the past:
           </label>
+          {medicalConditions.map((medical, i) => {
+            if (i == 25) {
+              return (
+                <div key={i}>
+                  <label htmlFor="Other">Other:</label>
+                  <textarea
+                    onChange={(e) => setOtherCond(e.target.value)}
+                    id="Other"
+                    type="text"
+                  ></textarea>
+                </div>
+              );
+            }
+            return (
+              <div key={i}>
+                <input
+                  id={medical}
+                  name={medical}
+                  onChange={(e) => handleMedicals(e, medical, i)}
+                  className={styles.yesCheckbox}
+                  type="checkbox"
+                ></input>
+                <label htmlFor={medical}>{medical}</label>
+              </div>
+            );
+          })}
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Do you have any known allergies? Yes No</label>
