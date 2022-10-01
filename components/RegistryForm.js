@@ -124,16 +124,16 @@ const RegistryForm = ({ formData }) => {
       <form onSubmit={(e) => handleSecondSubmit(e)} className={styles.form}>
         <p className={styles.sectionHeader}>patient registration form</p>
         <div className={`${styles.inputWrapper}`}>
-          <label>Full Name:</label>
-          <input placeholder="John Doe" type="text" />
+          <label htmlFor="fullName">Full Name:</label>
+          <input id="fullName" placeholder="John Doe" type="text" />
         </div>
         <div className={`${styles.inputWrapper} ${styles.age}`}>
-          <label>Age:</label>
-          <input placeholder="29" type="number" />
+          <label htmlFor="age">Age:</label>
+          <input id="age" placeholder="29" type="number" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Sex:</label>
-          <select>
+          <label htmlFor="sex">Sex:</label>
+          <select id="sex">
             <option defaultChecked="Select">Choose...</option>
             <option value="male" label="Male" name="male">
               Male
@@ -147,36 +147,36 @@ const RegistryForm = ({ formData }) => {
           </select>
         </div>
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
-          <label>Address:</label>
-          <input placeholder="26 Jeannette Pl" type="text" />
+          <label htmlFor="address">Address:</label>
+          <input id="address" placeholder="26 Jeannette Pl" type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>DOB:</label>
-          <input placeholder="" type="text" />
+          <label htmlFor="dob">DOB:</label>
+          <input id="dob" placeholder="" type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Home #</label>
-          <input placeholder="435 544 3953" type="text" />
+          <label htmlFor="homeNum">Home #</label>
+          <input id="homeNum" placeholder="435 544 3953" type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Work #</label>
-          <input placeholder="416 134 5266" type="text" />
+          <label htmlFor="workNum">Work #</label>
+          <input id="workNum" placeholder="416 134 5266" type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Cell #</label>
-          <input placeholder="905 562 6353" type="text" />
+          <label htmlFor="cellNum">Cell #</label>
+          <input id="cellNum" placeholder="905 562 6353" type="text" />
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
-          <label>E-mail:</label>
-          <input placeholder="Youremail@gmail.com" type="text" />
+          <label htmlFor="email">E-mail:</label>
+          <input id="email" placeholder="Youremail@gmail.com" type="text" />
         </div>
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
-          <label>Occupation:</label>
-          <input placeholder="Web Developer" type="text" />
+          <label htmlFor="occupation">Occupation:</label>
+          <input id="occupation" placeholder="Web Developer" type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Marital Status</label>
-          <select>
+          <label htmlFor="maritalStat">Marital Status</label>
+          <select id="maritalStat">
             <option defaultChecked="Select">Choose...</option>
             <option value="Married" label="Married" name="married">
               Married
@@ -200,87 +200,92 @@ const RegistryForm = ({ formData }) => {
           </select>
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
-          <label>Reason for consultation/Areas of concern:</label>
-          <textarea placeholder="Need more inquiry" type="text" />
+          <label htmlFor="consult">
+            Reason for consultation/Areas of concern:
+          </label>
+          <textarea id="consult" placeholder="Need more inquiry" type="text" />
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
-          <label>How did you hear about us?</label>
+          <label htmlFor="hearAbout">How did you hear about us?</label>
           <textarea
+            id="hearAbout"
             className={styles.shortText}
             placeholder="YouTube Ad"
             type="text"
           />
         </div>
         <div className={`${styles.inputWrapper} ${styles.contact}`}>
-          <label>Emergency Contact:</label>
-          <input placeholder="John Doe" type="text" />
+          <label htmlFor="emergency">Emergency Contact:</label>
+          <input id="emergency" placeholder="John Doe" type="text" />
         </div>
         <div className={styles.inputWrapper}>
-          <label>Relationship:</label>
-          <input placeholder="Father" type="text" />
+          <label htmlFor="rely">Relationship:</label>
+          <input id="rely" placeholder="Father" type="text" />
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
-          <label>Address:</label>
-          <input placeholder="Father" type="text" />
+          <label htmlFor="emergeAddress">Address:</label>
+          <input id="emergeAddress" placeholder="Father" type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Phone #</label>
-          <input placeholder="435 544 3953" type="text" />
+          <label htmlFor="emergePhone">Phone #</label>
+          <input id="emergePhone" placeholder="435 544 3953" type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Work #</label>
-          <input placeholder="416 134 5266" type="text" />
+          <label htmlFor="emergeWork">Work #</label>
+          <input id="emergeWork" placeholder="416 134 5266" type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Cell #</label>
-          <input placeholder="905 562 6353" type="text" />
+          <label htmlFor="emergeCell">Cell #</label>
+          <input id="emergeCell" placeholder="905 562 6353" type="text" />
         </div>
         <hr className={styles.hr}></hr>
         <p className={styles.sectionHeader2}>Medical history</p>
         <div className={`${styles.inputWrapper}`}>
-          <label>Height</label>
-          <input placeholder={`5'9"`} type="text" />
+          <label htmlFor="height">Height</label>
+          <input id="height" placeholder={`5'9"`} type="text" />
         </div>
         <div className={`${styles.inputWrapper}`}>
-          <label>Weight (lbs)</label>
-          <input placeholder="174lbs" type="text" />
+          <label htmlFor="weight">Weight (lbs)</label>
+          <input id="weight" placeholder="174lbs" type="text" />
         </div>
         <div className={`${styles.inputWrapper} ${styles.physicalExam}`}>
           <label className={styles.physicalExamLabel}>
             When was your last physical exam?
           </label>
-          <input type="date" id="dateOfPhysical" name="dateOfPhysical" />
+          <input id="dateOfPhysical" type="date" name="dateOfPhysical" />
         </div>
         <div className={`${styles.inputWrapper} ${styles.smoke}`}>
           <label>Do you smoke?</label>
           <div className={styles.checkboxWrapper}>
             <div>
               <input
+                id="smokeYes"
                 onChange={(e) => switchCheck(e.target, 0)}
                 className={`yes smoke ${styles.yesCheckbox}`}
                 type="checkbox"
               />
-              <label>Yes</label>
+              <label htmlFor="smokeYes">Yes</label>
             </div>
             <div>
               <input
+                id="smokeNo"
                 onChange={(e) => switchCheck(e.target, 0)}
                 className={`no smoke ${styles.noCheckbox}`}
                 type="checkbox"
               />
-              <label>No</label>
+              <label htmlFor="smokeNo">No</label>
             </div>
           </div>
         </div>
         {smoke ? (
           <>
             <div className={`${styles.inputWrapper}`}>
-              <label>How many packs a day?</label>
-              <input placeholder="1" type="text" />
+              <label htmlFor="packs">How many packs a day?</label>
+              <input id="packs" placeholder="1" type="text" />
             </div>
             <div className={`${styles.inputWrapper}`}>
-              <label>For how long?</label>
-              <input placeholder="1 year" type="text" />
+              <label htmlFor="packsHowLong">For how long?</label>
+              <input id="packsHowLong" placeholder="1 year" type="text" />
             </div>
           </>
         ) : (
@@ -291,56 +296,61 @@ const RegistryForm = ({ formData }) => {
           <div className={styles.checkboxWrapper}>
             <div>
               <input
+                id="alcoholYes"
                 onChange={(e) => switchCheck(e.target, 1)}
                 className={`yes alcohol ${styles.yesCheckbox}`}
                 type="checkbox"
               />
-              <label>Yes</label>
+              <label htmlFor="alcoholYes">Yes</label>
             </div>
             <div>
               <input
+                id="alcoholNo"
                 onChange={(e) => switchCheck(e.target, 1)}
                 className={`no alcohol ${styles.noCheckbox}`}
                 type="checkbox"
               />
-              <label>No</label>
+              <label htmlFor="alcoholNo">No</label>
             </div>
           </div>
         </div>
         {alcohol ? (
           <div className={`${styles.inputWrapper}`}>
-            <label>How many drinks a week?</label>
-            <input placeholder="2" type="text" />
+            <label htmlFor="howManyDrinks">How many drinks a week?</label>
+            <input id="howManyDrinks" placeholder="2" type="text" />
           </div>
         ) : (
           ''
         )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
-          <label>
+          <label htmlFor="previousWork">
             Have you ever had any previous cosmetic or surgical procedures? If
             yes describe
           </label>
           <textarea
+            id="previousWork"
             placeholder="Year, procedure, surgeon, city and so forth"
             type="text"
           />
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
-          <label>
+          <label htmlFor="medicationsYouTake">
             Please list all the medications that you take and for what purpose:
           </label>
           <textarea
+            id="medicationsYouTake"
             className={styles.shortText}
             placeholder="I take this medication for this reason..."
             type="text"
           />
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
-          <label>
+          <label htmlFor="herbalSups">
             Please list all the herbal supplements that you take and for what
             purpose:
           </label>
           <textarea
+            id="herbalSups"
             className={styles.shortText}
             placeholder="I take this herbal supplement for because..."
             type="text"
@@ -357,25 +367,30 @@ const RegistryForm = ({ formData }) => {
           <div className={styles.checkboxWrapper}>
             <div>
               <input
+                id="noAllergies"
                 onChange={(e) => switchCheck(e.target, 2)}
                 className={`yes allergies ${styles.yesCheckbox}`}
                 type="checkbox"
               />
-              <label>Yes</label>
+              <label htmlFor="noAllergies">Yes</label>
             </div>
             <div>
               <input
+                id="yesAllergies"
                 onChange={(e) => switchCheck(e.target, 2)}
                 className={`no allergies ${styles.noCheckbox}`}
                 type="checkbox"
               />
-              <label>No</label>
+              <label htmlFor="yesAllergies">No</label>
             </div>
           </div>
           {allergies ? (
             <>
-              <label>What medication and describe the reaction:</label>
+              <label htmlFor="describeReactions">
+                What medication and describe the reaction:
+              </label>
               <textarea
+                id="describeReactions"
                 className={styles.shorterText}
                 placeholder="I take the medication and this is the reaction..."
                 type="text"
@@ -390,28 +405,31 @@ const RegistryForm = ({ formData }) => {
           <div className={styles.checkboxWrapper}>
             <div>
               <input
+                id="yesStaph"
                 onChange={(e) => switchCheck(e.target, 3)}
                 className={`yes staph ${styles.yesCheckbox}`}
                 type="checkbox"
               />
-              <label>Yes</label>
+              <label htmlFor="yesStaph">Yes</label>
             </div>
             <div>
               <input
+                id="noStaph"
                 onChange={(e) => switchCheck(e.target, 3)}
                 className={`no staph ${styles.noCheckbox}`}
                 type="checkbox"
               />
-              <label>No</label>
+              <label htmlFor="noStaph">No</label>
             </div>
           </div>
           {staph ? (
             <>
-              <label>
+              <label htmlFor="indicateInfection">
                 Please indicate where on your body the infection was located and
                 how/when it was treated:
               </label>
               <textarea
+                id="indicateInfection"
                 className={styles.shorterText}
                 placeholder="The infection is located here and this is how i treated it..."
                 type="text"
