@@ -5,14 +5,28 @@ import RegistryForm from './RegistryForm';
 
 const Forms = () => {
   const [showForm, setShowForm] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    dateOfVisit: '',
+    proofOfVaccine: { answer: '', vaccineQuantity: '', certificateFile: '' },
+    positiveRapid: '',
+    CallToIsolate: '',
+    anySymptoms: null,
+    covidPositive: '',
+    olderAndExpSym: '',
+  });
 
   return (
     <div className={styles.container}>
       {showForm == 1 ? (
-        <ScreeningForm setShowForm={setShowForm} formData={formData} />
+        <ScreeningForm
+          setShowForm={setShowForm}
+          setFormData={setFormData}
+          formData={formData}
+        />
       ) : (
-        <RegistryForm formData={formData} />
+        <RegistryForm setFormData={setFormData} formData={formData} />
       )}
     </div>
   );

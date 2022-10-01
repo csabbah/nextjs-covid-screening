@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/ScreeningForm.module.css';
 
-const ScreeningForm = ({ setShowForm, formData }) => {
+const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
   const [vaccineProof, setVaccineProof] = useState(false);
   const [showSymptoms, setShowSymptoms] = useState(false);
 
@@ -22,11 +22,20 @@ const ScreeningForm = ({ setShowForm, formData }) => {
     'Runny nose or nasal congestion without other known cause',
   ];
 
+  const [checkedSymptoms, setCheckedSymptoms] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Save data to formData state then display next form
+    // If symptoms exist, add them to the form on submission
+    if (checkedSymptoms.length >= 1) {
+      setFormData({
+        ...formData,
+        anySymptoms: checkedSymptoms,
+      });
+    }
 
+    // Switch Forms
     setShowForm(2);
   };
 
@@ -64,7 +73,7 @@ const ScreeningForm = ({ setShowForm, formData }) => {
   const switchCheck = (e, index) => {
     let checkBoxAction = e.className.split(' ')[0];
     let checkBoxSection = e.className.split(' ')[1];
-    console.log(checkBoxSection, checkBoxAction, index);
+
     if (
       checkBoxAction == 'yes' &&
       document.querySelector(`.${checkBoxSection}`).checked
@@ -80,19 +89,50 @@ const ScreeningForm = ({ setShowForm, formData }) => {
     }
   };
 
+  const handleSymptoms = (e, symptom, symId) => {
+    if (e.target.checked) {
+      setCheckedSymptoms([...checkedSymptoms, { symptom, id: symId }]);
+    } else {
+      setCheckedSymptoms(checkedSymptoms.filter((sym) => sym.id !== symId));
+    }
+  };
+
   return (
     <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
       <div className={styles.inputWrapper}>
         <label htmlFor="firstName">First Name</label>
-        <input type="text" id="firstName" name="firstName" placeholder="John" />
+        <input
+          onChange={(e) =>
+            setFormData({ ...formData, [e.target.name]: e.target.value.trim() })
+          }
+          type="text"
+          id="firstName"
+          name="firstName"
+          placeholder="John"
+        />
       </div>
       <div className={styles.inputWrapper}>
         <label htmlFor="lastName">Last Name</label>
-        <input type="text" id="lastName" name="lastName" placeholder="Doe" />
+        <input
+          onChange={(e) =>
+            setFormData({ ...formData, [e.target.name]: e.target.value.trim() })
+          }
+          type="text"
+          id="lastName"
+          name="lastName"
+          placeholder="Doe"
+        />
       </div>
       <div className={`${styles.inputWrapper} ${styles.dateOfVisit}`}>
         <label>Date of Visit</label>
-        <input type="date" id="dateOfVisit" name="dateOfVisit" />
+        <input
+          onChange={(e) =>
+            setFormData({ ...formData, [e.target.name]: e.target.value.trim() })
+          }
+          type="date"
+          id="dateOfVisit"
+          name="dateOfVisit"
+        />
       </div>
       <hr className={styles.hr}></hr>
       <p className={styles.sectionHeader}>COVID-19 screening questions</p>
@@ -102,14 +142,33 @@ const ScreeningForm = ({ setShowForm, formData }) => {
         </label>
         <div>
           <input
-            onChange={(e) => displayItems(e.target.id, 0)}
+            onChange={(e) => {
+              displayItems(e.target.id, 0);
+              setFormData({
+                ...formData,
+                [e.target.name]: {
+                  ...formData.proofOfVaccine,
+                  answer: e.target.id,
+                },
+              });
+            }}
+            name="proofOfVaccine"
             id="yes"
             className={`yes yesVaccine ${styles.yesCheckbox}`}
             type="checkbox"
           />
           <label htmlFor="yes">Yes</label>
           <input
-            onChange={(e) => displayItems(e.target.id, 0)}
+            onChange={(e) => {
+              displayItems(e.target.id, 0);
+              setFormData({
+                ...formData,
+                [e.target.name]: {
+                  answer: e.target.id,
+                },
+              });
+            }}
+            name="proofOfVaccine"
             id="no"
             className={`no noVaccine ${styles.noCheckbox}`}
             type="checkbox"
@@ -120,15 +179,38 @@ const ScreeningForm = ({ setShowForm, formData }) => {
           <div>
             <label>How many?</label>
             <input
+              onChange={(e) => {
+                displayItems(e.target.id, 0);
+                setFormData({
+                  ...formData,
+                  [e.target.name]: {
+                    ...formData.proofOfVaccine,
+                    vaccineQuantity: e.target.value,
+                  },
+                });
+              }}
               className={styles.vaccineQuantity}
               type="number"
               id="vaccineQuantity"
-              name="vaccineQuantity"
+              name="proofOfVaccine"
               placeholder="2"
             />
             <br></br>
             <label>Please attach vaccine certificate</label>
-            <input type="file" />
+            <input
+              onChange={(e) => {
+                displayItems(e.target.id, 0);
+                setFormData({
+                  ...formData,
+                  [e.target.name]: {
+                    ...formData.proofOfVaccine,
+                    certificateFile: e.target.value,
+                  },
+                });
+              }}
+              name="proofOfVaccine"
+              type="file"
+            />
           </div>
         )}
       </div>
@@ -138,15 +220,29 @@ const ScreeningForm = ({ setShowForm, formData }) => {
         </label>
         <div>
           <input
-            onChange={(e) => switchCheck(e.target, 1)}
+            onChange={(e) => {
+              switchCheck(e.target, 1);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'yes',
+              });
+            }}
             id="yesRapid"
+            name="positiveRapid"
             className={`yes rapid ${styles.yesCheckbox}`}
             type="checkbox"
           />
           <label htmlFor="yesRapid">Yes</label>
           <input
             id="noRapid"
-            onChange={(e) => switchCheck(e.target, 1)}
+            onChange={(e) => {
+              switchCheck(e.target, 1);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'no',
+              });
+            }}
+            name="positiveRapid"
             className={`no rapid ${styles.noCheckbox}`}
             type="checkbox"
           />
@@ -160,14 +256,28 @@ const ScreeningForm = ({ setShowForm, formData }) => {
         </label>
         <div>
           <input
-            onChange={(e) => switchCheck(e.target, 2)}
+            onChange={(e) => {
+              switchCheck(e.target, 2);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'yes',
+              });
+            }}
+            name="CallToIsolate"
             id="yesTravel"
             className={`yes travel ${styles.yesCheckbox}`}
             type="checkbox"
           />
           <label htmlFor="yesTravel">Yes</label>
           <input
-            onChange={(e) => switchCheck(e.target, 2)}
+            onChange={(e) => {
+              switchCheck(e.target, 2);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'yes',
+              });
+            }}
+            name="CallToIsolate"
             id="noTravel"
             className={`no travel ${styles.noCheckbox}`}
             type="checkbox"
@@ -179,17 +289,27 @@ const ScreeningForm = ({ setShowForm, formData }) => {
         <label>4. Are you experiencing any symptoms?</label>
         <div>
           <input
-            onChange={(e) => displayItems(e.target.id, 1)}
+            onChange={(e) => {
+              displayItems(e.target.id, 1);
+            }}
+            name="anySymptoms"
             id="yesSymptoms"
             className={`yesSymptoms ${styles.yesCheckbox}`}
             type="checkbox"
           />
           <label htmlFor="yesSymptoms">Yes</label>
           <input
-            onChange={(e) => displayItems(e.target.id, 1)}
+            onChange={(e) => {
+              displayItems(e.target.id, 1);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'no',
+              });
+            }}
             id="noSymptoms"
             className={`noSymptoms ${styles.noCheckbox}`}
             type="checkbox"
+            name="anySymptoms"
           />
           <label htmlFor="noSymptoms">No</label>
           {showSymptoms && (
@@ -197,12 +317,15 @@ const ScreeningForm = ({ setShowForm, formData }) => {
               <span className={styles.symptomHeader}>
                 Please all check that is applicable
               </span>
-              {symptoms.map((symptom) => {
+              {symptoms.map((symptom, i) => {
                 return (
-                  <div>
+                  <div key={i}>
                     <input
                       id={symptom}
                       name={symptom}
+                      onChange={(e) => {
+                        handleSymptoms(e, symptom, i);
+                      }}
                       className={styles.yesCheckbox}
                       type="checkbox"
                     />
@@ -224,15 +347,29 @@ const ScreeningForm = ({ setShowForm, formData }) => {
         </label>
         <div>
           <input
-            onChange={(e) => switchCheck(e.target, 3)}
+            onChange={(e) => {
+              switchCheck(e.target, 3);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'yes',
+              });
+            }}
+            name="covidPositive"
             id="yesPositive"
             className={`yes positive ${styles.yesCheckbox}`}
             type="checkbox"
           />
           <label htmlFor="yesPositive">Yes</label>
           <input
-            onChange={(e) => switchCheck(e.target, 3)}
+            onChange={(e) => {
+              switchCheck(e.target, 3);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'no',
+              });
+            }}
             id="noPositive"
+            name="covidPositive"
             className={`no positive ${styles.noCheckbox}`}
             type="checkbox"
           />
@@ -250,15 +387,29 @@ const ScreeningForm = ({ setShowForm, formData }) => {
         </label>
         <div>
           <input
-            onChange={(e) => switchCheck(e.target, 4)}
+            onChange={(e) => {
+              switchCheck(e.target, 4);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'yes',
+              });
+            }}
             id="yesOlder"
+            name="olderAndExpSym"
             className={`yes older ${styles.yesCheckbox}`}
             type="checkbox"
           />
           <label htmlFor="yesOlder">Yes</label>
           <input
-            onChange={(e) => switchCheck(e.target, 4)}
+            onChange={(e) => {
+              switchCheck(e.target, 4);
+              setFormData({
+                ...formData,
+                [e.target.name]: 'no',
+              });
+            }}
             id="noOlder"
+            name="olderAndExpSym"
             className={`no older ${styles.noCheckbox}`}
             type="checkbox"
           />

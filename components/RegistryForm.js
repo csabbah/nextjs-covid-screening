@@ -3,9 +3,8 @@ import styles from '../styles/RegistryForm.module.css';
 import { useRouter } from 'next/router';
 import SignatureCanvas from 'react-signature-canvas';
 import Image from 'next/image';
-import Select from 'react-select';
 
-const RegistryForm = ({ formData }) => {
+const RegistryForm = ({ formData, setFormData }) => {
   const router = useRouter();
 
   const [alcohol, setAlcohol] = useState(false);
@@ -21,6 +20,7 @@ const RegistryForm = ({ formData }) => {
     // router.push('/form-completed');
   };
 
+  console.log(formData);
   // Trims the Signature field
   let captureSignature = {};
   const trim = () => {
