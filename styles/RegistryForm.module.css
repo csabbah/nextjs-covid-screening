@@ -147,6 +147,12 @@
   margin-top: 10px;
 }
 
+.medicalCondition {
+  display: grid;
+  justify-content: space-between;
+  grid-template: 1fr 1fr/ 250px 250px 250px;
+}
+
 @media (max-width: 815px) {
   .form {
     grid-template: 1fr 1fr / 27.3vw 27.3vw 27.3vw;
@@ -172,6 +178,14 @@
 
   .confirm {
     margin-top: 5px;
+  }
+
+  .medicalCondition {
+    display: flex;
+    flex-direction: column;
+  }
+  .otherCond {
+    width: 100%;
   }
 }
 

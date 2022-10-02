@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.header}>Registration and Screening</p>
+      <p className={styles.header}>Screening and Registration</p>
       {/* <Link href="/" passHref>
         <li
           style={{ color: endpointName == '/' ? 'black' : 'red' }}

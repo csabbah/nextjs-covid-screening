@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/Forms.module.css';
 import ScreeningForm from './ScreeningForm';
 import RegistryForm from './RegistryForm';
+import PostSubmission from './PostSubmission';
 
 const Forms = () => {
   const [showForm, setShowForm] = useState(1);
@@ -65,8 +66,18 @@ const Forms = () => {
           setFormData={setFormData}
           formData={formData}
         />
+      ) : showForm == 2 ? (
+        <RegistryForm
+          setShowForm={setShowForm}
+          setFormData={setFormData}
+          formData={formData}
+        />
       ) : (
-        <RegistryForm setFormData={setFormData} formData={formData} />
+        <PostSubmission
+          setFormData={setFormData}
+          formData={formData}
+          className={styles.container}
+        />
       )}
     </div>
   );

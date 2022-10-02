@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import SignatureCanvas from 'react-signature-canvas';
 import Image from 'next/image';
 
-const RegistryForm = ({ formData, setFormData }) => {
+const RegistryForm = ({ formData, setFormData, setShowForm }) => {
   const router = useRouter();
 
   const [alcohol, setAlcohol] = useState(false);
@@ -38,7 +38,6 @@ const RegistryForm = ({ formData, setFormData }) => {
     'Weight loss',
     'Breast Cancer',
     'Kidney disease',
-    'Other:',
   ];
 
   const [checkedConditions, setCheckedConditions] = useState([]);
@@ -62,6 +61,7 @@ const RegistryForm = ({ formData, setFormData }) => {
       registryData: {
         ...formData.registryData,
         medicalHistory: {
+          ...formData.registryData.medicalHistory,
           medicalConditions: {
             symptoms: checkedConditions,
             otherConditions: otherCond,
@@ -70,9 +70,9 @@ const RegistryForm = ({ formData, setFormData }) => {
       },
     });
 
-    // router.push('/form-completed');
+    setShowForm(3);
 
-    console.log(formData);
+    // router.push('/form-completed');
   };
 
   // Trims the Signature field
@@ -485,7 +485,7 @@ const RegistryForm = ({ formData, setFormData }) => {
               });
             }}
             id="emergeAddress"
-            placeholder="Father"
+            placeholder="42 Crescent Dr"
             type="text"
           />
         </div>
@@ -552,7 +552,7 @@ const RegistryForm = ({ formData, setFormData }) => {
         <hr className={styles.hr}></hr>
         <p className={styles.sectionHeader2}>Medical history</p>
         <div className={`${styles.inputWrapper}`}>
-          <label htmlFor="height">Height</label>
+          <label htmlFor="height">Height (cm)</label>
           <input
             onChange={(e) => {
               setFormData({
@@ -567,7 +567,7 @@ const RegistryForm = ({ formData, setFormData }) => {
               });
             }}
             id="height"
-            placeholder={`5'9"`}
+            placeholder={`171`}
             type="text"
           />
         </div>
@@ -587,7 +587,7 @@ const RegistryForm = ({ formData, setFormData }) => {
               });
             }}
             id="weight"
-            placeholder="174"
+            placeholder="185"
             type="text"
           />
         </div>
@@ -660,8 +660,7 @@ const RegistryForm = ({ formData, setFormData }) => {
                       medicalHistory: {
                         ...formData.registryData.medicalHistory,
                         smoker: {
-                          ...formData.registryData.medicalHistory
-                            .alcoholDrinker,
+                          ...formData.registryData.medicalHistory.smoker,
                           packsPerDay: e.target.value,
                         },
                       },
@@ -684,8 +683,7 @@ const RegistryForm = ({ formData, setFormData }) => {
                       medicalHistory: {
                         ...formData.registryData.medicalHistory,
                         smoker: {
-                          ...formData.registryData.medicalHistory
-                            .alcoholDrinker,
+                          ...formData.registryData.medicalHistory.smoker,
                           howLong: e.target.value.trim(),
                         },
                       },
@@ -837,35 +835,33 @@ const RegistryForm = ({ formData, setFormData }) => {
             Please check any medical condition that you currently suffer from,
             or have experienced in the past:
           </label>
-          {medicalConditions.map((medical, i) => {
-            if (i == 25) {
+          <div className={styles.medicalCondition}>
+            {medicalConditions.map((medical, i) => {
               return (
-                <div
-                  style={{ display: 'flex', flexDirection: 'column' }}
-                  key={i}
-                >
-                  <label htmlFor="Other">Other:</label>
-                  <textarea
-                    onChange={(e) => setOtherCond(e.target.value)}
-                    id="Other"
-                    type="text"
-                  ></textarea>
+                <div key={i}>
+                  <input
+                    id={medical}
+                    name={medical}
+                    onChange={(e) => handleMedicals(e, medical, i)}
+                    className={styles.yesCheckbox}
+                    type="checkbox"
+                  ></input>
+                  <label htmlFor={medical}>{medical}</label>
                 </div>
               );
-            }
-            return (
-              <div key={i}>
-                <input
-                  id={medical}
-                  name={medical}
-                  onChange={(e) => handleMedicals(e, medical, i)}
-                  className={styles.yesCheckbox}
-                  type="checkbox"
-                ></input>
-                <label htmlFor={medical}>{medical}</label>
-              </div>
-            );
-          })}
+            })}
+            <div
+              className={`${styles.fullCol} ${styles.shortText} ${styles.otherCond}`}
+              style={{ display: 'flex', flexDirection: 'column' }}
+            >
+              <label htmlFor="Other">Other:</label>
+              <textarea
+                onChange={(e) => setOtherCond(e.target.value)}
+                id="Other"
+                type="text"
+              ></textarea>
+            </div>
+          </div>
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Do you have any known allergies? Yes No</label>
