@@ -57,10 +57,23 @@ const RegistryForm = ({ formData, setFormData }) => {
 
     // Save data to formData state, create User model then redirect to a different route saying submission completed!
 
-    // router.push('/form-completed');
-  };
+    setFormData({
+      ...formData,
+      registryData: {
+        ...formData.registryData,
+        medicalHistory: {
+          medicalConditions: {
+            symptoms: checkedConditions,
+            otherConditions: otherCond,
+          },
+        },
+      },
+    });
 
-  console.log(formData);
+    // router.push('/form-completed');
+
+    console.log(formData);
+  };
 
   // Trims the Signature field
   let captureSignature = {};
@@ -82,8 +95,6 @@ const RegistryForm = ({ formData, setFormData }) => {
   const switchCheck = (e, index) => {
     let checkBoxAction = e.className.split(' ')[0];
     let checkBoxSection = e.className.split(' ')[1];
-
-    console.log(checkBoxSection, checkBoxAction, index);
 
     if (checkBoxAction == 'yes') {
       if (checkBoxSection == 'alcohol') {
@@ -166,15 +177,52 @@ const RegistryForm = ({ formData, setFormData }) => {
         <p className={styles.sectionHeader}>patient registration form</p>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="fullName">Full Name:</label>
-          <input id="fullName" placeholder="John Doe" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  fullName: e.target.value.trim(),
+                },
+              });
+            }}
+            id="fullName"
+            placeholder="John Doe"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper} ${styles.age}`}>
           <label htmlFor="age">Age:</label>
-          <input id="age" placeholder="29" type="number" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  age: e.target.value,
+                },
+              });
+            }}
+            id="age"
+            placeholder="29"
+            type="number"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="sex">Sex:</label>
-          <select id="sex">
+          <select
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  sex: e.target.value,
+                },
+              });
+            }}
+            id="sex"
+          >
             <option defaultChecked="Select">Choose...</option>
             <option value="male" label="Male" name="male">
               Male
@@ -189,35 +237,137 @@ const RegistryForm = ({ formData, setFormData }) => {
         </div>
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
           <label htmlFor="address">Address:</label>
-          <input id="address" placeholder="26 Jeannette Pl" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  address: e.target.value.trim(),
+                },
+              });
+            }}
+            id="address"
+            placeholder="26 Jeannette Pl"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="dob">DOB:</label>
-          <input id="dob" placeholder="" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  DOB: e.target.value.trim(),
+                },
+              });
+            }}
+            id="dob"
+            placeholder=""
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="homeNum">Home #</label>
-          <input id="homeNum" placeholder="435 544 3953" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  homeNum: e.target.value,
+                },
+              });
+            }}
+            id="homeNum"
+            placeholder="435 544 3953"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="workNum">Work #</label>
-          <input id="workNum" placeholder="416 134 5266" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  workNum: e.target.value,
+                },
+              });
+            }}
+            id="workNum"
+            placeholder="416 134 5266"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="cellNum">Cell #</label>
-          <input id="cellNum" placeholder="905 562 6353" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  cellNum: e.target.value,
+                },
+              });
+            }}
+            id="cellNum"
+            placeholder="905 562 6353"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="email">E-mail:</label>
-          <input id="email" placeholder="Youremail@gmail.com" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  email: e.target.value.trim(),
+                },
+              });
+            }}
+            id="email"
+            placeholder="Youremail@gmail.com"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
           <label htmlFor="occupation">Occupation:</label>
-          <input id="occupation" placeholder="Web Developer" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  occupation: e.target.value.trim(),
+                },
+              });
+            }}
+            id="occupation"
+            placeholder="Web Developer"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="maritalStat">Marital Status</label>
-          <select id="maritalStat">
+          <select
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  maritalStat: e.target.value,
+                },
+              });
+            }}
+            id="maritalStat"
+          >
             <option defaultChecked="Select">Choose...</option>
             <option value="Married" label="Married" name="married">
               Married
@@ -244,56 +394,224 @@ const RegistryForm = ({ formData, setFormData }) => {
           <label htmlFor="consult">
             Reason for consultation/Areas of concern:
           </label>
-          <textarea id="consult" placeholder="Need more inquiry" type="text" />
+          <textarea
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  reasonForConsult: e.target.value.trim(),
+                },
+              });
+            }}
+            id="consult"
+            placeholder="Need more inquiry"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="hearAbout">How did you hear about us?</label>
           <textarea
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  hearAboutUs: e.target.value.trim(),
+                },
+              });
+            }}
             id="hearAbout"
             className={styles.shortText}
             placeholder="YouTube Ad"
             type="text"
           />
         </div>
+        <hr className={styles.hr}></hr>
+        <p className={styles.sectionHeader2}>Emergency Contact</p>
         <div className={`${styles.inputWrapper} ${styles.contact}`}>
-          <label htmlFor="emergency">Emergency Contact:</label>
-          <input id="emergency" placeholder="John Doe" type="text" />
+          <label htmlFor="emergency">Full name:</label>
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  emergencyContact: {
+                    ...formData.registryData.emergencyContact,
+                    fullName: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
+            id="emergency"
+            placeholder="John Doe"
+            type="text"
+          />
         </div>
         <div className={styles.inputWrapper}>
           <label htmlFor="rely">Relationship:</label>
-          <input id="rely" placeholder="Father" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  emergencyContact: {
+                    ...formData.registryData.emergencyContact,
+                    relationship: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
+            id="rely"
+            placeholder="Father"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="emergeAddress">Address:</label>
-          <input id="emergeAddress" placeholder="Father" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  emergencyContact: {
+                    ...formData.registryData.emergencyContact,
+                    address: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
+            id="emergeAddress"
+            placeholder="Father"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergePhone">Phone #</label>
-          <input id="emergePhone" placeholder="435 544 3953" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  emergencyContact: {
+                    ...formData.registryData.emergencyContact,
+                    phoneNum: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
+            id="emergePhone"
+            placeholder="435 544 3953"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeWork">Work #</label>
-          <input id="emergeWork" placeholder="416 134 5266" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  emergencyContact: {
+                    ...formData.registryData.emergencyContact,
+                    workNum: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
+            id="emergeWork"
+            placeholder="416 134 5266"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeCell">Cell #</label>
-          <input id="emergeCell" placeholder="905 562 6353" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  emergencyContact: {
+                    ...formData.registryData.emergencyContact,
+                    cellNum: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
+            id="emergeCell"
+            placeholder="905 562 6353"
+            type="text"
+          />
         </div>
         <hr className={styles.hr}></hr>
         <p className={styles.sectionHeader2}>Medical history</p>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="height">Height</label>
-          <input id="height" placeholder={`5'9"`} type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  medicalHistory: {
+                    ...formData.registryData.medicalHistory,
+                    height: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
+            id="height"
+            placeholder={`5'9"`}
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="weight">Weight (lbs)</label>
-          <input id="weight" placeholder="174" type="text" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  medicalHistory: {
+                    ...formData.registryData.medicalHistory,
+                    weight: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
+            id="weight"
+            placeholder="174"
+            type="text"
+          />
         </div>
         <div className={`${styles.inputWrapper} ${styles.physicalExam}`}>
           <label className={styles.physicalExamLabel}>
             When was your last physical exam?
           </label>
-          <input id="dateOfPhysical" type="date" name="dateOfPhysical" />
+          <input
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  medicalHistory: {
+                    ...formData.registryData.medicalHistory,
+                    lastPhysical: e.target.value,
+                  },
+                },
+              });
+            }}
+            id="dateOfPhysical"
+            type="date"
+            name="dateOfPhysical"
+          />
         </div>
         <div className={`${styles.inputWrapper} ${styles.smoke}`}>
           <label>Do you smoke?</label>
@@ -310,7 +628,18 @@ const RegistryForm = ({ formData, setFormData }) => {
             <div>
               <input
                 id="smokeNo"
-                onChange={(e) => switchCheck(e.target, 0)}
+                onChange={(e) => {
+                  switchCheck(e.target, 0);
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        smoker: 'no',
+                      },
+                    },
+                  });
+                }}
                 className={`no smoke ${styles.noCheckbox}`}
                 type="checkbox"
               />
@@ -322,11 +651,51 @@ const RegistryForm = ({ formData, setFormData }) => {
           <>
             <div className={`${styles.inputWrapper}`}>
               <label htmlFor="packs">How many packs a day?</label>
-              <input id="packs" placeholder="1" type="text" />
+              <input
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        smoker: {
+                          ...formData.registryData.medicalHistory
+                            .alcoholDrinker,
+                          packsPerDay: e.target.value,
+                        },
+                      },
+                    },
+                  });
+                }}
+                id="packs"
+                placeholder="1"
+                type="number"
+              />
             </div>
             <div className={`${styles.inputWrapper}`}>
               <label htmlFor="packsHowLong">For how long?</label>
-              <input id="packsHowLong" placeholder="1 year" type="text" />
+              <input
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        smoker: {
+                          ...formData.registryData.medicalHistory
+                            .alcoholDrinker,
+                          howLong: e.target.value.trim(),
+                        },
+                      },
+                    },
+                  });
+                }}
+                id="packsHowLong"
+                placeholder="1 year"
+                type="text"
+              />
             </div>
           </>
         ) : (
@@ -347,7 +716,19 @@ const RegistryForm = ({ formData, setFormData }) => {
             <div>
               <input
                 id="alcoholNo"
-                onChange={(e) => switchCheck(e.target, 1)}
+                onChange={(e) => {
+                  switchCheck(e.target, 1);
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        alcoholDrinker: 'no',
+                      },
+                    },
+                  });
+                }}
                 className={`no alcohol ${styles.noCheckbox}`}
                 type="checkbox"
               />
@@ -358,7 +739,25 @@ const RegistryForm = ({ formData, setFormData }) => {
         {alcohol ? (
           <div className={`${styles.inputWrapper}`}>
             <label htmlFor="howManyDrinks">How many drinks a week?</label>
-            <input id="howManyDrinks" placeholder="2" type="text" />
+            <input
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  registryData: {
+                    ...formData.registryData,
+                    medicalHistory: {
+                      ...formData.registryData.medicalHistory,
+                      alcoholDrinker: {
+                        howManyDrinks: e.target.value,
+                      },
+                    },
+                  },
+                });
+              }}
+              id="howManyDrinks"
+              placeholder="2"
+              type="number"
+            />
           </div>
         ) : (
           ''
@@ -369,6 +768,18 @@ const RegistryForm = ({ formData, setFormData }) => {
             yes describe
           </label>
           <textarea
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  medicalHistory: {
+                    ...formData.registryData.medicalHistory,
+                    previousCosmetics: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
             id="previousWork"
             placeholder="Year, procedure, surgeon, city and so forth"
             type="text"
@@ -379,6 +790,18 @@ const RegistryForm = ({ formData, setFormData }) => {
             Please list all the medications that you take and for what purpose:
           </label>
           <textarea
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  medicalHistory: {
+                    ...formData.registryData.medicalHistory,
+                    activeMedications: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
             id="medicationsYouTake"
             className={styles.shortText}
             placeholder="I take this medication for this reason..."
@@ -391,6 +814,18 @@ const RegistryForm = ({ formData, setFormData }) => {
             purpose:
           </label>
           <textarea
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                registryData: {
+                  ...formData.registryData,
+                  medicalHistory: {
+                    ...formData.registryData.medicalHistory,
+                    activeHerbalSups: e.target.value.trim(),
+                  },
+                },
+              });
+            }}
             id="herbalSups"
             className={styles.shortText}
             placeholder="I take this herbal supplement for because..."
@@ -447,7 +882,19 @@ const RegistryForm = ({ formData, setFormData }) => {
             <div>
               <input
                 id="yesAllergies"
-                onChange={(e) => switchCheck(e.target, 2)}
+                onChange={(e) => {
+                  switchCheck(e.target, 2);
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        allergies: 'no',
+                      },
+                    },
+                  });
+                }}
                 className={`no allergies ${styles.noCheckbox}`}
                 type="checkbox"
               />
@@ -460,6 +907,18 @@ const RegistryForm = ({ formData, setFormData }) => {
                 What medication and describe the reaction:
               </label>
               <textarea
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        allergies: e.target.value.trim(),
+                      },
+                    },
+                  });
+                }}
                 id="describeReactions"
                 className={styles.shorterText}
                 placeholder="I take the medication and this is the reaction..."
@@ -485,7 +944,19 @@ const RegistryForm = ({ formData, setFormData }) => {
             <div>
               <input
                 id="noStaph"
-                onChange={(e) => switchCheck(e.target, 3)}
+                onChange={(e) => {
+                  switchCheck(e.target, 3);
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        staph: 'no',
+                      },
+                    },
+                  });
+                }}
                 className={`no staph ${styles.noCheckbox}`}
                 type="checkbox"
               />
@@ -499,6 +970,18 @@ const RegistryForm = ({ formData, setFormData }) => {
                 how/when it was treated:
               </label>
               <textarea
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        staph: e.target.value.trim(),
+                      },
+                    },
+                  });
+                }}
                 id="indicateInfection"
                 className={styles.shorterText}
                 placeholder="The infection is located here and this is how i treated it..."
@@ -542,6 +1025,15 @@ const RegistryForm = ({ formData, setFormData }) => {
             <div className={styles.signInnerItems}>
               <label>Date</label>
               <input
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      date: e.target.value,
+                    },
+                  });
+                }}
                 className={styles.dateSelect}
                 type="date"
                 id="dateOfSignature"
