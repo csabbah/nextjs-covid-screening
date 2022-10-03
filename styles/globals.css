@@ -54,7 +54,7 @@ input[type='text'] {
 }
 
 input[type='file'] {
-  width: 350px;
+  width: 400px;
 }
 
 input[type='date'] {
@@ -128,5 +128,26 @@ select {
 @media screen and (max-width: 730px) {
   button:hover {
     transform: scale(1);
+  }
+
+  label,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  input::placeholder,
+  textarea::placeholder,
+  input[type='file'],
+  input[type='date'],
+  button {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  input[type='file'] {
+    width: 90vw;
   }
 }

@@ -123,14 +123,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           placeholder="John"
         />
         {displayErr && formData.screeningData.firstName == '' && (
-          <p
-            style={{
-              color: 'red',
-              marginBottom: '0',
-            }}
-          >
-            Missing Data
-          </p>
+          <p className={styles.errorMsg}>Missing Data</p>
         )}
       </div>
       <div className={styles.inputWrapper}>
@@ -151,14 +144,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           placeholder="Doe"
         />
         {displayErr && formData.screeningData.lastName == '' && (
-          <p
-            style={{
-              color: 'red',
-              marginBottom: '0',
-            }}
-          >
-            Missing Data
-          </p>
+          <p className={styles.errorMsg}>Missing Data</p>
         )}
       </div>
       <div className={`${styles.inputWrapper} ${styles.dateOfVisit}`}>
@@ -178,14 +164,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           name="dateOfVisit"
         />
         {displayErr && formData.screeningData.dateOfVisit == '' && (
-          <p
-            style={{
-              color: 'red',
-              marginBottom: '0',
-            }}
-          >
-            Missing Data
-          </p>
+          <p className={styles.errorMsg}>Missing Data</p>
         )}
       </div>
       <hr className={styles.hr}></hr>
@@ -277,14 +256,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           </div>
         )}
         {displayErr && formData.screeningData.proofOfVaccine == '' && (
-          <p
-            style={{
-              color: 'red',
-              marginBottom: '0',
-            }}
-          >
-            Missing Data
-          </p>
+          <p className={styles.errorMsg}>Missing Data</p>
         )}
         {formData.screeningData.proofOfVaccine != null
           ? displayErr &&
@@ -354,14 +326,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           <label htmlFor="noRapid">No</label>
         </div>
         {displayErr && formData.screeningData.positiveRapid == '' && (
-          <p
-            style={{
-              color: 'red',
-              marginBottom: '0',
-            }}
-          >
-            Missing Data
-          </p>
+          <p className={styles.errorMsg}>Missing Data</p>
         )}
       </div>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
@@ -406,14 +371,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           <label htmlFor="noTravel">No</label>
         </div>
         {displayErr && formData.screeningData.CallToIsolate == '' && (
-          <p
-            style={{
-              color: 'red',
-              marginBottom: '0',
-            }}
-          >
-            Missing Data
-          </p>
+          <p className={styles.errorMsg}>Missing Data</p>
         )}
       </div>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
@@ -425,7 +383,9 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: e.target.checked ? '' : null,
+                  [e.target.name]: e.target.checked
+                    ? ''
+                    : setCheckedSymptoms([]),
                 },
               });
               setDisplayErr(false);
@@ -443,7 +403,9 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
                 screeningData: {
                   ...formData.screeningData,
                   // Check that its checked, if not, then leave it blank
-                  [e.target.name]: e.target.checked ? 'no' : null,
+                  [e.target.name]: e.target.checked
+                    ? 'no'
+                    : setCheckedSymptoms([]),
                 },
               });
               setDisplayErr(false);
@@ -479,27 +441,13 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             </div>
           )}
           {displayErr && formData.screeningData.anySymptoms == '' && (
-            <p
-              style={{
-                color: 'red',
-                marginBottom: '0',
-              }}
-            >
-              Missing Data
-            </p>
+            <p className={styles.errorMsg}>Missing Data</p>
           )}
           {displayErr &&
             formData.screeningData.anySymptoms != 'no' &&
             formData.screeningData.anySymptoms != '' &&
             checkedSymptoms.length < 1 && (
-              <p
-                style={{
-                  color: 'red',
-                  marginBottom: '0',
-                }}
-              >
-                Missing Data
-              </p>
+              <p className={styles.errorMsg}>Missing Data</p>
             )}
         </div>
       </div>
@@ -548,14 +496,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           <label htmlFor="noPositive">No</label>
         </div>
         {displayErr && formData.screeningData.covidPositive == '' && (
-          <p
-            style={{
-              color: 'red',
-              marginBottom: '0',
-            }}
-          >
-            Missing Data
-          </p>
+          <p className={styles.errorMsg}>Missing Data</p>
         )}
       </div>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
@@ -604,19 +545,27 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           <label htmlFor="noOlder">No</label>
         </div>
         {displayErr && formData.screeningData.olderAndExpSym == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
+      </div>
+      <div style={{ position: 'relative' }}>
+        {displayErr && formData.screeningData.olderAndExpSym == '' && (
           <p
             style={{
               color: 'red',
+              width: '100vw',
+              position: 'absolute',
+              bottom: '-35px',
               marginBottom: '0',
             }}
           >
-            Missing Data
+            Please fill all missing Data
           </p>
         )}
+        <button className={styles.submitBtn} type="submit">
+          Submit
+        </button>
       </div>
-      <button className={styles.submitBtn} type="submit">
-        Submit
-      </button>
     </form>
   );
 };
