@@ -25,6 +25,9 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
   const [checkedSymptoms, setCheckedSymptoms] = useState([]);
 
   const [displayErr, setDisplayErr] = useState(false);
+
+  const [trueSymp, setTrueSym] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -39,7 +42,6 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
     }
 
     console.log(formData.screeningData);
-
     setDisplayErr(true);
 
     // Switch Forms
@@ -426,7 +428,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: e.target.checked ? '' : '',
+                  [e.target.name]: e.target.checked ? '' : null,
                 },
               });
               setDisplayErr(false);
@@ -444,7 +446,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
                 screeningData: {
                   ...formData.screeningData,
                   // Check that its checked, if not, then leave it blank
-                  [e.target.name]: e.target.checked ? 'no' : '',
+                  [e.target.name]: e.target.checked ? 'no' : null,
                 },
               });
               setDisplayErr(false);
@@ -480,6 +482,16 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             </div>
           )}
           {displayErr && formData.screeningData.anySymptoms == '' && (
+            <p
+              style={{
+                color: 'red',
+                marginBottom: '0',
+              }}
+            >
+              Missing Data
+            </p>
+          )}
+          {displayErr && trueSymp && (
             <p
               style={{
                 color: 'red',
