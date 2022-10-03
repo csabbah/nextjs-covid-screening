@@ -24,6 +24,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
 
   const [checkedSymptoms, setCheckedSymptoms] = useState([]);
 
+  const [displayErr, setDisplayErr] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -37,8 +38,12 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
       });
     }
 
+    console.log(formData.screeningData);
+
+    setDisplayErr(true);
+
     // Switch Forms
-    setShowForm(2);
+    // setShowForm(2);
   };
 
   const displayItems = (id, index) => {
@@ -104,52 +109,85 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
       <div className={styles.inputWrapper}>
         <label htmlFor="firstName">First Name</label>
         <input
-          onChange={(e) =>
+          onChange={(e) => {
             setFormData({
               screeningData: {
                 ...formData.screeningData,
                 [e.target.name]: e.target.value.trim(),
               },
-            })
-          }
+            });
+            setDisplayErr(false);
+          }}
           type="text"
           id="firstName"
           name="firstName"
           placeholder="John"
         />
+        {displayErr && formData.screeningData.firstName == '' && (
+          <p
+            style={{
+              color: 'red',
+              marginBottom: '0',
+            }}
+          >
+            Missing Data
+          </p>
+        )}
       </div>
       <div className={styles.inputWrapper}>
         <label htmlFor="lastName">Last Name</label>
         <input
-          onChange={(e) =>
+          onChange={(e) => {
             setFormData({
               screeningData: {
                 ...formData.screeningData,
                 [e.target.name]: e.target.value.trim(),
               },
-            })
-          }
+            });
+            setDisplayErr(false);
+          }}
           type="text"
           id="lastName"
           name="lastName"
           placeholder="Doe"
         />
+        {displayErr && formData.screeningData.lastName == '' && (
+          <p
+            style={{
+              color: 'red',
+              marginBottom: '0',
+            }}
+          >
+            Missing Data
+          </p>
+        )}
       </div>
       <div className={`${styles.inputWrapper} ${styles.dateOfVisit}`}>
         <label>Date of Visit</label>
         <input
-          onChange={(e) =>
+          onChange={(e) => {
             setFormData({
               screeningData: {
                 ...formData.screeningData,
                 [e.target.name]: e.target.value.trim(),
               },
-            })
-          }
+            });
+            setDisplayErr(false);
+          }}
           type="date"
           id="dateOfVisit"
           name="dateOfVisit"
         />
+        {displayErr && formData.screeningData.dateOfVisit == '' && (
+          <p
+            style={{
+              color: 'red',
+              marginBottom: '0',
+            }}
+          >
+            Missing Data
+          </p>
+        )}
       </div>
       <hr className={styles.hr}></hr>
       <p className={styles.sectionHeader}>COVID-19 screening questions</p>
@@ -164,11 +202,12 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: {
-                    ...formData.screeningData.proofOfVaccine,
-                  },
+                  [e.target.name]: e.target.checked
+                    ? { vaccineQuantity: '', certificateFile: '' }
+                    : '',
                 },
               });
+              setDisplayErr(false);
             }}
             name="proofOfVaccine"
             id="yes"
@@ -182,9 +221,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'no',
+                  [e.target.name]: e.target.checked ? 'no' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             name="proofOfVaccine"
             id="no"
@@ -204,10 +244,11 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
                     ...formData.screeningData,
                     [e.target.name]: {
                       ...formData.screeningData.proofOfVaccine,
-                      vaccineQuantity: e.target.value,
+                      vaccineQuantity: e.target.value < 1 ? '' : e.target.value,
                     },
                   },
                 });
+                setDisplayErr(false);
               }}
               className={styles.vaccineQuantity}
               type="number"
@@ -229,12 +270,49 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
                     },
                   },
                 });
+                setDisplayErr(false);
               }}
               name="proofOfVaccine"
               type="file"
             />
           </div>
         )}
+        {displayErr && formData.screeningData.proofOfVaccine == '' && (
+          <p
+            style={{
+              color: 'red',
+              marginBottom: '0',
+            }}
+          >
+            Missing Data
+          </p>
+        )}
+        {formData.screeningData.proofOfVaccine != null
+          ? displayErr &&
+            formData.screeningData.proofOfVaccine.vaccineQuantity == '' && (
+              <p
+                style={{
+                  color: 'red',
+                  marginBottom: '0',
+                }}
+              >
+                Invalid Vaccine Quantity
+              </p>
+            )
+          : ''}
+        {formData.screeningData.proofOfVaccine != null
+          ? displayErr &&
+            formData.screeningData.proofOfVaccine.certificateFile == '' && (
+              <p
+                style={{
+                  color: 'red',
+                  marginBottom: '0',
+                }}
+              >
+                Missing PDF File
+              </p>
+            )
+          : ''}
       </div>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
         <label>
@@ -247,9 +325,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'yes',
+                  [e.target.name]: e.target.checked ? 'yes' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             id="yesRapid"
             name="positiveRapid"
@@ -264,9 +343,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'no',
+                  [e.target.name]: e.target.checked ? 'no' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             name="positiveRapid"
             className={`no rapid ${styles.noCheckbox}`}
@@ -274,6 +354,16 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           />
           <label htmlFor="noRapid">No</label>
         </div>
+        {displayErr && formData.screeningData.positiveRapid == '' && (
+          <p
+            style={{
+              color: 'red',
+              marginBottom: '0',
+            }}
+          >
+            Missing Data
+          </p>
+        )}
       </div>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
         <label>
@@ -287,9 +377,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'yes',
+                  [e.target.name]: e.target.checked ? 'yes' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             name="CallToIsolate"
             id="yesTravel"
@@ -303,9 +394,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'no',
+                  [e.target.name]: e.target.checked ? 'no' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             name="CallToIsolate"
             id="noTravel"
@@ -314,6 +406,16 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           />
           <label htmlFor="noTravel">No</label>
         </div>
+        {displayErr && formData.screeningData.CallToIsolate == '' && (
+          <p
+            style={{
+              color: 'red',
+              marginBottom: '0',
+            }}
+          >
+            Missing Data
+          </p>
+        )}
       </div>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
         <label>4. Are you experiencing any symptoms?</label>
@@ -321,6 +423,13 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           <input
             onChange={(e) => {
               displayItems(e.target.id, 1);
+              setFormData({
+                screeningData: {
+                  ...formData.screeningData,
+                  [e.target.name]: e.target.checked ? '' : '',
+                },
+              });
+              setDisplayErr(false);
             }}
             name="anySymptoms"
             id="yesSymptoms"
@@ -334,9 +443,11 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'no',
+                  // Check that its checked, if not, then leave it blank
+                  [e.target.name]: e.target.checked ? 'no' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             id="noSymptoms"
             className={`noSymptoms ${styles.noCheckbox}`}
@@ -354,9 +465,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
                   <div key={i}>
                     <input
                       id={symptom}
-                      name={symptom}
+                      name="symptomOption"
                       onChange={(e) => {
                         handleSymptoms(e, symptom, i);
+                        setDisplayErr(false);
                       }}
                       className={styles.yesCheckbox}
                       type="checkbox"
@@ -367,6 +479,29 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               })}
             </div>
           )}
+          {displayErr && formData.screeningData.anySymptoms == '' && (
+            <p
+              style={{
+                color: 'red',
+                marginBottom: '0',
+              }}
+            >
+              Missing Data
+            </p>
+          )}
+          {displayErr &&
+            formData.screeningData.anySymptoms != 'no' &&
+            formData.screeningData.anySymptoms != '' &&
+            checkedSymptoms.length < 1 && (
+              <p
+                style={{
+                  color: 'red',
+                  marginBottom: '0',
+                }}
+              >
+                Missing Data
+              </p>
+            )}
         </div>
       </div>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
@@ -384,9 +519,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'yes',
+                  [e.target.name]: e.target.checked ? 'yes' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             name="covidPositive"
             id="yesPositive"
@@ -400,9 +536,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'no',
+                  [e.target.name]: e.target.checked ? 'no' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             id="noPositive"
             name="covidPositive"
@@ -411,6 +548,16 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           />
           <label htmlFor="noPositive">No</label>
         </div>
+        {displayErr && formData.screeningData.covidPositive == '' && (
+          <p
+            style={{
+              color: 'red',
+              marginBottom: '0',
+            }}
+          >
+            Missing Data
+          </p>
+        )}
       </div>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
         <label>
@@ -428,9 +575,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'yes',
+                  [e.target.name]: e.target.checked ? 'yes' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             id="yesOlder"
             name="olderAndExpSym"
@@ -444,9 +592,10 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
               setFormData({
                 screeningData: {
                   ...formData.screeningData,
-                  [e.target.name]: 'no',
+                  [e.target.name]: e.target.checked ? 'no' : '',
                 },
               });
+              setDisplayErr(false);
             }}
             id="noOlder"
             name="olderAndExpSym"
@@ -455,6 +604,16 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
           />
           <label htmlFor="noOlder">No</label>
         </div>
+        {displayErr && formData.screeningData.olderAndExpSym == '' && (
+          <p
+            style={{
+              color: 'red',
+              marginBottom: '0',
+            }}
+          >
+            Missing Data
+          </p>
+        )}
       </div>
       <button className={styles.submitBtn} type="submit">
         Submit
