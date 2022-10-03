@@ -26,8 +26,6 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
 
   const [displayErr, setDisplayErr] = useState(false);
 
-  const [trueSymp, setTrueSym] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -41,7 +39,6 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
       });
     }
 
-    console.log(formData.screeningData);
     setDisplayErr(true);
 
     // Switch Forms
@@ -482,16 +479,6 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             </div>
           )}
           {displayErr && formData.screeningData.anySymptoms == '' && (
-            <p
-              style={{
-                color: 'red',
-                marginBottom: '0',
-              }}
-            >
-              Missing Data
-            </p>
-          )}
-          {displayErr && trueSymp && (
             <p
               style={{
                 color: 'red',
