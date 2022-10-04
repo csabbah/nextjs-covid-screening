@@ -5,6 +5,8 @@ import SignatureCanvas from 'react-signature-canvas';
 import Image from 'next/image';
 
 const RegistryForm = ({ formData, setFormData, setShowForm }) => {
+  console.log(formData);
+
   const router = useRouter();
 
   const [alcohol, setAlcohol] = useState(false);
@@ -71,7 +73,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     });
 
     setShowForm(3);
-
     // router.push('/form-completed');
   };
 
