@@ -85,6 +85,14 @@
   margin-bottom: 0;
 }
 
+.mainErrorMsg {
+  color: red;
+  width: 100vw;
+  position: absolute;
+  bottom: -35px;
+  margin-bottom: 0;
+}
+
 @media (max-width: 815px) {
   .form {
     grid-template: 1fr 1fr / 41vw 41vw;
