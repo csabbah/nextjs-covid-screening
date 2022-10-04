@@ -191,7 +191,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
         <label style={{ width: '340px' }}>Date of visit </label>
         <input
           placeholder="Date"
-          type="text"
+          type="date"
           onChange={(e) => {
             setFormData({
               ...formData,
@@ -202,7 +202,6 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
             });
             setDisplayErr(false);
           }}
-          onFocus={(e) => (e.target.type = 'date')}
           id="dateOfVisit"
           name="dateOfVisit"
         />
