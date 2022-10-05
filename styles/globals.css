@@ -146,7 +146,9 @@ select {
   textarea::placeholder,
   input[type='file'],
   input[type='date'],
-  button {
+  button,
+  select,
+  div {
     font-size: 15.5px !important;
   }
 }

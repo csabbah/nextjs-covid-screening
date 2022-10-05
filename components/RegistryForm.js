@@ -5,8 +5,6 @@ import SignatureCanvas from 'react-signature-canvas';
 import Image from 'next/image';
 
 const RegistryForm = ({ formData, setFormData, setShowForm }) => {
-  console.log(formData);
-
   const router = useRouter();
 
   const [alcohol, setAlcohol] = useState(false);
@@ -72,7 +70,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
       },
     });
 
-    setShowForm(3);
+    setDisplayErr(true);
+
+    // setShowForm(3);
     // router.push('/form-completed');
   };
 
@@ -172,6 +172,8 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     }
   };
 
+  const [displayErr, setDisplayErr] = useState(false);
+
   return (
     <div className={styles.container}>
       <form onSubmit={(e) => handleSecondSubmit(e)} className={styles.form}>
@@ -187,12 +189,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   fullName: e.target.value.trim(),
                 },
               });
+              setDisplayErr(false);
             }}
             id="fullName"
             placeholder="John Doe"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.fullName == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper} ${styles.age}`}>
           <label htmlFor="age">Age:</label>
           <input
@@ -204,12 +210,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   age: e.target.value,
                 },
               });
+              setDisplayErr(false);
             }}
             id="age"
             placeholder="29"
             type="number"
           />
         </div>
+        {displayErr && formData.registryData.age == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="sex">Sex:</label>
           <select
@@ -221,6 +231,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   sex: e.target.value,
                 },
               });
+              setDisplayErr(false);
             }}
             id="sex"
           >
@@ -236,6 +247,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             </option>
           </select>
         </div>
+        {displayErr && formData.registryData.sex == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
           <label htmlFor="address">Address:</label>
           <input
@@ -247,12 +261,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   address: e.target.value.trim(),
                 },
               });
+              setDisplayErr(false);
             }}
             id="address"
             placeholder="26 Jeannette Pl"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.address == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="dob">DOB:</label>
           <input
@@ -264,12 +282,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   DOB: e.target.value.trim(),
                 },
               });
+              setDisplayErr(false);
             }}
             id="dob"
             placeholder=""
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.DOB == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="homeNum">Home #</label>
           <input
@@ -281,12 +303,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   homeNum: e.target.value,
                 },
               });
+              setDisplayErr(false);
             }}
             id="homeNum"
             placeholder="435 544 3953"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.homeNum == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="workNum">Work #</label>
           <input
@@ -298,12 +324,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   workNum: e.target.value,
                 },
               });
+              setDisplayErr(false);
             }}
             id="workNum"
             placeholder="416 134 5266"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.workNum == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="cellNum">Cell #</label>
           <input
@@ -315,12 +345,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   cellNum: e.target.value,
                 },
               });
+              setDisplayErr(false);
             }}
             id="cellNum"
             placeholder="905 562 6353"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.cellNum == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="email">E-mail:</label>
           <input
@@ -332,12 +366,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   email: e.target.value.trim(),
                 },
               });
+              setDisplayErr(false);
             }}
             id="email"
             placeholder="Youremail@gmail.com"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.email == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
           <label htmlFor="occupation">Occupation:</label>
           <input
@@ -349,12 +387,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   occupation: e.target.value.trim(),
                 },
               });
+              setDisplayErr(false);
             }}
             id="occupation"
             placeholder="Web Developer"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.occupation == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="maritalStat">Marital Status</label>
           <select
@@ -366,6 +408,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   maritalStat: e.target.value,
                 },
               });
+              setDisplayErr(false);
             }}
             id="maritalStat"
           >
@@ -391,6 +434,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             </option>
           </select>
         </div>
+        {displayErr && formData.registryData.maritalStat == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="consult">
             Reason for consultation/Areas of concern:
@@ -404,12 +450,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   reasonForConsult: e.target.value.trim(),
                 },
               });
+              setDisplayErr(false);
             }}
             id="consult"
             placeholder="Need more inquiry"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.reasonForConsult == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="hearAbout">How did you hear about us?</label>
           <textarea
@@ -421,6 +471,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   hearAboutUs: e.target.value.trim(),
                 },
               });
+              setDisplayErr(false);
             }}
             id="hearAbout"
             className={styles.shortText}
@@ -428,6 +479,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.hearAboutUs == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <hr className={styles.hr}></hr>
         <p className={styles.sectionHeader2}>Emergency Contact</p>
         <div className={`${styles.inputWrapper} ${styles.contact}`}>
@@ -444,12 +498,17 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="emergency"
             placeholder="John Doe"
             type="text"
           />
         </div>
+        {displayErr &&
+          formData.registryData.emergencyContact.fullName == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         <div className={styles.inputWrapper}>
           <label htmlFor="rely">Relationship:</label>
           <input
@@ -464,12 +523,17 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="rely"
             placeholder="Father"
             type="text"
           />
         </div>
+        {displayErr &&
+          formData.registryData.emergencyContact.relationship == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="emergeAddress">Address:</label>
           <input
@@ -484,12 +548,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="emergeAddress"
             placeholder="42 Crescent Dr"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.emergencyContact.address == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergePhone">Phone #</label>
           <input
@@ -504,12 +572,17 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="emergePhone"
             placeholder="435 544 3953"
             type="text"
           />
         </div>
+        {displayErr &&
+          formData.registryData.emergencyContact.phoneNum == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeWork">Work #</label>
           <input
@@ -524,12 +597,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="emergeWork"
             placeholder="416 134 5266"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.emergencyContact.workNum == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeCell">Cell #</label>
           <input
@@ -544,12 +621,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="emergeCell"
             placeholder="905 562 6353"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.emergencyContact.cellNum == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <hr className={styles.hr}></hr>
         <p className={styles.sectionHeader2}>Medical history</p>
         <div className={`${styles.inputWrapper}`}>
@@ -566,12 +647,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="height"
             placeholder={`171`}
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.medicalHistory.height == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="weight">Weight (lbs)</label>
           <input
@@ -586,12 +671,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="weight"
             placeholder="185"
             type="text"
           />
         </div>
+        {displayErr && formData.registryData.medicalHistory.weight == '' && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
         <div className={`${styles.inputWrapper} ${styles.physicalExam}`}>
           <label className={styles.physicalExamLabel}>
             When was your last physical exam?
@@ -608,19 +697,39 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="dateOfPhysical"
             type="date"
             name="dateOfPhysical"
           />
         </div>
+        {displayErr &&
+          formData.registryData.medicalHistory.lastPhysical == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         <div className={`${styles.inputWrapper} ${styles.smoke}`}>
           <label>Do you smoke?</label>
           <div className={styles.checkboxWrapper}>
             <div>
               <input
                 id="smokeYes"
-                onChange={(e) => switchCheck(e.target, 0)}
+                onChange={(e) => {
+                  switchCheck(e.target, 0);
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        smoker: e.target.checked
+                          ? { packsPerDay: '', howLong: '' }
+                          : null,
+                      },
+                    },
+                  });
+                  setDisplayErr(false);
+                }}
                 className={`yes smoke ${styles.yesCheckbox}`}
                 type="checkbox"
               />
@@ -636,10 +745,12 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                     registryData: {
                       ...formData.registryData,
                       medicalHistory: {
-                        smoker: 'no',
+                        ...formData.registryData.medicalHistory,
+                        smoker: e.target.checked ? 'no' : null,
                       },
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 className={`no smoke ${styles.noCheckbox}`}
                 type="checkbox"
@@ -667,6 +778,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                       },
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 id="packs"
                 placeholder="1"
@@ -690,6 +802,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                       },
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 id="packsHowLong"
                 placeholder="1 year"
@@ -700,13 +813,43 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         ) : (
           ''
         )}
+        {displayErr && formData.registryData.medicalHistory.smoker == null && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
+        {displayErr &&
+        formData.registryData.medicalHistory.smoker != null &&
+        formData.registryData.medicalHistory.smoker != 'no' ? (
+          formData.registryData.medicalHistory.smoker.packsPerDay == '' ||
+          formData.registryData.medicalHistory.smoker.howLong == '' ? (
+            <p className={styles.errorMsg}>Missing Data</p>
+          ) : (
+            ''
+          )
+        ) : (
+          ''
+        )}
         <div className={`${styles.inputWrapper} ${styles.alcohol}`}>
           <label>Do you drink alcohol?</label>
           <div className={styles.checkboxWrapper}>
             <div>
               <input
                 id="alcoholYes"
-                onChange={(e) => switchCheck(e.target, 1)}
+                onChange={(e) => {
+                  switchCheck(e.target, 1);
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        alcoholDrinker: e.target.checked
+                          ? { howManyDrinks: '' }
+                          : null,
+                      },
+                    },
+                  });
+                  setDisplayErr(false);
+                }}
                 className={`yes alcohol ${styles.yesCheckbox}`}
                 type="checkbox"
               />
@@ -723,10 +866,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                       ...formData.registryData,
                       medicalHistory: {
                         ...formData.registryData.medicalHistory,
-                        alcoholDrinker: 'no',
+                        alcoholDrinker: e.target.checked ? 'no' : null,
                       },
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 className={`no alcohol ${styles.noCheckbox}`}
                 type="checkbox"
@@ -752,6 +896,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                     },
                   },
                 });
+                setDisplayErr(false);
               }}
               id="howManyDrinks"
               placeholder="2"
@@ -761,10 +906,26 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         ) : (
           ''
         )}
+        {displayErr &&
+          formData.registryData.medicalHistory.alcoholDrinker == null && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
+        {displayErr &&
+        formData.registryData.medicalHistory.alcoholDrinker != null &&
+        formData.registryData.medicalHistory.alcoholDrinker != 'no' ? (
+          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks ==
+          '' ? (
+            <p className={styles.errorMsg}>Missing Data</p>
+          ) : (
+            ''
+          )
+        ) : (
+          ''
+        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="previousWork">
-            Have you ever had any previous cosmetic or surgical procedures? If
-            yes describe
+            If applicable, have you ever had any previous cosmetic or surgical
+            procedures? If yes describe
           </label>
           <textarea
             onChange={(e) => {
@@ -778,6 +939,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="previousWork"
             placeholder="Year, procedure, surgeon, city and so forth"
@@ -786,7 +948,8 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="medicationsYouTake">
-            Please list all the medications that you take and for what purpose:
+            If applicable, please list all the medications that you take and for
+            what purpose:
           </label>
           <textarea
             onChange={(e) => {
@@ -800,6 +963,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="medicationsYouTake"
             className={styles.shortText}
@@ -809,8 +973,8 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="herbalSups">
-            Please list all the herbal supplements that you take and for what
-            purpose:
+            If applicable, please list all the herbal supplements that you take
+            and for what purpose:
           </label>
           <textarea
             onChange={(e) => {
@@ -824,6 +988,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   },
                 },
               });
+              setDisplayErr(false);
             }}
             id="herbalSups"
             className={styles.shortText}
@@ -833,8 +998,8 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>
-            Please check any medical condition that you currently suffer from,
-            or have experienced in the past:
+            If applicable, please check any medical condition that you currently
+            suffer from, or have experienced in the past:
           </label>
           <div className={styles.medicalCondition}>
             {medicalConditions.map((medical, i) => {
@@ -843,7 +1008,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   <input
                     id={medical}
                     name={medical}
-                    onChange={(e) => handleMedicals(e, medical, i)}
+                    onChange={(e) => {
+                      handleMedicals(e, medical, i);
+                      setDisplayErr(false);
+                    }}
                     className={styles.yesCheckbox}
                     type="checkbox"
                   ></input>
@@ -857,7 +1025,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             >
               <label htmlFor="Other">Other:</label>
               <textarea
-                onChange={(e) => setOtherCond(e.target.value)}
+                onChange={(e) => {
+                  setOtherCond(e.target.value);
+                  setDisplayErr(false);
+                }}
                 id="Other"
                 type="text"
               ></textarea>
@@ -870,7 +1041,20 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             <div>
               <input
                 id="noAllergies"
-                onChange={(e) => switchCheck(e.target, 2)}
+                onChange={(e) => {
+                  switchCheck(e.target, 2);
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        allergies: e.target.checked ? '' : null,
+                      },
+                    },
+                  });
+                  setDisplayErr(false);
+                }}
                 className={`yes allergies ${styles.yesCheckbox}`}
                 type="checkbox"
               />
@@ -887,10 +1071,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                       ...formData.registryData,
                       medicalHistory: {
                         ...formData.registryData.medicalHistory,
-                        allergies: 'no',
+                        allergies: e.target.checked ? 'no' : null,
                       },
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 className={`no allergies ${styles.noCheckbox}`}
                 type="checkbox"
@@ -915,6 +1100,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                       },
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 id="describeReactions"
                 className={styles.shorterText}
@@ -926,13 +1112,42 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             ''
           )}
         </div>
+        {displayErr &&
+          formData.registryData.medicalHistory.allergies == null && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
+        {displayErr &&
+        formData.registryData.medicalHistory.allergies != null &&
+        formData.registryData.medicalHistory.allergies != 'no' ? (
+          formData.registryData.medicalHistory.allergies.length < 1 ? (
+            <p className={styles.errorMsg}>Missing Data</p>
+          ) : (
+            ''
+          )
+        ) : (
+          ''
+        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Have you ever had a Staph/MRSA infection in the past?</label>
           <div className={styles.checkboxWrapper}>
             <div>
               <input
                 id="yesStaph"
-                onChange={(e) => switchCheck(e.target, 3)}
+                onChange={(e) => {
+                  switchCheck(e.target, 3);
+                  switchCheck(e.target, 3);
+                  setFormData({
+                    ...formData,
+                    registryData: {
+                      ...formData.registryData,
+                      medicalHistory: {
+                        ...formData.registryData.medicalHistory,
+                        staph: e.target.checked ? '' : null,
+                      },
+                    },
+                  });
+                  setDisplayErr(false);
+                }}
                 className={`yes staph ${styles.yesCheckbox}`}
                 type="checkbox"
               />
@@ -949,10 +1164,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                       ...formData.registryData,
                       medicalHistory: {
                         ...formData.registryData.medicalHistory,
-                        staph: 'no',
+                        staph: e.target.checked ? 'no' : null,
                       },
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 className={`no staph ${styles.noCheckbox}`}
                 type="checkbox"
@@ -978,6 +1194,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                       },
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 id="indicateInfection"
                 className={styles.shorterText}
@@ -989,6 +1206,20 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             ''
           )}
         </div>
+        {displayErr && formData.registryData.medicalHistory.staph == null && (
+          <p className={styles.errorMsg}>Missing Data</p>
+        )}
+        {displayErr &&
+        formData.registryData.medicalHistory.staph != null &&
+        formData.registryData.medicalHistory.staph != 'no' ? (
+          formData.registryData.medicalHistory.staph.length < 1 ? (
+            <p className={styles.errorMsg}>Missing Data</p>
+          ) : (
+            ''
+          )
+        ) : (
+          ''
+        )}
         <hr className={styles.hr}></hr>
         <div
           className={`${styles.inputWrapper} ${styles.fullCol} ${styles.confirm}`}
@@ -1030,6 +1261,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                       date: e.target.value,
                     },
                   });
+                  setDisplayErr(false);
                 }}
                 className={styles.dateSelect}
                 type="date"
@@ -1038,6 +1270,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
               />
             </div>
           </div>
+          {displayErr && formData.registryData.date == '' && (
+            <p className={styles.errorMsgDate}>Missing Data</p>
+          )}
         </div>
         {signatureImg && (
           <Image
