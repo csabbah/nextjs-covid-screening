@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/mongo';
-import User from '../../../models/User';
+import Patient from '../../../models/Patient';
 
 export default async function handler(req, res) {
   // Establish DB connection
@@ -12,8 +12,8 @@ export default async function handler(req, res) {
 
   if (method === 'GET') {
     try {
-      const user = await User.find();
-      res.status(200).json(user);
+      const patient = await Patient.find();
+      res.status(200).json(patient);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -23,8 +23,8 @@ export default async function handler(req, res) {
     //   return res.status(401).json('Not authenticated');
     // }
     try {
-      const user = await User.create(req.body);
-      res.status(201).json(user);
+      const patient = await Patient.create(req.body);
+      res.status(201).json(patient);
     } catch (err) {
       res.status(500).json(err);
     }

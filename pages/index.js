@@ -3,7 +3,7 @@ import axios from 'axios';
 import { server } from '../utils/config';
 import Forms from '../components/Forms';
 
-export default function Home({ users }) {
+export default function Home({ patients }) {
   return (
     <div>
       <Head>
@@ -23,11 +23,11 @@ export default function Home({ users }) {
 }
 
 export const getServerSideProps = async () => {
-  const userData = await axios.get(`${server}/api/users`);
+  const patientData = await axios.get(`${server}/api/patients`);
 
   return {
     props: {
-      users: userData.data,
+      patients: patientData.data,
     },
   };
 };
