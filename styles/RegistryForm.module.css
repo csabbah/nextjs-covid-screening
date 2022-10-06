@@ -35,6 +35,7 @@
 }
 
 .signInnerItems {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-right: 20px;
@@ -164,6 +165,8 @@
 }
 
 .errorMsgDate {
+  position: absolute;
+  top: 70px;
   margin-top: 5px;
   margin-bottom: 0;
 }
@@ -212,8 +215,20 @@
   .otherCond {
     width: 100%;
   }
-}
 
+  .errorMsgDate {
+    top: 70px;
+  }
+
+  .submitBtn {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 730px) {
+  .errorMsgDate {
+    top: 55px;
+  }
+}
 @media (max-width: 640px) {
   .inputWrapper {
     grid-column-start: 1 !important;
