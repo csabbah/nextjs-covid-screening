@@ -629,7 +629,6 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
         ) : (
           ''
         )}
-
         <button className={styles.submitBtn} type="submit">
           Submit
         </button>

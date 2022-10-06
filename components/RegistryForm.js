@@ -73,7 +73,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     setDisplayErr(true);
     setSigEmpty(dataEmpty.isEmpty());
 
-    // setShowForm(3);
+    // Signature image ==  signatureImg.trimmedDataURL;
+
+    if (submitReady) {
+      setShowForm(3);
+    }
     // router.push('/form-completed');
   };
 
@@ -180,7 +184,66 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
 
   const [submitReady, setSubmitReady] = useState(false);
 
-  useEffect(() => {});
+  useEffect(() => {
+    {
+      formData.registryData.date == '' ||
+      sigEmpty ||
+      formData.registryData.medicalHistory.allergies == null ||
+      formData.registryData.medicalHistory.staph == null ||
+      formData.registryData.medicalHistory.alcoholDrinker == null ||
+      formData.registryData.medicalHistory.smoker == null ||
+      formData.registryData.medicalHistory.lastPhysical == '' ||
+      formData.registryData.medicalHistory.weight > 1000 ||
+      formData.registryData.medicalHistory.weight < 1 ||
+      formData.registryData.medicalHistory.height > 1000 ||
+      formData.registryData.medicalHistory.height < 10 ||
+      formData.registryData.emergencyContact.cellNum == '' ||
+      formData.registryData.emergencyContact.workNum == '' ||
+      formData.registryData.emergencyContact.phoneNum == '' ||
+      formData.registryData.emergencyContact.address == '' ||
+      formData.registryData.emergencyContact.relationship == '' ||
+      formData.registryData.emergencyContact.fullName == '' ||
+      formData.registryData.hearAboutUs == '' ||
+      formData.registryData.reasonForConsult == '' ||
+      formData.registryData.maritalStat == '' ||
+      formData.registryData.occupation == '' ||
+      formData.registryData.email == '' ||
+      formData.registryData.cellNum == '' ||
+      formData.registryData.workNum == '' ||
+      formData.registryData.homeNum == '' ||
+      formData.registryData.DOB == '' ||
+      formData.registryData.address == '' ||
+      formData.registryData.sex == '' ||
+      formData.registryData.age < 1 ||
+      formData.registryData.age > 150 ||
+      formData.registryData.fullName == ''
+        ? setSubmitReady(false)
+        : formData.registryData.medicalHistory.staph != null &&
+          formData.registryData.medicalHistory.staph != 'no' &&
+          formData.registryData.medicalHistory.staph.length < 1
+        ? setSubmitReady(false)
+        : formData.registryData.medicalHistory.allergies != null &&
+          formData.registryData.medicalHistory.allergies != 'no' &&
+          formData.registryData.medicalHistory.allergies.length < 1
+        ? setSubmitReady(false)
+        : formData.registryData.medicalHistory.alcoholDrinker != null &&
+          formData.registryData.medicalHistory.alcoholDrinker != 'no'
+        ? formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks <
+            1 ||
+          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks >
+            100
+          ? setSubmitReady(false)
+          : ''
+        : formData.registryData.medicalHistory.smoker != null &&
+          formData.registryData.medicalHistory.smoker != 'no'
+        ? formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
+          formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
+          formData.registryData.medicalHistory.smoker.howLong == ''
+          ? setSubmitReady(false)
+          : ''
+        : setSubmitReady(true);
+    }
+  });
 
   return (
     <div className={styles.container}>
@@ -227,7 +290,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           {displayErr &&
             (formData.registryData.age < 1 ||
               formData.registryData.age > 150) && (
-              <p className={styles.errorMsg}>Missing Data</p>
+              <p className={styles.errorMsg}>Missing or Invalid Data</p>
             )}
         </div>
         <div className={`${styles.inputWrapper}`}>
@@ -1154,16 +1217,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
               <p className={styles.errorMsg}>Missing Data</p>
             )}
           {displayErr &&
-          formData.registryData.medicalHistory.allergies != null &&
-          formData.registryData.medicalHistory.allergies != 'no' ? (
-            formData.registryData.medicalHistory.allergies.length < 1 ? (
+            formData.registryData.medicalHistory.allergies != null &&
+            formData.registryData.medicalHistory.allergies != 'no' &&
+            formData.registryData.medicalHistory.allergies.length < 1 && (
               <p className={styles.errorMsg}>Missing Data</p>
-            ) : (
-              ''
-            )
-          ) : (
-            ''
-          )}
+            )}
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Have you ever had a Staph/MRSA infection in the past?</label>
@@ -1248,19 +1306,15 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
               Missing Data
             </p>
           )}
+          {/* If staph is not null and 'no' is not checked, that means Yes is checked */}
           {displayErr &&
-          formData.registryData.medicalHistory.staph != null &&
-          formData.registryData.medicalHistory.staph != 'no' ? (
-            formData.registryData.medicalHistory.staph.length < 1 ? (
+            formData.registryData.medicalHistory.staph != null &&
+            formData.registryData.medicalHistory.staph != 'no' &&
+            formData.registryData.medicalHistory.staph.length < 1 && (
               <p style={{ marginTop: '4px' }} className={styles.errorMsg}>
                 Missing Data
               </p>
-            ) : (
-              ''
-            )
-          ) : (
-            ''
-          )}
+            )}
         </div>
         <hr className={styles.hr}></hr>
         <div
@@ -1325,14 +1379,77 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             </div>
           </div>
         </div>
-        {/* {signatureImg && (
-          <Image
-            src={signatureImg.trimmedDataURL}
-            width={100}
-            height={100}
-            alt="captureSignature"
-          />
-        )} */}
+
+        {/* If the first block returns false, that means those criteria's pass...
+        In that case, check the other conditionals */}
+        {displayErr &&
+        (formData.registryData.date == '' ||
+          sigEmpty ||
+          formData.registryData.medicalHistory.allergies == null ||
+          formData.registryData.medicalHistory.staph == null ||
+          formData.registryData.medicalHistory.alcoholDrinker == null ||
+          formData.registryData.medicalHistory.smoker == null ||
+          formData.registryData.medicalHistory.lastPhysical == '' ||
+          formData.registryData.medicalHistory.weight > 1000 ||
+          formData.registryData.medicalHistory.weight < 1 ||
+          formData.registryData.medicalHistory.height > 1000 ||
+          formData.registryData.medicalHistory.height < 10 ||
+          formData.registryData.emergencyContact.cellNum == '' ||
+          formData.registryData.emergencyContact.workNum == '' ||
+          formData.registryData.emergencyContact.phoneNum == '' ||
+          formData.registryData.emergencyContact.address == '' ||
+          formData.registryData.emergencyContact.relationship == '' ||
+          formData.registryData.emergencyContact.fullName == '' ||
+          formData.registryData.hearAboutUs == '' ||
+          formData.registryData.reasonForConsult == '' ||
+          formData.registryData.maritalStat == '' ||
+          formData.registryData.occupation == '' ||
+          formData.registryData.email == '' ||
+          formData.registryData.cellNum == '' ||
+          formData.registryData.workNum == '' ||
+          formData.registryData.homeNum == '' ||
+          formData.registryData.DOB == '' ||
+          formData.registryData.address == '' ||
+          formData.registryData.sex == '' ||
+          formData.registryData.age < 1 ||
+          formData.registryData.age > 150 ||
+          formData.registryData.fullName == '') ? (
+          <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
+        ) : displayErr &&
+          formData.registryData.medicalHistory.staph != null &&
+          formData.registryData.medicalHistory.staph != 'no' &&
+          formData.registryData.medicalHistory.staph.length < 1 ? (
+          <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
+        ) : displayErr &&
+          formData.registryData.medicalHistory.allergies != null &&
+          formData.registryData.medicalHistory.allergies != 'no' &&
+          formData.registryData.medicalHistory.allergies.length < 1 ? (
+          <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
+        ) : displayErr &&
+          formData.registryData.medicalHistory.alcoholDrinker != null &&
+          formData.registryData.medicalHistory.alcoholDrinker != 'no' ? (
+          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks <
+            1 ||
+          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks >
+            100 ? (
+            <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
+          ) : (
+            ''
+          )
+        ) : displayErr &&
+          formData.registryData.medicalHistory.smoker != null &&
+          formData.registryData.medicalHistory.smoker != 'no' ? (
+          formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
+          formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
+          formData.registryData.medicalHistory.smoker.howLong == '' ? (
+            <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
+          ) : (
+            ''
+          )
+        ) : (
+          ''
+        )}
+
         <button onClick={trim} className={styles.submitBtn} type="submit">
           Submit
         </button>

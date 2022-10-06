@@ -5,6 +5,7 @@
   grid-template: 1fr 1fr / 250px 250px 250px;
   gap: 20px;
   justify-content: center;
+  position: relative;
 }
 
 .inputWrapper {
