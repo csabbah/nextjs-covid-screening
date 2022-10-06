@@ -14,6 +14,10 @@
   flex-direction: column;
 }
 
+.specialInputs {
+  width: 50% !important;
+}
+
 .secondaryPrompt {
   margin-top: -5px !important;
 }
@@ -112,10 +116,6 @@
   width: 500px;
 }
 
-.smoke {
-  grid-column-start: 1;
-  grid-column-end: 2;
-}
 .checkboxWrapper {
   display: flex;
 }
@@ -157,9 +157,9 @@
 .errorMsgDate,
 .mainErrorMsg {
   color: red;
+  width: 100vw;
 }
 .errorMsg {
-  margin-top: -15px;
   margin-bottom: 0px;
 }
 
@@ -169,13 +169,16 @@
 }
 
 .mainErrorMsg {
-  width: 100vw;
   position: absolute;
   bottom: -35px;
   margin-bottom: 0;
 }
 
 @media (max-width: 815px) {
+  .specialInputs {
+    width: 70% !important;
+  }
+
   .form {
     grid-template: 1fr 1fr / 27.3vw 27.3vw 27.3vw;
   }
@@ -216,5 +219,9 @@
     grid-column-start: 1 !important;
     grid-column-end: 4 !important;
     margin-top: 5px;
+  }
+
+  .specialInputs {
+    width: 100% !important;
   }
 }

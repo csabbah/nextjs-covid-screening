@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/RegistryForm.module.css';
 import { useRouter } from 'next/router';
 import SignatureCanvas from 'react-signature-canvas';
@@ -174,6 +174,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
 
   const [displayErr, setDisplayErr] = useState(false);
 
+  const [submitReady, setSubmitReady] = useState(false);
+  useEffect(() => {});
+
   return (
     <div className={styles.container}>
       <form onSubmit={(e) => handleSecondSubmit(e)} className={styles.form}>
@@ -195,10 +198,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="John Doe"
             type="text"
           />
+          {displayErr && formData.registryData.fullName == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.fullName == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper} ${styles.age}`}>
           <label htmlFor="age">Age:</label>
           <input
@@ -216,10 +219,12 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="29"
             type="number"
           />
+          {displayErr &&
+            (formData.registryData.age < 1 ||
+              formData.registryData.age > 150) && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
         </div>
-        {displayErr && formData.registryData.age == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="sex">Sex:</label>
           <select
@@ -246,10 +251,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
               Non Binary
             </option>
           </select>
+          {displayErr && formData.registryData.sex == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.sex == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
           <label htmlFor="address">Address:</label>
           <input
@@ -267,10 +272,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="26 Jeannette Pl"
             type="text"
           />
+          {displayErr && formData.registryData.address == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.address == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="dob">DOB:</label>
           <input
@@ -288,10 +293,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder=""
             type="text"
           />
+          {displayErr && formData.registryData.DOB == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.DOB == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="homeNum">Home #</label>
           <input
@@ -309,10 +314,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="435 544 3953"
             type="text"
           />
+          {displayErr && formData.registryData.homeNum == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.homeNum == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="workNum">Work #</label>
           <input
@@ -330,10 +335,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="416 134 5266"
             type="text"
           />
+          {displayErr && formData.registryData.workNum == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.workNum == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="cellNum">Cell #</label>
           <input
@@ -351,10 +356,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="905 562 6353"
             type="text"
           />
+          {displayErr && formData.registryData.cellNum == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.cellNum == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="email">E-mail:</label>
           <input
@@ -372,10 +377,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="Youremail@gmail.com"
             type="text"
           />
+          {displayErr && formData.registryData.email == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.email == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
           <label htmlFor="occupation">Occupation:</label>
           <input
@@ -393,10 +398,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="Web Developer"
             type="text"
           />
+          {displayErr && formData.registryData.occupation == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.occupation == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="maritalStat">Marital Status</label>
           <select
@@ -433,10 +438,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
               Prefer not to say
             </option>
           </select>
+          {displayErr && formData.registryData.maritalStat == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.maritalStat == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="consult">
             Reason for consultation/Areas of concern:
@@ -456,10 +461,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="Need more inquiry"
             type="text"
           />
+          {displayErr && formData.registryData.reasonForConsult == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.reasonForConsult == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="hearAbout">How did you hear about us?</label>
           <textarea
@@ -478,10 +483,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="YouTube Ad"
             type="text"
           />
+          {displayErr && formData.registryData.hearAboutUs == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
-        {displayErr && formData.registryData.hearAboutUs == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <hr className={styles.hr}></hr>
         <p className={styles.sectionHeader2}>Emergency Contact</p>
         <div className={`${styles.inputWrapper} ${styles.contact}`}>
@@ -504,11 +509,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="John Doe"
             type="text"
           />
+          {displayErr &&
+            formData.registryData.emergencyContact.fullName == '' && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
         </div>
-        {displayErr &&
-          formData.registryData.emergencyContact.fullName == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
         <div className={styles.inputWrapper}>
           <label htmlFor="rely">Relationship:</label>
           <input
@@ -529,11 +534,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="Father"
             type="text"
           />
+          {displayErr &&
+            formData.registryData.emergencyContact.relationship == '' && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
         </div>
-        {displayErr &&
-          formData.registryData.emergencyContact.relationship == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="emergeAddress">Address:</label>
           <input
@@ -554,10 +559,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="42 Crescent Dr"
             type="text"
           />
+          {displayErr &&
+            formData.registryData.emergencyContact.address == '' && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
         </div>
-        {displayErr && formData.registryData.emergencyContact.address == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergePhone">Phone #</label>
           <input
@@ -578,11 +584,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="435 544 3953"
             type="text"
           />
+          {displayErr &&
+            formData.registryData.emergencyContact.phoneNum == '' && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
         </div>
-        {displayErr &&
-          formData.registryData.emergencyContact.phoneNum == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeWork">Work #</label>
           <input
@@ -603,10 +609,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="416 134 5266"
             type="text"
           />
+          {displayErr &&
+            formData.registryData.emergencyContact.workNum == '' && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
         </div>
-        {displayErr && formData.registryData.emergencyContact.workNum == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeCell">Cell #</label>
           <input
@@ -627,10 +634,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="905 562 6353"
             type="text"
           />
+          {displayErr &&
+            formData.registryData.emergencyContact.cellNum == '' && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
         </div>
-        {displayErr && formData.registryData.emergencyContact.cellNum == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <hr className={styles.hr}></hr>
         <p className={styles.sectionHeader2}>Medical history</p>
         <div className={`${styles.inputWrapper}`}>
@@ -643,7 +651,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   ...formData.registryData,
                   medicalHistory: {
                     ...formData.registryData.medicalHistory,
-                    height: e.target.value.trim(),
+                    height: e.target.value,
                   },
                 },
               });
@@ -651,12 +659,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             }}
             id="height"
             placeholder={`171`}
-            type="text"
+            type="number"
           />
+          {displayErr &&
+            (formData.registryData.medicalHistory.height > 1000 ||
+              formData.registryData.medicalHistory.height < 10) && (
+              <p className={styles.errorMsg}>Missing or invalid Data</p>
+            )}
         </div>
-        {displayErr && formData.registryData.medicalHistory.height == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="weight">Weight (lbs)</label>
           <input
@@ -667,7 +677,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   ...formData.registryData,
                   medicalHistory: {
                     ...formData.registryData.medicalHistory,
-                    weight: e.target.value.trim(),
+                    weight: e.target.value,
                   },
                 },
               });
@@ -675,12 +685,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             }}
             id="weight"
             placeholder="185"
-            type="text"
+            type="number"
           />
+          {displayErr &&
+            (formData.registryData.medicalHistory.weight > 1000 ||
+              formData.registryData.medicalHistory.weight < 1) && (
+              <p className={styles.errorMsg}>Missing or invalid Data</p>
+            )}
         </div>
-        {displayErr && formData.registryData.medicalHistory.weight == '' && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
         <div className={`${styles.inputWrapper} ${styles.physicalExam}`}>
           <label className={styles.physicalExamLabel}>
             When was your last physical exam?
@@ -703,12 +715,12 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             type="date"
             name="dateOfPhysical"
           />
+          {displayErr &&
+            formData.registryData.medicalHistory.lastPhysical == '' && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
         </div>
-        {displayErr &&
-          formData.registryData.medicalHistory.lastPhysical == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
-        <div className={`${styles.inputWrapper} ${styles.smoke}`}>
+        <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Do you smoke?</label>
           <div className={styles.checkboxWrapper}>
             <div>
@@ -760,10 +772,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           </div>
         </div>
         {smoke ? (
-          <>
+          <div
+            style={{ marginTop: '-20px', marginBottom: '5px' }}
+            className={styles.fullCol}
+          >
             <div className={`${styles.inputWrapper}`}>
               <label htmlFor="packs">How many packs a day?</label>
               <input
+                className={styles.specialInputs}
                 onChange={(e) => {
                   setFormData({
                     ...formData,
@@ -788,6 +804,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             <div className={`${styles.inputWrapper}`}>
               <label htmlFor="packsHowLong">For how long?</label>
               <input
+                className={styles.specialInputs}
                 onChange={(e) => {
                   setFormData({
                     ...formData,
@@ -809,26 +826,31 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                 type="text"
               />
             </div>
-          </>
+          </div>
         ) : (
           ''
         )}
         {displayErr && formData.registryData.medicalHistory.smoker == null && (
-          <p className={styles.errorMsg}>Missing Data</p>
+          <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
+            Missing Data
+          </p>
         )}
         {displayErr &&
         formData.registryData.medicalHistory.smoker != null &&
         formData.registryData.medicalHistory.smoker != 'no' ? (
-          formData.registryData.medicalHistory.smoker.packsPerDay == '' ||
+          formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
+          formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
           formData.registryData.medicalHistory.smoker.howLong == '' ? (
-            <p className={styles.errorMsg}>Missing Data</p>
+            <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
+              Missing Data
+            </p>
           ) : (
             ''
           )
         ) : (
           ''
         )}
-        <div className={`${styles.inputWrapper} ${styles.alcohol}`}>
+        <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Do you drink alcohol?</label>
           <div className={styles.checkboxWrapper}>
             <div>
@@ -880,9 +902,13 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           </div>
         </div>
         {alcohol ? (
-          <div className={`${styles.inputWrapper}`}>
+          <div
+            style={{ marginTop: '-20px', marginBottom: '5px' }}
+            className={`${styles.inputWrapper} ${styles.fullCol}`}
+          >
             <label htmlFor="howManyDrinks">How many drinks a week?</label>
             <input
+              className={styles.specialInputs}
               onChange={(e) => {
                 setFormData({
                   ...formData,
@@ -908,14 +934,20 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         )}
         {displayErr &&
           formData.registryData.medicalHistory.alcoholDrinker == null && (
-            <p className={styles.errorMsg}>Missing Data</p>
+            <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
+              Missing Data
+            </p>
           )}
         {displayErr &&
         formData.registryData.medicalHistory.alcoholDrinker != null &&
         formData.registryData.medicalHistory.alcoholDrinker != 'no' ? (
-          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks ==
-          '' ? (
-            <p className={styles.errorMsg}>Missing Data</p>
+          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks <
+            1 ||
+          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks >
+            100 ? (
+            <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
+              Missing Data
+            </p>
           ) : (
             ''
           )
@@ -1084,11 +1116,12 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             </div>
           </div>
           {allergies ? (
-            <>
+            <div>
               <label htmlFor="describeReactions">
                 What medication and describe the reaction:
               </label>
               <textarea
+                style={{ width: '100%' }}
                 onChange={(e) => {
                   setFormData({
                     ...formData,
@@ -1107,26 +1140,26 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                 placeholder="I take the medication and this is the reaction..."
                 type="text"
               />
-            </>
+            </div>
+          ) : (
+            ''
+          )}
+          {displayErr &&
+            formData.registryData.medicalHistory.allergies == null && (
+              <p className={styles.errorMsg}>Missing Data</p>
+            )}
+          {displayErr &&
+          formData.registryData.medicalHistory.allergies != null &&
+          formData.registryData.medicalHistory.allergies != 'no' ? (
+            formData.registryData.medicalHistory.allergies.length < 1 ? (
+              <p className={styles.errorMsg}>Missing Data</p>
+            ) : (
+              ''
+            )
           ) : (
             ''
           )}
         </div>
-        {displayErr &&
-          formData.registryData.medicalHistory.allergies == null && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
-        {displayErr &&
-        formData.registryData.medicalHistory.allergies != null &&
-        formData.registryData.medicalHistory.allergies != 'no' ? (
-          formData.registryData.medicalHistory.allergies.length < 1 ? (
-            <p className={styles.errorMsg}>Missing Data</p>
-          ) : (
-            ''
-          )
-        ) : (
-          ''
-        )}
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Have you ever had a Staph/MRSA infection in the past?</label>
           <div className={styles.checkboxWrapper}>
@@ -1205,21 +1238,25 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           ) : (
             ''
           )}
-        </div>
-        {displayErr && formData.registryData.medicalHistory.staph == null && (
-          <p className={styles.errorMsg}>Missing Data</p>
-        )}
-        {displayErr &&
-        formData.registryData.medicalHistory.staph != null &&
-        formData.registryData.medicalHistory.staph != 'no' ? (
-          formData.registryData.medicalHistory.staph.length < 1 ? (
-            <p className={styles.errorMsg}>Missing Data</p>
+          {displayErr && formData.registryData.medicalHistory.staph == null && (
+            <p style={{ marginTop: '4px' }} className={styles.errorMsg}>
+              Missing Data
+            </p>
+          )}
+          {displayErr &&
+          formData.registryData.medicalHistory.staph != null &&
+          formData.registryData.medicalHistory.staph != 'no' ? (
+            formData.registryData.medicalHistory.staph.length < 1 ? (
+              <p style={{ marginTop: '4px' }} className={styles.errorMsg}>
+                Missing Data
+              </p>
+            ) : (
+              ''
+            )
           ) : (
             ''
-          )
-        ) : (
-          ''
-        )}
+          )}
+        </div>
         <hr className={styles.hr}></hr>
         <div
           className={`${styles.inputWrapper} ${styles.fullCol} ${styles.confirm}`}
@@ -1238,7 +1275,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   captureSignature = ref;
                 }}
                 canvasProps={{
-                  width: 360,
+                  width: 350,
                   height: 200,
                   className: 'sigCanvas',
                 }}
@@ -1268,11 +1305,16 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                 id="dateOfSignature"
                 name="dateOfSignature"
               />
+              {displayErr && formData.registryData.date == '' && (
+                <p
+                  style={{ marginTop: '10px' }}
+                  className={styles.errorMsgDate}
+                >
+                  Missing Data
+                </p>
+              )}
             </div>
           </div>
-          {displayErr && formData.registryData.date == '' && (
-            <p className={styles.errorMsgDate}>Missing Data</p>
-          )}
         </div>
         {signatureImg && (
           <Image

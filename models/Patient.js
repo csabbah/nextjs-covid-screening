@@ -49,7 +49,10 @@ const PatientSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
-        age: { type: String, required: true },
+        age: {
+          type: Number,
+          required: true,
+        },
         sex: { type: String, required: true },
         address: { type: String, required: true },
         DOB: { type: String, required: true },
@@ -70,8 +73,8 @@ const PatientSchema = new mongoose.Schema(
           cellNum: { type: String, required: true },
         },
         medicalHistory: {
-          height: { type: String, required: true },
-          weight: { type: String, required: true },
+          height: { type: Number, required: true },
+          weight: { type: Number, required: true },
           lastPhysical: { type: String, required: true },
           smoker: { type: mongoose.Schema.Types.Mixed, required: true },
           alcoholDrinker: {
