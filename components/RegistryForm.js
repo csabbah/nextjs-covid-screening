@@ -71,6 +71,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     });
 
     setDisplayErr(true);
+    setSigEmpty(dataEmpty.isEmpty());
 
     // setShowForm(3);
     // router.push('/form-completed');
@@ -78,6 +79,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
 
   // Trims the Signature field
   let captureSignature = {};
+  let dataEmpty = {};
   const trim = () => {
     setSignatureImg({
       trimmedDataURL: captureSignature
@@ -85,6 +87,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         .toDataURL('image/png'),
     });
   };
+
   // State object to contain signature image URL
   const [signatureImg, setSignatureImg] = useState('');
 
@@ -92,6 +95,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
   const clear = () => {
     captureSignature.clear();
   };
+  const [sigEmpty, setSigEmpty] = useState(false);
 
   const switchCheck = (e, index) => {
     let checkBoxAction = e.className.split(' ')[0];
@@ -175,6 +179,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
   const [displayErr, setDisplayErr] = useState(false);
 
   const [submitReady, setSubmitReady] = useState(false);
+
   useEffect(() => {});
 
   return (
@@ -1273,6 +1278,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                 backgroundColor="rgba(0,0,0, 0.1)"
                 ref={(ref) => {
                   captureSignature = ref;
+                  dataEmpty = ref;
                 }}
                 canvasProps={{
                   width: 350,
@@ -1280,6 +1286,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   className: 'sigCanvas',
                 }}
               />
+              {displayErr && sigEmpty && (
+                <p className={styles.errorMsgSig}>Missing Data</p>
+              )}
               <button
                 className={`${styles.buttons} ${styles.clearSig}`}
                 onClick={clear}
@@ -1316,14 +1325,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             </div>
           </div>
         </div>
-        {signatureImg && (
+        {/* {signatureImg && (
           <Image
             src={signatureImg.trimmedDataURL}
             width={100}
             height={100}
             alt="captureSignature"
           />
-        )}
+        )} */}
         <button onClick={trim} className={styles.submitBtn} type="submit">
           Submit
         </button>

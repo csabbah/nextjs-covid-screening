@@ -171,6 +171,12 @@
   margin-bottom: 0;
 }
 
+.errorMsgSig {
+  color: red;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
 .mainErrorMsg {
   position: absolute;
   bottom: -35px;
