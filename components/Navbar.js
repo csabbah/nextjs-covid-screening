@@ -13,22 +13,6 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <p className={styles.header}>Screening and Registration</p>
-      {/* <Link href="/" passHref>
-        <li
-          style={{ color: endpointName == '/' ? 'black' : 'red' }}
-          className={`${styles.listItem}`}
-        >
-          Home
-        </li>
-      </Link>
-      <Link href="/admin" passHref>
-        <li
-          style={{ color: endpointName == '/admin' ? 'black' : 'red' }}
-          className={`${styles.listItem}`}
-        >
-          Admin
-        </li>
-      </Link> */}
     </div>
   );
 };

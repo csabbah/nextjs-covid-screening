@@ -243,6 +243,8 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           : ''
         : setSubmitReady(true);
     }
+
+    console.log(submitReady);
   });
 
   return (

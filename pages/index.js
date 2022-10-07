@@ -3,7 +3,7 @@ import axios from 'axios';
 import { server } from '../utils/config';
 import Forms from '../components/Forms';
 
-export default function Home({ patients }) {
+export default function Home({}) {
   return (
     <div>
       <Head>
@@ -15,19 +15,17 @@ export default function Home({ patients }) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        <Forms />
-      </div>
+      <Forms />
     </div>
   );
 }
 
-export const getServerSideProps = async () => {
-  const patientData = await axios.get(`${server}/api/patients`);
+// export const getServerSideProps = async () => {
+//   const patientData = await axios.get(`${server}/api/patients`);
 
-  return {
-    props: {
-      patients: patientData.data,
-    },
-  };
-};
+//   return {
+//     props: {
+//       patients: patientData.data,
+//     },
+//   };
+// };
