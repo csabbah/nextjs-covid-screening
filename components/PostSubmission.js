@@ -3,20 +3,21 @@ import styles from '../styles/NextStep.module.css';
 import axios from 'axios';
 
 const RegistrationForm = ({ formData }) => {
-  const handleCreate = async (data) => {
+  const handleCreate = async () => {
+    console.log(formData, 'tesu');
+
     try {
-      let res = await axios.post(`http://localhost:3000/api/patients`, {
-        data,
-      });
-      console.log(res);
+      await axios.post(`http://localhost:3000/api/patients`, formData);
     } catch (err) {
       console.log(err);
     }
   };
-  handleCreate(formData);
 
   return (
-    <div className={styles.container}>Thank you for filling the form.</div>
+    <div>
+      <div className={styles.container}>Thank you for filling the form.</div>
+      <button onClick={() => handleCreate()}>Upload</button>
+    </div>
   );
 };
 

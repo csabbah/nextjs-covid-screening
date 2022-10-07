@@ -22,8 +22,10 @@ export default async function handler(req, res) {
     // if (!token || token !== process.env.TOKEN) {
     //   return res.status(401).json('Not authenticated');
     // }
+    console.log('Post method executed');
     try {
       const patient = await Patient.create(req.body);
+      console.log(patient);
       res.status(201).json(patient);
     } catch (err) {
       res.status(500).json(err);

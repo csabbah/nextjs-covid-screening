@@ -75,9 +75,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
 
     // Signature image ==  signatureImg.trimmedDataURL;
 
-    if (submitReady) {
-      setShowForm(3);
-    }
+    // if (submitReady) {
+    setShowForm(3);
+    // }
     // router.push('/form-completed');
   };
 
@@ -185,64 +185,60 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
   const [submitReady, setSubmitReady] = useState(false);
 
   useEffect(() => {
-    {
-      formData.registryData.date == '' ||
-      sigEmpty ||
-      formData.registryData.medicalHistory.allergies == null ||
-      formData.registryData.medicalHistory.staph == null ||
-      formData.registryData.medicalHistory.alcoholDrinker == null ||
-      formData.registryData.medicalHistory.smoker == null ||
-      formData.registryData.medicalHistory.lastPhysical == '' ||
-      formData.registryData.medicalHistory.weight > 1000 ||
-      formData.registryData.medicalHistory.weight < 1 ||
-      formData.registryData.medicalHistory.height > 1000 ||
-      formData.registryData.medicalHistory.height < 10 ||
-      formData.registryData.emergencyContact.cellNum == '' ||
-      formData.registryData.emergencyContact.workNum == '' ||
-      formData.registryData.emergencyContact.phoneNum == '' ||
-      formData.registryData.emergencyContact.address == '' ||
-      formData.registryData.emergencyContact.relationship == '' ||
-      formData.registryData.emergencyContact.fullName == '' ||
-      formData.registryData.hearAboutUs == '' ||
-      formData.registryData.reasonForConsult == '' ||
-      formData.registryData.maritalStat == '' ||
-      formData.registryData.occupation == '' ||
-      formData.registryData.email == '' ||
-      formData.registryData.cellNum == '' ||
-      formData.registryData.workNum == '' ||
-      formData.registryData.homeNum == '' ||
-      formData.registryData.DOB == '' ||
-      formData.registryData.address == '' ||
-      formData.registryData.sex == '' ||
-      formData.registryData.age < 1 ||
-      formData.registryData.age > 150 ||
-      formData.registryData.fullName == ''
+    formData.registryData.date == '' ||
+    sigEmpty ||
+    formData.registryData.medicalHistory.allergies == null ||
+    formData.registryData.medicalHistory.staph == null ||
+    formData.registryData.medicalHistory.alcoholDrinker == null ||
+    formData.registryData.medicalHistory.smoker == null ||
+    formData.registryData.medicalHistory.lastPhysical == '' ||
+    formData.registryData.medicalHistory.weight > 1000 ||
+    formData.registryData.medicalHistory.weight < 1 ||
+    formData.registryData.medicalHistory.height > 1000 ||
+    formData.registryData.medicalHistory.height < 10 ||
+    formData.registryData.emergencyContact.cellNum == '' ||
+    formData.registryData.emergencyContact.workNum == '' ||
+    formData.registryData.emergencyContact.phoneNum == '' ||
+    formData.registryData.emergencyContact.address == '' ||
+    formData.registryData.emergencyContact.relationship == '' ||
+    formData.registryData.emergencyContact.fullName == '' ||
+    formData.registryData.hearAboutUs == '' ||
+    formData.registryData.reasonForConsult == '' ||
+    formData.registryData.maritalStat == '' ||
+    formData.registryData.occupation == '' ||
+    formData.registryData.email == '' ||
+    formData.registryData.cellNum == '' ||
+    formData.registryData.workNum == '' ||
+    formData.registryData.homeNum == '' ||
+    formData.registryData.DOB == '' ||
+    formData.registryData.address == '' ||
+    formData.registryData.sex == '' ||
+    formData.registryData.age < 1 ||
+    formData.registryData.age > 150 ||
+    formData.registryData.fullName == ''
+      ? setSubmitReady(false)
+      : formData.registryData.medicalHistory.staph != null &&
+        formData.registryData.medicalHistory.staph != 'no' &&
+        formData.registryData.medicalHistory.staph.length < 1
+      ? setSubmitReady(false)
+      : formData.registryData.medicalHistory.allergies != null &&
+        formData.registryData.medicalHistory.allergies != 'no' &&
+        formData.registryData.medicalHistory.allergies.length < 1
+      ? setSubmitReady(false)
+      : formData.registryData.medicalHistory.alcoholDrinker != null &&
+        formData.registryData.medicalHistory.alcoholDrinker != 'no'
+      ? formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks < 1 ||
+        formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks > 100
         ? setSubmitReady(false)
-        : formData.registryData.medicalHistory.staph != null &&
-          formData.registryData.medicalHistory.staph != 'no' &&
-          formData.registryData.medicalHistory.staph.length < 1
+        : ''
+      : formData.registryData.medicalHistory.smoker != null &&
+        formData.registryData.medicalHistory.smoker != 'no'
+      ? formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
+        formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
+        formData.registryData.medicalHistory.smoker.howLong == ''
         ? setSubmitReady(false)
-        : formData.registryData.medicalHistory.allergies != null &&
-          formData.registryData.medicalHistory.allergies != 'no' &&
-          formData.registryData.medicalHistory.allergies.length < 1
-        ? setSubmitReady(false)
-        : formData.registryData.medicalHistory.alcoholDrinker != null &&
-          formData.registryData.medicalHistory.alcoholDrinker != 'no'
-        ? formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks <
-            1 ||
-          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks >
-            100
-          ? setSubmitReady(false)
-          : ''
-        : formData.registryData.medicalHistory.smoker != null &&
-          formData.registryData.medicalHistory.smoker != 'no'
-        ? formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
-          formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
-          formData.registryData.medicalHistory.smoker.howLong == ''
-          ? setSubmitReady(false)
-          : ''
-        : setSubmitReady(true);
-    }
+        : ''
+      : setSubmitReady(true);
 
     console.log(submitReady);
   });
