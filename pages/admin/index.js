@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { server } from '../../utils/config.js';
 
 const Index = ({ userData }) => {
+  console.log(userData);
   const router = useRouter();
 
   const logout = async () => {
@@ -53,7 +54,7 @@ export const getServerSideProps = async (ctx) => {
       },
     };
   }
-  const users = await axios.get(`${server}/api/users`);
+  const users = await axios.get(`${server}/api/patients`);
 
   return {
     props: {

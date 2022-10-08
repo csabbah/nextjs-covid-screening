@@ -5,7 +5,7 @@ import RegistryForm from './RegistryForm';
 import PostSubmission from './PostSubmission';
 
 const Forms = () => {
-  const [showForm, setShowForm] = useState(1);
+  const [showForm, setShowForm] = useState(2);
   const [formData, setFormData] = useState({
     screeningData: {
       firstName: '',

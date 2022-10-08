@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/RegistryForm.module.css';
 import { useRouter } from 'next/router';
 import SignatureCanvas from 'react-signature-canvas';
-import Image from 'next/image';
 
 const RegistryForm = ({ formData, setFormData, setShowForm }) => {
   const router = useRouter();
