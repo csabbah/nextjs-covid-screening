@@ -50,6 +50,62 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
 
   const [otherCond, setOtherCond] = useState('');
 
+  const checkData = () => {
+    formData.registryData.date == '' ||
+    sigEmpty ||
+    formData.registryData.medicalHistory.allergies == null ||
+    formData.registryData.medicalHistory.staph == null ||
+    formData.registryData.medicalHistory.alcoholDrinker == null ||
+    formData.registryData.medicalHistory.smoker == null ||
+    formData.registryData.medicalHistory.lastPhysical == '' ||
+    formData.registryData.medicalHistory.weight > 1000 ||
+    formData.registryData.medicalHistory.weight < 1 ||
+    formData.registryData.medicalHistory.height > 1000 ||
+    formData.registryData.medicalHistory.height < 10 ||
+    formData.registryData.emergencyContact.cellNum == '' ||
+    formData.registryData.emergencyContact.workNum == '' ||
+    formData.registryData.emergencyContact.phoneNum == '' ||
+    formData.registryData.emergencyContact.address == '' ||
+    formData.registryData.emergencyContact.relationship == '' ||
+    formData.registryData.emergencyContact.fullName == '' ||
+    formData.registryData.hearAboutUs == '' ||
+    formData.registryData.reasonForConsult == '' ||
+    formData.registryData.maritalStat == '' ||
+    formData.registryData.occupation == '' ||
+    formData.registryData.email == '' ||
+    formData.registryData.cellNum == '' ||
+    formData.registryData.workNum == '' ||
+    formData.registryData.homeNum == '' ||
+    formData.registryData.DOB == '' ||
+    formData.registryData.address == '' ||
+    formData.registryData.sex == '' ||
+    formData.registryData.age < 1 ||
+    formData.registryData.age > 150 ||
+    formData.registryData.fullName == ''
+      ? ''
+      : formData.registryData.medicalHistory.staph != null &&
+        formData.registryData.medicalHistory.staph != 'no' &&
+        formData.registryData.medicalHistory.staph.length < 1
+      ? ''
+      : formData.registryData.medicalHistory.allergies != null &&
+        formData.registryData.medicalHistory.allergies != 'no' &&
+        formData.registryData.medicalHistory.allergies.length < 1
+      ? ''
+      : formData.registryData.medicalHistory.alcoholDrinker != null &&
+        formData.registryData.medicalHistory.alcoholDrinker != 'no'
+      ? formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks < 1 ||
+        formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks > 100
+        ? ''
+        : ''
+      : formData.registryData.medicalHistory.smoker != null &&
+        formData.registryData.medicalHistory.smoker != 'no'
+      ? formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
+        formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
+        formData.registryData.medicalHistory.smoker.howLong == ''
+        ? ''
+        : ''
+      : setShowForm(3);
+  };
   const handleSecondSubmit = (e) => {
     e.preventDefault();
 
@@ -72,12 +128,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     setDisplayErr(true);
     setSigEmpty(dataEmpty.isEmpty());
 
-    // Signature image ==  signatureImg.trimmedDataURL;
+    checkData();
 
-    // if (submitReady) {
-    setShowForm(3);
-    // }
-    // router.push('/form-completed');
+    // Signature image ==  signatureImg.trimmedDataURL;
   };
 
   // Trims the Signature field
@@ -180,66 +233,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
   };
 
   const [displayErr, setDisplayErr] = useState(false);
-
   const [submitReady, setSubmitReady] = useState(false);
 
   useEffect(() => {
-    formData.registryData.date == '' ||
-    sigEmpty ||
-    formData.registryData.medicalHistory.allergies == null ||
-    formData.registryData.medicalHistory.staph == null ||
-    formData.registryData.medicalHistory.alcoholDrinker == null ||
-    formData.registryData.medicalHistory.smoker == null ||
-    formData.registryData.medicalHistory.lastPhysical == '' ||
-    formData.registryData.medicalHistory.weight > 1000 ||
-    formData.registryData.medicalHistory.weight < 1 ||
-    formData.registryData.medicalHistory.height > 1000 ||
-    formData.registryData.medicalHistory.height < 10 ||
-    formData.registryData.emergencyContact.cellNum == '' ||
-    formData.registryData.emergencyContact.workNum == '' ||
-    formData.registryData.emergencyContact.phoneNum == '' ||
-    formData.registryData.emergencyContact.address == '' ||
-    formData.registryData.emergencyContact.relationship == '' ||
-    formData.registryData.emergencyContact.fullName == '' ||
-    formData.registryData.hearAboutUs == '' ||
-    formData.registryData.reasonForConsult == '' ||
-    formData.registryData.maritalStat == '' ||
-    formData.registryData.occupation == '' ||
-    formData.registryData.email == '' ||
-    formData.registryData.cellNum == '' ||
-    formData.registryData.workNum == '' ||
-    formData.registryData.homeNum == '' ||
-    formData.registryData.DOB == '' ||
-    formData.registryData.address == '' ||
-    formData.registryData.sex == '' ||
-    formData.registryData.age < 1 ||
-    formData.registryData.age > 150 ||
-    formData.registryData.fullName == ''
-      ? setSubmitReady(false)
-      : formData.registryData.medicalHistory.staph != null &&
-        formData.registryData.medicalHistory.staph != 'no' &&
-        formData.registryData.medicalHistory.staph.length < 1
-      ? setSubmitReady(false)
-      : formData.registryData.medicalHistory.allergies != null &&
-        formData.registryData.medicalHistory.allergies != 'no' &&
-        formData.registryData.medicalHistory.allergies.length < 1
-      ? setSubmitReady(false)
-      : formData.registryData.medicalHistory.alcoholDrinker != null &&
-        formData.registryData.medicalHistory.alcoholDrinker != 'no'
-      ? formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks < 1 ||
-        formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks > 100
-        ? setSubmitReady(false)
-        : ''
-      : formData.registryData.medicalHistory.smoker != null &&
-        formData.registryData.medicalHistory.smoker != 'no'
-      ? formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
-        formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
-        formData.registryData.medicalHistory.smoker.howLong == ''
-        ? setSubmitReady(false)
-        : ''
-      : setSubmitReady(true);
-
-    console.log(submitReady);
+    checkData();
   });
 
   return (
@@ -1322,7 +1319,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         </div>
         <div className={`${styles.signWrapper} ${styles.fullCol}`}>
           <div className={styles.signInnerWrapper}>
-            <div className={styles.signInnerItems}>
+            <div
+              onMouseDown={() => setSigEmpty(dataEmpty.isEmpty())}
+              className={styles.signInnerItems}
+            >
               <label>Signature</label>
               <SignatureCanvas
                 penColor="black"
@@ -1446,7 +1446,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         ) : (
           ''
         )}
-
         <button onClick={trim} className={styles.submitBtn} type="submit">
           Submit
         </button>

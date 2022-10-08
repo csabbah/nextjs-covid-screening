@@ -38,6 +38,26 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
   const [checkOptions, setCheckOptions] = useState(0);
   const [displayErr, setDisplayErr] = useState(false);
 
+  const checkData = () => {
+    anySymptoms == '' ||
+    (anySymptoms != 'no' && anySymptoms != '' && checkOptions < 1) ||
+    proofOfVaccine == '' ||
+    (proofOfVaccine != null && proofOfVaccine.vaccineQuantity == '') ||
+    (proofOfVaccine != null && proofOfVaccine.vaccineQuantity > 6) ||
+    (proofOfVaccine != null && proofOfVaccine.certificateFile == '') ||
+    firstName == '' ||
+    lastName == '' ||
+    dateOfVisit == '' ||
+    CallToIsolate == '' ||
+    olderAndExpSym == '' ||
+    covidPositive == '' ||
+    positiveRapid == '' ||
+    anySymptoms == undefined ||
+    (anySymptoms != 'no' && anySymptoms != '' && checkedSymptoms.length < 1)
+      ? ''
+      : setShowForm(2);
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -55,9 +75,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
     setDisplayErr(true);
 
     // Switch Forms
-    if (submitReady) {
-      setShowForm(2);
-    }
+    checkData();
   }
 
   const displayItems = (id, index) => {
@@ -120,25 +138,8 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
     }
   };
 
-  const [submitReady, setSubmitReady] = useState(false);
   useEffect(() => {
-    anySymptoms == '' ||
-    (anySymptoms != 'no' && anySymptoms != '' && checkOptions < 1) ||
-    proofOfVaccine == '' ||
-    (proofOfVaccine != null && proofOfVaccine.vaccineQuantity == '') ||
-    (proofOfVaccine != null && proofOfVaccine.vaccineQuantity > 6) ||
-    (proofOfVaccine != null && proofOfVaccine.certificateFile == '') ||
-    firstName == '' ||
-    lastName == '' ||
-    dateOfVisit == '' ||
-    CallToIsolate == '' ||
-    olderAndExpSym == '' ||
-    covidPositive == '' ||
-    positiveRapid == '' ||
-    anySymptoms == undefined ||
-    (anySymptoms != 'no' && anySymptoms != '' && checkedSymptoms.length < 1)
-      ? ''
-      : setSubmitReady(true);
+    checkData();
   });
 
   return (
