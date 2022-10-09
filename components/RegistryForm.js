@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/RegistryForm.module.css';
-import { useRouter } from 'next/router';
 import SignatureCanvas from 'react-signature-canvas';
+import axios from 'axios';
 
 const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
   const [alcohol, setAlcohol] = useState(false);
@@ -47,6 +47,34 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
   };
 
   const [otherCond, setOtherCond] = useState('');
+
+  const extractImg = async () => {
+    const data = new FormData();
+    data.append('file', formData.registryData.signature);
+    data.append('upload_preset', 'uploads');
+
+    try {
+      const uploadRes = await axios.post(
+        // csabbah is our Cloud name (Can be found in the Cloudinary/Dashboard)
+        'https://api.cloudinary.com/v1_1/csabbah/image/upload',
+        data
+      );
+
+      // Extract the cloud link (that was generated above)
+      const { url } = uploadRes.data;
+
+      // Update the formData and include the newly generated cloudinary link for the signature
+      setFormData({
+        ...formData,
+        registryData: {
+          ...formData.registryData,
+          signature: url,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const checkData = () => {
     if (
@@ -121,6 +149,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
         return setSubmitted(false);
       }
     }
+
+    // Take the signature, push it and extract the image direct link via cloudinary
+    // Then update the formData with that link
+    extractImg();
     setShowForm(3);
   };
 

@@ -73,11 +73,7 @@ const Forms = () => {
           formData={formData}
         />
       ) : (
-        <PostSubmission
-          setFormData={setFormData}
-          formData={formData}
-          className={styles.container}
-        />
+        <PostSubmission formData={formData} className={styles.container} />
       )}
     </div>
   );
