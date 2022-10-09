@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/ScreeningForm.module.css';
 
-const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
+const ScreeningForm = ({ setShowForm, formData, setFormData, setAlert }) => {
   const {
     proofOfVaccine,
     firstName,
@@ -37,25 +37,30 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
   const [checkedSymptoms, setCheckedSymptoms] = useState([]);
   const [checkOptions, setCheckOptions] = useState(0);
   const [displayErr, setDisplayErr] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const checkData = () => {
-    anySymptoms == '' ||
-    (anySymptoms != 'no' && anySymptoms != '' && checkOptions < 1) ||
-    proofOfVaccine == '' ||
-    (proofOfVaccine != null && proofOfVaccine.vaccineQuantity == '') ||
-    (proofOfVaccine != null && proofOfVaccine.vaccineQuantity > 6) ||
-    (proofOfVaccine != null && proofOfVaccine.certificateFile == '') ||
-    firstName == '' ||
-    lastName == '' ||
-    dateOfVisit == '' ||
-    CallToIsolate == '' ||
-    olderAndExpSym == '' ||
-    covidPositive == '' ||
-    positiveRapid == '' ||
-    anySymptoms == undefined ||
-    (anySymptoms != 'no' && anySymptoms != '' && checkedSymptoms.length < 1)
-      ? ''
-      : setShowForm(2);
+    if (
+      anySymptoms == '' ||
+      (anySymptoms != 'no' && anySymptoms != '' && checkOptions < 1) ||
+      proofOfVaccine == '' ||
+      (proofOfVaccine != null && proofOfVaccine.vaccineQuantity == '') ||
+      (proofOfVaccine != null && proofOfVaccine.vaccineQuantity > 6) ||
+      (proofOfVaccine != null && proofOfVaccine.certificateFile == '') ||
+      firstName == '' ||
+      lastName == '' ||
+      dateOfVisit == '' ||
+      CallToIsolate == '' ||
+      olderAndExpSym == '' ||
+      covidPositive == '' ||
+      positiveRapid == '' ||
+      anySymptoms == undefined ||
+      (anySymptoms != 'no' && anySymptoms != '' && checkedSymptoms.length < 1)
+    ) {
+      return setSubmitted(false);
+    }
+
+    setShowForm(2);
   };
 
   function handleSubmit(e) {
@@ -75,7 +80,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
     setDisplayErr(true);
 
     // Switch Forms
-    checkData();
+    setSubmitted(true);
   }
 
   const displayItems = (id, index) => {
@@ -139,7 +144,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
   };
 
   useEffect(() => {
-    checkData();
+    submitted ? checkData() : '';
   });
 
   return (
