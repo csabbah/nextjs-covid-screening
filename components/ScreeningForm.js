@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/ScreeningForm.module.css';
 
-const ScreeningForm = ({ setShowForm, formData, setFormData, setAlert }) => {
+const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
   const {
     proofOfVaccine,
     firstName,

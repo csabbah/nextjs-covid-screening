@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from '../styles/NextStep.module.css';
 import axios from 'axios';
 import { server } from '../utils/config.js';
@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 const RegistrationForm = ({ formData }) => {
   const router = useRouter();
 
-  console.log(formData);
   const uploadPatient = async () => {
     try {
       await axios.post(`${server}/api/patients`, formData);
@@ -17,7 +16,7 @@ const RegistrationForm = ({ formData }) => {
     }
   };
 
-  // setState from previous form (RegistryForm/line 67) is one step behind, thus, we make sure
+  // setState from previous form (RegistryForm/line 92) is one step behind, thus, we make sure
   // to only upload the most recent data (which does not include 'data:image')
   if (!formData.registryData.signature.includes('data:image')) {
     uploadPatient();

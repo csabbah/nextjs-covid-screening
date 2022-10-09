@@ -3,7 +3,7 @@ import styles from '../styles/RegistryForm.module.css';
 import SignatureCanvas from 'react-signature-canvas';
 import axios from 'axios';
 
-const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
+const RegistryForm = ({ formData, setFormData, setShowForm }) => {
   const [showAlcohol, setShowAlcohol] = useState(false);
   const [showSmoke, setShowSmoke] = useState(false);
   const [showAllergy, setShowAllergy] = useState(false);
