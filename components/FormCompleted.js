@@ -5,7 +5,7 @@ const FormCompleted = () => {
   return (
     <div>
       <div className={styles.container}>
-        Your data has successfully submitted!
+        Thank you for filling the forms, your information has been submitted!
       </div>
     </div>
   );

@@ -82,21 +82,21 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
       formData.registryData.age > 150 ||
       formData.registryData.fullName == ''
     ) {
-      return setSubmitted(true);
+      return setSubmitted(false);
     }
     if (
       formData.registryData.medicalHistory.staph != null &&
       formData.registryData.medicalHistory.staph != 'no' &&
       formData.registryData.medicalHistory.staph.length < 1
     ) {
-      return setSubmitted(true);
+      return setSubmitted(false);
     }
     if (
       formData.registryData.medicalHistory.allergies != null &&
       formData.registryData.medicalHistory.allergies != 'no' &&
       formData.registryData.medicalHistory.allergies.length < 1
     ) {
-      return setSubmitted(true);
+      return setSubmitted(false);
     }
     if (
       formData.registryData.medicalHistory.alcoholDrinker != null &&
@@ -106,7 +106,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
         formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks < 1 ||
         formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks > 100
       ) {
-        return setSubmitted(true);
+        return setSubmitted(false);
       }
     }
     if (
@@ -118,7 +118,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
         formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
         formData.registryData.medicalHistory.smoker.howLong == ''
       ) {
-        return setSubmitted(true);
+        return setSubmitted(false);
       }
     }
     setShowForm(3);
@@ -134,6 +134,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
       ...formData,
       registryData: {
         ...formData.registryData,
+        signature: signatureImg.trimmedDataURL,
         medicalHistory: {
           ...formData.registryData.medicalHistory,
           medicalConditions: {
@@ -148,7 +149,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
     setSigEmpty(dataEmpty.isEmpty());
 
     setSubmitted(true);
-    // Signature image ==  signatureImg.trimmedDataURL;
   };
 
   // Trims the Signature field
