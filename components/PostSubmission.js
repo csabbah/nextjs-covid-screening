@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 const RegistrationForm = ({ formData }) => {
   const router = useRouter();
 
+  console.log(formData);
   const uploadPatient = async () => {
     try {
       await axios.post(`${server}/api/patients`, formData);

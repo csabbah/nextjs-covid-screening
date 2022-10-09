@@ -4,10 +4,35 @@ import SignatureCanvas from 'react-signature-canvas';
 import axios from 'axios';
 
 const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
-  const [alcohol, setAlcohol] = useState(false);
-  const [smoke, setSmoke] = useState(false);
-  const [allergies, setAllergy] = useState(false);
-  const [staph, setStaph] = useState(false);
+  const [showAlcohol, setShowAlcohol] = useState(false);
+  const [showSmoke, setShowSmoke] = useState(false);
+  const [showAllergy, setShowAllergy] = useState(false);
+  const [showStaph, setShowStaph] = useState(false);
+
+  const {
+    allergies,
+    staph,
+    alcoholDrinker,
+    smoker,
+    lastPhysical,
+    weight,
+    height,
+  } = formData.registryData.medicalHistory;
+
+  const { cellNum, workNum, phoneNum, address, relationship, fullName } =
+    formData.registryData.emergencyContact;
+
+  const {
+    hearAboutUs,
+    reasonForConsult,
+    maritalStat,
+    occupation,
+    email,
+    homeNum,
+    DOB,
+    sex,
+    age,
+  } = formData.registryData;
 
   const medicalConditions = [
     'Angina/chest pain',
@@ -80,71 +105,57 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
     if (
       formData.registryData.date == '' ||
       sigEmpty ||
-      formData.registryData.medicalHistory.allergies == null ||
-      formData.registryData.medicalHistory.staph == null ||
-      formData.registryData.medicalHistory.alcoholDrinker == null ||
-      formData.registryData.medicalHistory.smoker == null ||
-      formData.registryData.medicalHistory.lastPhysical == '' ||
-      formData.registryData.medicalHistory.weight > 1000 ||
-      formData.registryData.medicalHistory.weight < 1 ||
-      formData.registryData.medicalHistory.height > 1000 ||
-      formData.registryData.medicalHistory.height < 10 ||
-      formData.registryData.emergencyContact.cellNum == '' ||
-      formData.registryData.emergencyContact.workNum == '' ||
-      formData.registryData.emergencyContact.phoneNum == '' ||
-      formData.registryData.emergencyContact.address == '' ||
-      formData.registryData.emergencyContact.relationship == '' ||
-      formData.registryData.emergencyContact.fullName == '' ||
-      formData.registryData.hearAboutUs == '' ||
-      formData.registryData.reasonForConsult == '' ||
-      formData.registryData.maritalStat == '' ||
-      formData.registryData.occupation == '' ||
-      formData.registryData.email == '' ||
+      allergies == null ||
+      staph == null ||
+      alcoholDrinker == null ||
+      smoker == null ||
+      lastPhysical == '' ||
+      weight > 1000 ||
+      weight < 1 ||
+      height > 1000 ||
+      height < 10 ||
+      cellNum == '' ||
+      workNum == '' ||
+      phoneNum == '' ||
+      address == '' ||
+      relationship == '' ||
+      fullName == '' ||
+      hearAboutUs == '' ||
+      reasonForConsult == '' ||
+      maritalStat == '' ||
+      occupation == '' ||
+      email == '' ||
       formData.registryData.cellNum == '' ||
       formData.registryData.workNum == '' ||
-      formData.registryData.homeNum == '' ||
-      formData.registryData.DOB == '' ||
+      homeNum == '' ||
+      DOB == '' ||
       formData.registryData.address == '' ||
-      formData.registryData.sex == '' ||
-      formData.registryData.age < 1 ||
-      formData.registryData.age > 150 ||
-      formData.registryData.fullName == ''
+      sex == '' ||
+      age < 1 ||
+      age > 150 ||
+      fullName == ''
     ) {
       return setSubmitted(false);
     }
-    if (
-      formData.registryData.medicalHistory.staph != null &&
-      formData.registryData.medicalHistory.staph != 'no' &&
-      formData.registryData.medicalHistory.staph.length < 1
-    ) {
+    if (staph != null && staph != 'no' && staph.length < 1) {
       return setSubmitted(false);
     }
-    if (
-      formData.registryData.medicalHistory.allergies != null &&
-      formData.registryData.medicalHistory.allergies != 'no' &&
-      formData.registryData.medicalHistory.allergies.length < 1
-    ) {
+    if (allergies != null && allergies != 'no' && allergies.length < 1) {
       return setSubmitted(false);
     }
-    if (
-      formData.registryData.medicalHistory.alcoholDrinker != null &&
-      formData.registryData.medicalHistory.alcoholDrinker != 'no'
-    ) {
+    if (alcoholDrinker != null && alcoholDrinker != 'no') {
       if (
-        formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks < 1 ||
-        formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks > 100
+        alcoholDrinker.howManyDrinks < 1 ||
+        alcoholDrinker.howManyDrinks > 100
       ) {
         return setSubmitted(false);
       }
     }
-    if (
-      formData.registryData.medicalHistory.smoker != null &&
-      formData.registryData.medicalHistory.smoker != 'no'
-    ) {
+    if (smoker != null && smoker != 'no') {
       if (
-        formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
-        formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
-        formData.registryData.medicalHistory.smoker.howLong == ''
+        smoker.packsPerDay < 1 ||
+        smoker.packsPerDay > 50 ||
+        smoker.howLong == ''
       ) {
         return setSubmitted(false);
       }
@@ -209,18 +220,18 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
 
     if (checkBoxAction == 'yes') {
       if (checkBoxSection == 'alcohol') {
-        setAlcohol(!alcohol);
+        setShowAlcohol(!showAlcohol);
       }
       if (checkBoxSection == 'staph') {
-        setStaph(!staph);
+        setShowStaph(!showStaph);
       }
 
       if (checkBoxSection == 'smoke') {
-        setSmoke(!smoke);
+        setShowSmoke(!showSmoke);
       }
 
       if (checkBoxSection == 'allergies') {
-        setAllergy(!allergies);
+        setShowAllergy(!showAllergy);
       }
     }
     if (
@@ -228,36 +239,36 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
       document.querySelector(`.${checkBoxSection}`).checked
     ) {
       if (checkBoxSection == 'alcohol') {
-        setAlcohol(true);
+        setShowAlcohol(true);
       }
       if (checkBoxSection == 'staph') {
-        setStaph(true);
+        setShowStaph(true);
       }
 
       if (checkBoxSection == 'smoke') {
-        setSmoke(true);
+        setShowSmoke(true);
       }
 
       if (checkBoxSection == 'allergies') {
-        setAllergy(true);
+        setShowAllergy(true);
       }
       document.querySelectorAll(`.no`)[index].checked = false;
     }
 
     if (checkBoxAction == 'no') {
       if (checkBoxSection == 'alcohol') {
-        setAlcohol(false);
+        setShowAlcohol(false);
       }
       if (checkBoxSection == 'staph') {
-        setStaph(false);
+        setShowStaph(false);
       }
 
       if (checkBoxSection == 'smoke') {
-        setSmoke(false);
+        setShowSmoke(false);
       }
 
       if (checkBoxSection == 'allergies') {
-        setAllergy(false);
+        setShowAllergy(false);
       }
     }
     if (
@@ -265,27 +276,27 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
       document.querySelector(`.${checkBoxSection}`).checked
     ) {
       if (checkBoxSection == 'alcohol') {
-        setAlcohol(false);
+        setShowAlcohol(false);
       }
       if (checkBoxSection == 'staph') {
-        setStaph(false);
+        setShowStaph(false);
       }
 
       if (checkBoxSection == 'smoke') {
-        setSmoke(false);
+        setShowSmoke(false);
       }
 
       if (checkBoxSection == 'allergies') {
-        setAllergy(false);
+        setShowAllergy(false);
       }
       document.querySelectorAll(`.yes`)[index].checked = false;
     }
   };
 
   const [displayErr, setDisplayErr] = useState(false);
-  const [submitReady, setSubmitReady] = useState(false);
 
   useEffect(() => {
+    // Check first if user submitted the form
     submitted ? checkData() : '';
   });
 
@@ -310,7 +321,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="John Doe"
             type="text"
           />
-          {displayErr && formData.registryData.fullName == '' && (
+          {displayErr && fullName == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -331,11 +342,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="29"
             type="number"
           />
-          {displayErr &&
-            (formData.registryData.age < 1 ||
-              formData.registryData.age > 150) && (
-              <p className={styles.errorMsg}>Missing or Invalid Data</p>
-            )}
+          {displayErr && (age < 1 || age > 150) && (
+            <p className={styles.errorMsg}>Missing or Invalid Data</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="sex">Sex:</label>
@@ -363,7 +372,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
               Non Binary
             </option>
           </select>
-          {displayErr && formData.registryData.sex == '' && (
+          {displayErr && sex == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -405,7 +414,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder=""
             type="text"
           />
-          {displayErr && formData.registryData.DOB == '' && (
+          {displayErr && DOB == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -426,7 +435,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="435 544 3953"
             type="text"
           />
-          {displayErr && formData.registryData.homeNum == '' && (
+          {displayErr && homeNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -489,7 +498,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="Youremail@gmail.com"
             type="text"
           />
-          {displayErr && formData.registryData.email == '' && (
+          {displayErr && email == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -510,7 +519,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="Web Developer"
             type="text"
           />
-          {displayErr && formData.registryData.occupation == '' && (
+          {displayErr && occupation == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -550,7 +559,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
               Prefer not to say
             </option>
           </select>
-          {displayErr && formData.registryData.maritalStat == '' && (
+          {displayErr && maritalStat == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -573,7 +582,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="Need more inquiry"
             type="text"
           />
-          {displayErr && formData.registryData.reasonForConsult == '' && (
+          {displayErr && reasonForConsult == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -595,7 +604,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="YouTube Ad"
             type="text"
           />
-          {displayErr && formData.registryData.hearAboutUs == '' && (
+          {displayErr && hearAboutUs == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -621,10 +630,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="John Doe"
             type="text"
           />
-          {displayErr &&
-            formData.registryData.emergencyContact.fullName == '' && (
-              <p className={styles.errorMsg}>Missing Data</p>
-            )}
+          {displayErr && fullName == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
         <div className={styles.inputWrapper}>
           <label htmlFor="rely">Relationship:</label>
@@ -646,10 +654,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="Father"
             type="text"
           />
-          {displayErr &&
-            formData.registryData.emergencyContact.relationship == '' && (
-              <p className={styles.errorMsg}>Missing Data</p>
-            )}
+          {displayErr && relationship == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="emergeAddress">Address:</label>
@@ -671,10 +678,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="42 Crescent Dr"
             type="text"
           />
-          {displayErr &&
-            formData.registryData.emergencyContact.address == '' && (
-              <p className={styles.errorMsg}>Missing Data</p>
-            )}
+          {displayErr && address == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergePhone">Phone #</label>
@@ -696,10 +702,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="435 544 3953"
             type="text"
           />
-          {displayErr &&
-            formData.registryData.emergencyContact.phoneNum == '' && (
-              <p className={styles.errorMsg}>Missing Data</p>
-            )}
+          {displayErr && phoneNum == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeWork">Work #</label>
@@ -721,10 +726,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="416 134 5266"
             type="text"
           />
-          {displayErr &&
-            formData.registryData.emergencyContact.workNum == '' && (
-              <p className={styles.errorMsg}>Missing Data</p>
-            )}
+          {displayErr && workNum == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeCell">Cell #</label>
@@ -746,10 +750,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="905 562 6353"
             type="text"
           />
-          {displayErr &&
-            formData.registryData.emergencyContact.cellNum == '' && (
-              <p className={styles.errorMsg}>Missing Data</p>
-            )}
+          {displayErr && cellNum == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
         <hr className={styles.hr}></hr>
         <p className={styles.sectionHeader2}>Medical history</p>
@@ -773,11 +776,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder={`171`}
             type="number"
           />
-          {displayErr &&
-            (formData.registryData.medicalHistory.height > 1000 ||
-              formData.registryData.medicalHistory.height < 10) && (
-              <p className={styles.errorMsg}>Missing or invalid Data</p>
-            )}
+          {displayErr && (height > 1000 || height < 10) && (
+            <p className={styles.errorMsg}>Missing or invalid Data</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="weight">Weight (lbs)</label>
@@ -799,11 +800,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             placeholder="185"
             type="number"
           />
-          {displayErr &&
-            (formData.registryData.medicalHistory.weight > 1000 ||
-              formData.registryData.medicalHistory.weight < 1) && (
-              <p className={styles.errorMsg}>Missing or invalid Data</p>
-            )}
+          {displayErr && (weight > 1000 || weight < 1) && (
+            <p className={styles.errorMsg}>Missing or invalid Data</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper} ${styles.physicalExam}`}>
           <label className={styles.physicalExamLabel}>
@@ -827,10 +826,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             type="date"
             name="dateOfPhysical"
           />
-          {displayErr &&
-            formData.registryData.medicalHistory.lastPhysical == '' && (
-              <p className={styles.errorMsg}>Missing Data</p>
-            )}
+          {displayErr && lastPhysical == '' && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label>Do you smoke?</label>
@@ -883,7 +881,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             </div>
           </div>
         </div>
-        {smoke ? (
+        {showSmoke ? (
           <div
             style={{ marginTop: '-20px', marginBottom: '5px' }}
             className={styles.fullCol}
@@ -900,7 +898,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
                       medicalHistory: {
                         ...formData.registryData.medicalHistory,
                         smoker: {
-                          ...formData.registryData.medicalHistory.smoker,
+                          ...smoker,
                           packsPerDay: e.target.value,
                         },
                       },
@@ -925,7 +923,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
                       medicalHistory: {
                         ...formData.registryData.medicalHistory,
                         smoker: {
-                          ...formData.registryData.medicalHistory.smoker,
+                          ...smoker,
                           howLong: e.target.value.trim(),
                         },
                       },
@@ -942,17 +940,15 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
         ) : (
           ''
         )}
-        {displayErr && formData.registryData.medicalHistory.smoker == null && (
+        {displayErr && smoker == null && (
           <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
             Missing Data
           </p>
         )}
-        {displayErr &&
-        formData.registryData.medicalHistory.smoker != null &&
-        formData.registryData.medicalHistory.smoker != 'no' ? (
-          formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
-          formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
-          formData.registryData.medicalHistory.smoker.howLong == '' ? (
+        {displayErr && smoker != null && smoker != 'no' ? (
+          smoker.packsPerDay < 1 ||
+          smoker.packsPerDay > 50 ||
+          smoker.howLong == '' ? (
             <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
               Missing Data
             </p>
@@ -1013,7 +1009,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
             </div>
           </div>
         </div>
-        {alcohol ? (
+        {showAlcohol ? (
           <div
             style={{ marginTop: '-20px', marginBottom: '5px' }}
             className={`${styles.inputWrapper} ${styles.fullCol}`}
@@ -1044,19 +1040,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
         ) : (
           ''
         )}
-        {displayErr &&
-          formData.registryData.medicalHistory.alcoholDrinker == null && (
-            <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
-              Missing Data
-            </p>
-          )}
-        {displayErr &&
-        formData.registryData.medicalHistory.alcoholDrinker != null &&
-        formData.registryData.medicalHistory.alcoholDrinker != 'no' ? (
-          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks <
-            1 ||
-          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks >
-            100 ? (
+        {displayErr && alcoholDrinker == null && (
+          <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
+            Missing Data
+          </p>
+        )}
+        {displayErr && alcoholDrinker != null && alcoholDrinker != 'no' ? (
+          alcoholDrinker.howManyDrinks < 1 ||
+          alcoholDrinker.howManyDrinks > 100 ? (
             <p style={{ marginTop: '-23px' }} className={styles.errorMsg}>
               Missing Data
             </p>
@@ -1227,7 +1218,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
               <label htmlFor="yesAllergies">No</label>
             </div>
           </div>
-          {allergies ? (
+          {showAllergy ? (
             <div>
               <label htmlFor="describeReactions">
                 What medication and describe the reaction:
@@ -1256,14 +1247,13 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
           ) : (
             ''
           )}
+          {displayErr && allergies == null && (
+            <p className={styles.errorMsg}>Missing Data</p>
+          )}
           {displayErr &&
-            formData.registryData.medicalHistory.allergies == null && (
-              <p className={styles.errorMsg}>Missing Data</p>
-            )}
-          {displayErr &&
-            formData.registryData.medicalHistory.allergies != null &&
-            formData.registryData.medicalHistory.allergies != 'no' &&
-            formData.registryData.medicalHistory.allergies.length < 1 && (
+            allergies != null &&
+            allergies != 'no' &&
+            allergies.length < 1 && (
               <p className={styles.errorMsg}>Missing Data</p>
             )}
         </div>
@@ -1316,7 +1306,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
               <label htmlFor="noStaph">No</label>
             </div>
           </div>
-          {staph ? (
+          {showStaph ? (
             <>
               <label htmlFor="indicateInfection">
                 Please indicate where on your body the infection was located and
@@ -1345,20 +1335,17 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
           ) : (
             ''
           )}
-          {displayErr && formData.registryData.medicalHistory.staph == null && (
+          {displayErr && staph == null && (
             <p style={{ marginTop: '4px' }} className={styles.errorMsg}>
               Missing Data
             </p>
           )}
           {/* If staph is not null and 'no' is not checked, that means Yes is checked */}
-          {displayErr &&
-            formData.registryData.medicalHistory.staph != null &&
-            formData.registryData.medicalHistory.staph != 'no' &&
-            formData.registryData.medicalHistory.staph.length < 1 && (
-              <p style={{ marginTop: '4px' }} className={styles.errorMsg}>
-                Missing Data
-              </p>
-            )}
+          {displayErr && staph != null && staph != 'no' && staph.length < 1 && (
+            <p style={{ marginTop: '4px' }} className={styles.errorMsg}>
+              Missing Data
+            </p>
+          )}
         </div>
         <hr className={styles.hr}></hr>
         <div
@@ -1432,63 +1419,54 @@ const RegistryForm = ({ formData, setFormData, setShowForm, setAlert }) => {
         {displayErr &&
         (formData.registryData.date == '' ||
           sigEmpty ||
-          formData.registryData.medicalHistory.allergies == null ||
-          formData.registryData.medicalHistory.staph == null ||
-          formData.registryData.medicalHistory.alcoholDrinker == null ||
-          formData.registryData.medicalHistory.smoker == null ||
-          formData.registryData.medicalHistory.lastPhysical == '' ||
-          formData.registryData.medicalHistory.weight > 1000 ||
-          formData.registryData.medicalHistory.weight < 1 ||
-          formData.registryData.medicalHistory.height > 1000 ||
-          formData.registryData.medicalHistory.height < 10 ||
-          formData.registryData.emergencyContact.cellNum == '' ||
-          formData.registryData.emergencyContact.workNum == '' ||
-          formData.registryData.emergencyContact.phoneNum == '' ||
-          formData.registryData.emergencyContact.address == '' ||
-          formData.registryData.emergencyContact.relationship == '' ||
-          formData.registryData.emergencyContact.fullName == '' ||
-          formData.registryData.hearAboutUs == '' ||
-          formData.registryData.reasonForConsult == '' ||
-          formData.registryData.maritalStat == '' ||
-          formData.registryData.occupation == '' ||
-          formData.registryData.email == '' ||
+          allergies == null ||
+          staph == null ||
+          alcoholDrinker == null ||
+          smoker == null ||
+          lastPhysical == '' ||
+          weight > 1000 ||
+          weight < 1 ||
+          height > 1000 ||
+          height < 10 ||
+          cellNum == '' ||
+          workNum == '' ||
+          phoneNum == '' ||
+          address == '' ||
+          relationship == '' ||
+          fullName == '' ||
+          hearAboutUs == '' ||
+          reasonForConsult == '' ||
+          maritalStat == '' ||
+          occupation == '' ||
+          email == '' ||
           formData.registryData.cellNum == '' ||
           formData.registryData.workNum == '' ||
-          formData.registryData.homeNum == '' ||
-          formData.registryData.DOB == '' ||
+          homeNum == '' ||
+          DOB == '' ||
           formData.registryData.address == '' ||
-          formData.registryData.sex == '' ||
-          formData.registryData.age < 1 ||
-          formData.registryData.age > 150 ||
-          formData.registryData.fullName == '') ? (
+          sex == '' ||
+          age < 1 ||
+          age > 150 ||
+          fullName == '') ? (
+          <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
+        ) : displayErr && staph != null && staph != 'no' && staph.length < 1 ? (
           <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
         ) : displayErr &&
-          formData.registryData.medicalHistory.staph != null &&
-          formData.registryData.medicalHistory.staph != 'no' &&
-          formData.registryData.medicalHistory.staph.length < 1 ? (
+          allergies != null &&
+          allergies != 'no' &&
+          allergies.length < 1 ? (
           <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
-        ) : displayErr &&
-          formData.registryData.medicalHistory.allergies != null &&
-          formData.registryData.medicalHistory.allergies != 'no' &&
-          formData.registryData.medicalHistory.allergies.length < 1 ? (
-          <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
-        ) : displayErr &&
-          formData.registryData.medicalHistory.alcoholDrinker != null &&
-          formData.registryData.medicalHistory.alcoholDrinker != 'no' ? (
-          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks <
-            1 ||
-          formData.registryData.medicalHistory.alcoholDrinker.howManyDrinks >
-            100 ? (
+        ) : displayErr && alcoholDrinker != null && alcoholDrinker != 'no' ? (
+          alcoholDrinker.howManyDrinks < 1 ||
+          alcoholDrinker.howManyDrinks > 100 ? (
             <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
           ) : (
             ''
           )
-        ) : displayErr &&
-          formData.registryData.medicalHistory.smoker != null &&
-          formData.registryData.medicalHistory.smoker != 'no' ? (
-          formData.registryData.medicalHistory.smoker.packsPerDay < 1 ||
-          formData.registryData.medicalHistory.smoker.packsPerDay > 50 ||
-          formData.registryData.medicalHistory.smoker.howLong == '' ? (
+        ) : displayErr && smoker != null && smoker != 'no' ? (
+          smoker.packsPerDay < 1 ||
+          smoker.packsPerDay > 50 ||
+          smoker.howLong == '' ? (
             <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
           ) : (
             ''
