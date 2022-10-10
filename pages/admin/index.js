@@ -5,12 +5,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../styles/Admin.module.css';
 
+import { AiOutlineFolderView, AiFillDelete } from 'react-icons/ai';
+
 import { useRouter } from 'next/router';
 
 import { server } from '../../utils/config.js';
 
 const Index = ({ userData }) => {
-  console.log(userData);
   const router = useRouter();
 
   const logout = async () => {
@@ -46,16 +47,10 @@ const Index = ({ userData }) => {
                   <span></span>
                 </th>
                 <th>
-                  <span>Id</span>
-                </th>
-                <th>
                   <span>First Name</span>
                 </th>
                 <th>
                   <span>Last Name</span>
-                </th>
-                <th>
-                  <span>Date of Visit</span>
                 </th>
                 <th>
                   <span>Actions</span>
@@ -68,8 +63,6 @@ const Index = ({ userData }) => {
                 <td>No Data</td>
                 <td>No Data</td>
                 <td>No Data</td>
-                <td>No Data</td>
-                <td>No Data</td>
               </tbody>
             ) : (
               userData.map((patient) => {
@@ -77,9 +70,6 @@ const Index = ({ userData }) => {
                   <tbody className={styles.tbody} key={patient._id}>
                     <tr className={styles.trTitle}>
                       <td className={styles.td}></td>
-                      <td className={styles.td}>
-                        <p style={{ marginBottom: '0' }}>{patient._id}</p>
-                      </td>
                       <td className={styles.td}>
                         <p style={{ marginBottom: '0' }}>
                           {patient.screeningData.firstName}
@@ -90,14 +80,18 @@ const Index = ({ userData }) => {
                           {patient.screeningData.lastName}
                         </p>
                       </td>
+
                       <td className={styles.td}>
-                        <p style={{ marginBottom: '0' }}>
-                          {patient.screeningData.dateOfVisit}
-                        </p>
-                      </td>
-                      <td className={styles.td}>
-                        <button>Full Data</button>
-                        <button>Delete</button>
+                        <button
+                          onClick={() =>
+                            router.push(`admin/patient/${patient._id}`)
+                          }
+                        >
+                          <AiOutlineFolderView />
+                        </button>
+                        <button>
+                          <AiFillDelete />
+                        </button>
                       </td>
                     </tr>
                   </tbody>
