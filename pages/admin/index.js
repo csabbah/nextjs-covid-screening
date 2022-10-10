@@ -47,11 +47,9 @@ const Index = ({ userData }) => {
                   <span></span>
                 </th>
                 <th>
-                  <span>First Name</span>
+                  <span>Patient</span>
                 </th>
-                <th>
-                  <span>Last Name</span>
-                </th>
+
                 <th>
                   <span>Actions</span>
                 </th>
@@ -60,7 +58,6 @@ const Index = ({ userData }) => {
             {userData.length == 0 || userData == undefined ? (
               <tbody>
                 <td>#</td>
-                <td>No Data</td>
                 <td>No Data</td>
                 <td>No Data</td>
               </tbody>
@@ -72,15 +69,10 @@ const Index = ({ userData }) => {
                       <td className={styles.td}></td>
                       <td className={styles.td}>
                         <p style={{ marginBottom: '0' }}>
-                          {patient.screeningData.firstName}
-                        </p>
-                      </td>
-                      <td className={styles.td}>
-                        <p style={{ marginBottom: '0' }}>
+                          {patient.screeningData.firstName}{' '}
                           {patient.screeningData.lastName}
                         </p>
                       </td>
-
                       <td className={styles.td}>
                         <button
                           onClick={() =>

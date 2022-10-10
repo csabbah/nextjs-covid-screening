@@ -17,7 +17,7 @@
 .table {
   position: relative;
   width: 90vw;
-  max-width: 700px;
+  max-width: 500px;
   text-align: left;
   border: 2px solid rgba(128, 128, 128, 0.448);
 }
@@ -44,10 +44,4 @@
 
 .td button:first-child {
   margin-right: 10px;
-}
-
-@media (max-width: 900px) {
-  .td button {
-    padding: 1px 5px;
-  }
 }
