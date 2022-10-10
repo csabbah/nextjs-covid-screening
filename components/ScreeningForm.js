@@ -218,9 +218,7 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
       <hr className={styles.hr}></hr>
       <p className={styles.sectionHeader}>COVID-19 screening questions</p>
       <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
-        <label>
-          1. Do you have your proof of vaccination (if you are vaccinated)?
-        </label>
+        <label>1. Do you have your proof of vaccination (if vaccinated)?</label>
         <div>
           <input
             onChange={(e) => {

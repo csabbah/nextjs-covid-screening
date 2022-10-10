@@ -49,6 +49,24 @@ textarea::placeholder {
   color: grey;
 }
 
+label,
+p,
+h1,
+h2,
+h3,
+h4,
+span,
+h5,
+input::placeholder,
+textarea::placeholder,
+input[type='file'],
+input[type='date'],
+button,
+select,
+div {
+  user-select: none;
+}
+
 input[type='text'] {
   height: 40px;
 }

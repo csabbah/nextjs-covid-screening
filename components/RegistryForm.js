@@ -19,8 +19,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     height,
   } = formData.registryData.medicalHistory;
 
-  const { cellNum, workNum, phoneNum, address, relationship, fullName } =
-    formData.registryData.emergencyContact;
+  const {
+    cellNum: egCellNum,
+    workNum: egWorkNum,
+    phoneNum: egPhoneNum,
+    address: egAddress,
+    relationship,
+    fullName,
+  } = formData.registryData.emergencyContact;
 
   const {
     hearAboutUs,
@@ -29,9 +35,13 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     occupation,
     email,
     homeNum,
+    cellNum,
+    workNum,
+    address,
     DOB,
     sex,
     age,
+    date,
   } = formData.registryData;
 
   const medicalConditions = [
@@ -103,7 +113,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
 
   const checkData = () => {
     if (
-      formData.registryData.date == '' ||
+      date == '' ||
       sigEmpty ||
       allergies == null ||
       staph == null ||
@@ -114,10 +124,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
       weight < 1 ||
       height > 1000 ||
       height < 10 ||
-      cellNum == '' ||
-      workNum == '' ||
-      phoneNum == '' ||
-      address == '' ||
+      egCellNum == '' ||
+      egWorkNum == '' ||
+      egPhoneNum == '' ||
+      egAddress == '' ||
       relationship == '' ||
       fullName == '' ||
       hearAboutUs == '' ||
@@ -125,11 +135,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
       maritalStat == '' ||
       occupation == '' ||
       email == '' ||
-      formData.registryData.cellNum == '' ||
-      formData.registryData.workNum == '' ||
+      cellNum == '' ||
+      workNum == '' ||
       homeNum == '' ||
       DOB == '' ||
-      formData.registryData.address == '' ||
+      address == '' ||
       sex == '' ||
       age < 1 ||
       age > 150 ||
@@ -393,7 +403,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="26 Jeannette Pl"
             type="text"
           />
-          {displayErr && formData.registryData.address == '' && (
+          {displayErr && address == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -412,7 +422,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             }}
             id="dob"
             placeholder=""
-            type="text"
+            type="date"
           />
           {displayErr && DOB == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
@@ -456,7 +466,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="416 134 5266"
             type="text"
           />
-          {displayErr && formData.registryData.workNum == '' && (
+          {displayErr && workNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -477,7 +487,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="905 562 6353"
             type="text"
           />
-          {displayErr && formData.registryData.cellNum == '' && (
+          {displayErr && cellNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -678,7 +688,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="42 Crescent Dr"
             type="text"
           />
-          {displayErr && address == '' && (
+          {displayErr && egAddress == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -702,7 +712,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="435 544 3953"
             type="text"
           />
-          {displayErr && phoneNum == '' && (
+          {displayErr && egPhoneNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -726,7 +736,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="416 134 5266"
             type="text"
           />
-          {displayErr && workNum == '' && (
+          {displayErr && egWorkNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -750,7 +760,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="905 562 6353"
             type="text"
           />
-          {displayErr && cellNum == '' && (
+          {displayErr && egCellNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -1402,7 +1412,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                 id="dateOfSignature"
                 name="dateOfSignature"
               />
-              {displayErr && formData.registryData.date == '' && (
+              {displayErr && date == '' && (
                 <p
                   style={{ marginTop: '10px' }}
                   className={styles.errorMsgDate}
@@ -1417,7 +1427,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         {/* If the first block returns false, that means those criteria's pass...
         In that case, check the other conditionals */}
         {displayErr &&
-        (formData.registryData.date == '' ||
+        (date == '' ||
           sigEmpty ||
           allergies == null ||
           staph == null ||
@@ -1428,10 +1438,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           weight < 1 ||
           height > 1000 ||
           height < 10 ||
-          cellNum == '' ||
-          workNum == '' ||
-          phoneNum == '' ||
-          address == '' ||
+          egCellNum == '' ||
+          egWorkNum == '' ||
+          egPhoneNum == '' ||
+          egAddress == '' ||
           relationship == '' ||
           fullName == '' ||
           hearAboutUs == '' ||
@@ -1439,11 +1449,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           maritalStat == '' ||
           occupation == '' ||
           email == '' ||
-          formData.registryData.cellNum == '' ||
-          formData.registryData.workNum == '' ||
+          cellNum == '' ||
+          workNum == '' ||
           homeNum == '' ||
           DOB == '' ||
-          formData.registryData.address == '' ||
+          address == '' ||
           sex == '' ||
           age < 1 ||
           age > 150 ||
