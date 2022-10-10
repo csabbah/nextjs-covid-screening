@@ -1423,7 +1423,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             </div>
           </div>
         </div>
-
         {/* If the first block returns false, that means those criteria's pass...
         In that case, check the other conditionals */}
         {displayErr &&

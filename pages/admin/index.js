@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import Head from 'next/head';
 import Link from 'next/link';
+import styles from '../../styles/Admin.module.css';
 
 import { useRouter } from 'next/router';
 
@@ -30,8 +31,82 @@ const Index = ({ userData }) => {
           content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"
         />
       </Head>
-      <div>Admin</div>
-      <button onClick={() => logout()}>Logout</button>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <div>Admin</div>
+          <button style={{ width: '100px' }} onClick={() => logout()}>
+            Logout
+          </button>
+        </div>
+        <div className={styles.mainWrapper}>
+          <table className={`${styles.table} table table-hover align-middle`}>
+            <thead className={styles.thead}>
+              <tr className={styles.trTitle}>
+                <th>
+                  <span></span>
+                </th>
+                <th>
+                  <span>Id</span>
+                </th>
+                <th>
+                  <span>First Name</span>
+                </th>
+                <th>
+                  <span>Last Name</span>
+                </th>
+                <th>
+                  <span>Date of Visit</span>
+                </th>
+                <th>
+                  <span>Actions</span>
+                </th>
+              </tr>
+            </thead>
+            {userData.length == 0 || userData == undefined ? (
+              <tbody>
+                <td>#</td>
+                <td>No Data</td>
+                <td>No Data</td>
+                <td>No Data</td>
+                <td>No Data</td>
+                <td>No Data</td>
+              </tbody>
+            ) : (
+              userData.map((patient) => {
+                return (
+                  <tbody className={styles.tbody} key={patient._id}>
+                    <tr className={styles.trTitle}>
+                      <td className={styles.td}></td>
+                      <td className={styles.td}>
+                        <p style={{ marginBottom: '0' }}>{patient._id}</p>
+                      </td>
+                      <td className={styles.td}>
+                        <p style={{ marginBottom: '0' }}>
+                          {patient.screeningData.firstName}
+                        </p>
+                      </td>
+                      <td className={styles.td}>
+                        <p style={{ marginBottom: '0' }}>
+                          {patient.screeningData.lastName}
+                        </p>
+                      </td>
+                      <td className={styles.td}>
+                        <p style={{ marginBottom: '0' }}>
+                          {patient.screeningData.dateOfVisit}
+                        </p>
+                      </td>
+                      <td className={styles.td}>
+                        <button>Full Data</button>
+                        <button>Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })
+            )}
+          </table>
+        </div>
+      </div>
     </>
   );
 };
