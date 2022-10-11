@@ -41,6 +41,10 @@
   margin-right: 5px;
 }
 
+.mappedItem {
+  color: rgba(128, 128, 128) !important;
+}
+
 .innerWrapper p {
   margin: 0;
   margin-bottom: 7px;

@@ -64,14 +64,15 @@ const Index = ({ userData }) => {
               </tbody>
             ) : (
               userData.map((patient) => {
+                let { firstName, lastName } = patient.screeningData;
+
                 return (
                   <tbody className={styles.tbody} key={patient._id}>
                     <tr className={styles.trTitle}>
                       <td className={styles.td}></td>
                       <td className={styles.td}>
                         <p style={{ marginBottom: '0' }}>
-                          {patient.screeningData.firstName}{' '}
-                          {patient.screeningData.lastName}
+                          {firstName} {lastName}
                         </p>
                       </td>
                       <td className={styles.td}>

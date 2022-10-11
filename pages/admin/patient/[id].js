@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import Head from 'next/head';
@@ -15,6 +15,58 @@ const Index = ({ user }) => {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  let {
+    firstName,
+    lastName,
+    dateOfVisit,
+    anySymptoms,
+    CallToIsolate,
+    covidPositive,
+    olderAndExpSym,
+    positiveRapid,
+    proofOfVaccine,
+  } = user.screeningData;
+
+  let {
+    fullName,
+    sex,
+    age,
+    occupation,
+    maritalStat,
+    email,
+    DOB,
+    address,
+    cellNum,
+    workNum,
+    homeNum,
+    reasonForConsult,
+    hearAboutUs,
+    date: rgDate,
+    signature,
+  } = user.registryData;
+
+  let {
+    height,
+    weight,
+    lastPhysical,
+    allergies,
+    activeMedications,
+    activeHerbalSups,
+    previousCosmetics,
+    smoker,
+    alcoholDrinker,
+    staph,
+  } = user.registryData.medicalHistory;
+
+  let {
+    fullName: ecfullName,
+    relationship,
+    address: ecAddress,
+    cellNum: ecCellNum,
+    phoneNum,
+    workNum: ecWorkNum,
+  } = user.registryData.emergencyContact;
 
   return (
     <>
@@ -34,122 +86,110 @@ const Index = ({ user }) => {
           <div className={styles.innerWrapper}>
             <p className={styles.wrapperHeader}>Screening Data</p>
             <p>
-              <span>Patient:</span> {user.screeningData.firstName}{' '}
-              {user.screeningData.lastName}
+              <span>Patient:</span> {firstName} {lastName}
             </p>
 
             <p>
-              <span>Date of visit:</span> {user.screeningData.dateOfVisit}
+              <span>Date of visit:</span> {dateOfVisit}
             </p>
             <p>
-              <span>Symptoms:</span>{' '}
-              {user.screeningData.anySymptoms
-                ? capitalizeFirstLetter(user.screeningData.anySymptoms)
-                : ''}
+              <span>Symptoms:</span>
+              {anySymptoms == 'no'
+                ? capitalizeFirstLetter(anySymptoms)
+                : anySymptoms.map((sym, i) => {
+                    return (
+                      <span style={{ color: 'rgba(128,128,128)' }} key={i}>
+                        {sym}
+                      </span>
+                    );
+                  })}
             </p>
             <p>
               <span>Call to isolate:</span>{' '}
-              {capitalizeFirstLetter(user.screeningData.CallToIsolate)}
+              {capitalizeFirstLetter(CallToIsolate)}
             </p>
             <p>
-              <span>Positive test:</span>{' '}
-              {capitalizeFirstLetter(user.screeningData.covidPositive)}
+              <span>Positive test:</span> {capitalizeFirstLetter(covidPositive)}
             </p>
             <p>
               <span>Older & experiencing symptoms: </span>
-              {capitalizeFirstLetter(user.screeningData.olderAndExpSym)}
+              {capitalizeFirstLetter(olderAndExpSym)}
             </p>
             <p>
               <span>Positive Rapid:</span>{' '}
-              {capitalizeFirstLetter(user.screeningData.positiveRapid)}
+              {capitalizeFirstLetter(positiveRapid)}
             </p>
             <p>
               <span>Proof of vaccine: </span>
-              {user.screeningData.proofOfVaccine
-                ? capitalizeFirstLetter(user.screeningData.proofOfVaccine)
-                : ''}
+              {typeof proofOfVaccine == 'object'
+                ? `${proofOfVaccine.vaccineQuantity} - ${proofOfVaccine.certificateFile}`
+                : capitalizeFirstLetter(proofOfVaccine)}
             </p>
           </div>
           <div className={styles.innerWrapper}>
             <p className={styles.wrapperHeader}>Registry Data</p>
             <p>
-              <span>Full Name:</span>{' '}
-              {capitalizeFirstLetter(user.registryData.fullName)}
+              <span>Full Name:</span> {capitalizeFirstLetter(fullName)}
             </p>
             <p>
-              <span>Gender:</span>{' '}
-              {capitalizeFirstLetter(user.registryData.sex)}
+              <span>Gender:</span> {capitalizeFirstLetter(sex)}
             </p>
             <p>
-              <span>Age:</span> {user.registryData.age}
+              <span>Age:</span> {age}
             </p>
             <p>
-              <span>Occupation:</span>{' '}
-              {capitalizeFirstLetter(user.registryData.occupation)}
+              <span>Occupation:</span> {capitalizeFirstLetter(occupation)}
             </p>
             <p>
-              <span>Marital Status:</span>{' '}
-              {capitalizeFirstLetter(user.registryData.maritalStat)}
+              <span>Marital Status:</span> {capitalizeFirstLetter(maritalStat)}
             </p>
             <p>
-              <span>Email:</span>{' '}
-              {capitalizeFirstLetter(user.registryData.email)}
+              <span>Email:</span> {capitalizeFirstLetter(email)}
             </p>
             <p>
-              <span>Date of Birth:</span> {user.registryData.DOB}
+              <span>Date of Birth:</span> {DOB}
             </p>
             <p>
-              <span>Address:</span>{' '}
-              {capitalizeFirstLetter(user.registryData.address)}
+              <span>Address:</span> {capitalizeFirstLetter(address)}
             </p>
             <p>
-              <span>Cell number:</span> {user.registryData.cellNum}
+              <span>Cell number:</span> {cellNum}
             </p>
             <p>
-              <span>Home number:</span> {user.registryData.homeNum}
+              <span>Home number:</span> {homeNum}
             </p>
             <p>
-              <span>Home number:</span> {user.registryData.homeNum}
+              <span>Work number:</span> {workNum}
             </p>
             <p className={styles.hrHeader}>Medical History</p>
             <p>
-              <span>Height:</span> {user.registryData.medicalHistory.height} cm
+              <span>Height:</span> {height} cm
             </p>
             <p>
-              <span>Weight:</span> {user.registryData.medicalHistory.weight} lbs
+              <span>Weight:</span> {weight} lbs
             </p>
             <p>
-              <span>Last Physical:</span>{' '}
-              {user.registryData.medicalHistory.lastPhysical}
+              <span>Last Physical:</span> {lastPhysical}
             </p>
             <p>
-              <span>Allergies:</span>{' '}
-              {capitalizeFirstLetter(
-                user.registryData.medicalHistory.allergies
-              )}
+              <span>Allergies:</span> {capitalizeFirstLetter(allergies)}
             </p>
             <p>
               <span>Active Medications:</span>{' '}
-              {user.registryData.medicalHistory.activeMedications
-                ? capitalizeFirstLetter(
-                    user.registryData.medicalHistory.activeMedications
-                  )
+              {activeMedications
+                ? capitalizeFirstLetter(activeMedications)
                 : 'Left Blank'}
             </p>
             <p>
               <span>Active Herbal Supplements:</span>{' '}
-              {user.registryData.medicalHistory.activeHerbalSups
-                ? capitalizeFirstLetter(
-                    user.registryData.medicalHistory.activeHerbalSups
-                  )
+              {activeHerbalSups
+                ? capitalizeFirstLetter(activeHerbalSups)
                 : 'Left Blank'}
             </p>
             <p>
               <span>Previous Cosmetics:</span>{' '}
-              {user.registryData.medicalHistory.previousCosmetics
-                ? capitalizeFirstLetter(
-                    user.registryData.medicalHistory.previousCosmetics
-                  )
+              {previousCosmetics
+                ? capitalizeFirstLetter(previousCosmetics)
                 : 'Left Blank'}
             </p>{' '}
             <p>
@@ -174,78 +214,47 @@ const Index = ({ user }) => {
                 : 'Left Blank'}
             </p>{' '}
             <p>
+              <span>Staph:</span> {capitalizeFirstLetter(staph)}
+            </p>
+            <p>
               <span>Alcohol Drinker:</span>{' '}
-              {user.registryData.medicalHistory.alcoholDrinker
-                ? capitalizeFirstLetter(
-                    user.registryData.medicalHistory.alcoholDrinker
-                  )
-                : ''}
+              {alcoholDrinker ? capitalizeFirstLetter(alcoholDrinker) : ''}
             </p>
             <p>
-              <span>Smoker:</span>{' '}
-              {user.registryData.medicalHistory.smoker
-                ? capitalizeFirstLetter(user.registryData.medicalHistory.smoker)
-                : ''}
-            </p>
-            <p>
-              <span>Staph:</span>{' '}
-              {capitalizeFirstLetter(user.registryData.medicalHistory.staph)}
+              <span>Smoker:</span> {smoker ? capitalizeFirstLetter(smoker) : ''}
             </p>
             <p className={styles.hrHeader}>Emergency Contact</p>
             <p>
-              <span>Full Name:</span>{' '}
-              {capitalizeFirstLetter(
-                user.registryData.emergencyContact.fullName
-              )}
+              <span>Full Name:</span> {capitalizeFirstLetter(ecfullName)}
             </p>
             <p>
-              <span>Relationship:</span>{' '}
-              {capitalizeFirstLetter(
-                user.registryData.emergencyContact.relationship
-              )}
+              <span>Relationship:</span> {capitalizeFirstLetter(relationship)}
             </p>
             <p>
-              <span>Address:</span>{' '}
-              {capitalizeFirstLetter(
-                user.registryData.emergencyContact.address
-              )}
+              <span>Address:</span> {capitalizeFirstLetter(ecAddress)}
             </p>
             <p>
-              <span>Cell Number:</span>{' '}
-              {capitalizeFirstLetter(
-                user.registryData.emergencyContact.cellNum
-              )}
+              <span>Cell Number:</span> {capitalizeFirstLetter(ecCellNum)}
             </p>
             <p>
-              <span>Phone Num:</span>{' '}
-              {capitalizeFirstLetter(
-                user.registryData.emergencyContact.phoneNum
-              )}
+              <span>Phone Num:</span> {capitalizeFirstLetter(phoneNum)}
             </p>
             <p>
-              <span>Work Number:</span>{' '}
-              {capitalizeFirstLetter(
-                user.registryData.emergencyContact.workNum
-              )}
+              <span>Work Number:</span> {capitalizeFirstLetter(ecWorkNum)}
             </p>
             <hr></hr>
             <p>
               <span>Reason For Consult:</span>{' '}
-              {capitalizeFirstLetter(user.registryData.reasonForConsult)}
+              {capitalizeFirstLetter(reasonForConsult)}
             </p>
             <p>
               <span>How did you hear about us?</span>{' '}
-              {capitalizeFirstLetter(user.registryData.hearAboutUs)}
+              {capitalizeFirstLetter(hearAboutUs)}
             </p>
             <p>
-              <span>Date:</span> {user.registryData.date}
+              <span>Date:</span> {rgDate}
             </p>
-            <Image
-              src={user.registryData.signature}
-              width={300}
-              height={175}
-              alt=""
-            ></Image>
+            <Image src={signature} width={300} height={175} alt=""></Image>
           </div>
 
           <p>Records added at {date.toDateString()}</p>

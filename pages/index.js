@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import axios from 'axios';
-import { server } from '../utils/config';
 import Forms from '../components/Forms';
 
 export default function Home({}) {
@@ -19,13 +17,3 @@ export default function Home({}) {
     </div>
   );
 }
-
-// export const getServerSideProps = async () => {
-//   const patientData = await axios.get(`${server}/api/patients`);
-
-//   return {
-//     props: {
-//       patients: patientData.data,
-//     },
-//   };
-// };
