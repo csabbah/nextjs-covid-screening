@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/ScreeningForm.module.css';
+import axios from 'axios';
 
 const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
   const {
@@ -60,7 +61,37 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
       return setSubmitted(false);
     }
 
+    if (formData.screeningData.proofOfVaccine.certificateFile) {
+      extractImg();
+    }
     setShowForm(2);
+  };
+
+  const extractImg = async () => {
+    const data = new FormData();
+    data.append('file', formData.screeningData.proofOfVaccine.certificateFile);
+    data.append('upload_preset', 'uploads');
+
+    try {
+      const uploadRes = await axios.post(
+        // csabbah is our Cloud name (Can be found in the Cloudinary/Dashboard)
+        'https://api.cloudinary.com/v1_1/csabbah/image/upload',
+        data
+      );
+
+      // Extract the cloud link (that was generated above)
+      const { url } = uploadRes.data;
+      // Update the formData and include the newly generated cloudinary link for the signature
+      setFormData({
+        ...formData,
+        screeningData: {
+          ...formData.screeningData,
+          proofOfVaccine: { ...proofOfVaccine, certificateFile: url },
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   function handleSubmit(e) {
@@ -294,15 +325,15 @@ const ScreeningForm = ({ setShowForm, formData, setFormData }) => {
                     ...formData.screeningData,
                     [e.target.name]: {
                       ...proofOfVaccine,
-                      certificateFile: e.target.value,
+                      certificateFile: e.target.files[0],
                     },
                   },
                 });
                 setDisplayErr(false);
               }}
-              name="proofOfVaccine"
               type="file"
-              accept="application/pdf"
+              name="proofOfVaccine"
+              accept="image/png, image/jpeg"
             />
           </div>
         )}

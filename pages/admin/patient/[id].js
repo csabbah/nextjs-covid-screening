@@ -120,10 +120,29 @@ const Index = ({ user }) => {
               {capitalizeFirstLetter(positiveRapid)}
             </p>
             <p>
-              <span>Proof of vaccine: </span>
-              {typeof proofOfVaccine == 'object'
-                ? `${proofOfVaccine.vaccineQuantity} - ${proofOfVaccine.certificateFile}`
-                : capitalizeFirstLetter(proofOfVaccine)}
+              {typeof proofOfVaccine == 'object' ? (
+                ''
+              ) : (
+                <span>Proof of vaccine:</span>
+              )}
+              {typeof proofOfVaccine == 'object' ? (
+                <span className={styles.vaccineWrapper}>
+                  Vaccine quantity: {proofOfVaccine.vaccineQuantity}
+                  <br></br>Vaccine certificate:
+                  <span className={styles.certificateWrapper}>
+                    <Image
+                      src={proofOfVaccine.certificateFile}
+                      width={350}
+                      height={150}
+                      alt=""
+                      objectFit="contain"
+                    ></Image>
+                    <button>Download</button>
+                  </span>
+                </span>
+              ) : (
+                capitalizeFirstLetter(proofOfVaccine)
+              )}
             </p>
           </div>
           <div className={styles.innerWrapper}>

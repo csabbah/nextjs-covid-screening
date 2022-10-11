@@ -66,6 +66,17 @@
   opacity: 0.8;
 }
 
+.certificateWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.vaccineWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 @media (max-width: 900px) {
   .innerWrapper:first-child {
     margin-bottom: 25px;
@@ -80,5 +91,12 @@
   .container {
     text-align: center;
     padding: 50px 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .certificateWrapper {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
