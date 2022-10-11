@@ -2,11 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import Head from 'next/head';
-import Link from 'next/link';
 import styles from '../../styles/Admin.module.css';
 import Navbar from '../../components/Navbar';
 
-import { AiOutlineFolderView, AiFillDelete } from 'react-icons/ai';
+import { AiFillFolderOpen, AiFillDelete } from 'react-icons/ai';
 
 import { useRouter } from 'next/router';
 
@@ -33,7 +32,7 @@ const Index = ({ userData }) => {
           content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"
         />
       </Head>
-      <Navbar boolean={true} header={'Login'} />
+      <Navbar boolean={true} header={'Admin Dashboard'} />
       <div className={styles.container}>
         <div className={styles.header}>
           <div>Admin</div>
@@ -42,7 +41,7 @@ const Index = ({ userData }) => {
           </button>
         </div>
         <div className={styles.mainWrapper}>
-          <table className={`${styles.table} table table-hover align-middle`}>
+          <table className={`${styles.table} table align-middle`}>
             <thead className={styles.thead}>
               <tr className={styles.trTitle}>
                 <th>
@@ -81,7 +80,7 @@ const Index = ({ userData }) => {
                             router.push(`admin/patient/${patient._id}`)
                           }
                         >
-                          <AiOutlineFolderView />
+                          <AiFillFolderOpen />
                         </button>
                         <button>
                           <AiFillDelete />

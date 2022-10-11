@@ -176,3 +176,10 @@ select {
     width: 90vw;
   }
 }
+
+/* Remove hover effect on mobile screens */
+@media screen and (max-width: 730px) {
+  button:hover {
+    transform: scale(1);
+  }
+}

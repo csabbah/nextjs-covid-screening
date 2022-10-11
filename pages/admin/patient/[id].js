@@ -12,7 +12,6 @@ const Index = ({ user }) => {
   const router = useRouter();
 
   let date = new Date(user.createdAt);
-  console.log(user);
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -26,17 +25,19 @@ const Index = ({ user }) => {
           content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"
         />
       </Head>
-      <Navbar boolean={true} header={'Login'} />
+      <Navbar boolean={true} header={'Patient Information'} />
       <div className={styles.container}>
         <button onClick={() => router.push('/admin')}>
           <AiFillStepBackward /> Back
         </button>
         <div className={styles.userWrapper}>
-          <h3>
-            {user.screeningData.firstName} {user.screeningData.lastName}{' '}
-          </h3>
           <div className={styles.innerWrapper}>
             <p className={styles.wrapperHeader}>Screening Data</p>
+            <p>
+              <span>Patient:</span> {user.screeningData.firstName}{' '}
+              {user.screeningData.lastName}
+            </p>
+
             <p>
               <span>Date of visit:</span> {user.screeningData.dateOfVisit}
             </p>
