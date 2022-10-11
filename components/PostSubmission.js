@@ -24,7 +24,7 @@ const RegistrationForm = ({ formData }) => {
 
   return (
     <div>
-      <div className={styles.container}>Uploading...</div>
+      <div className={styles.container}>Uploading data...</div>
     </div>
   );
 };

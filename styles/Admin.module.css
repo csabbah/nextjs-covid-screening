@@ -18,6 +18,8 @@
 .table {
   position: relative;
   width: 90vw;
+  height: 80vw;
+  max-height: 400px;
   max-width: 500px;
   text-align: left;
   border: 2px solid rgba(128, 128, 128, 0.448);
@@ -41,7 +43,7 @@
 
 .td button {
   padding: 5px 10px;
-  font-size: 20px !important;
+  font-size: 25px !important;
 }
 
 .td button:first-child {

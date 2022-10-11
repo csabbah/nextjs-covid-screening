@@ -26,8 +26,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-image: url('/img/mainBg.png');
-  background-size: contain;
   overflow-x: hidden !important;
 }
 
