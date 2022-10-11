@@ -172,9 +172,6 @@ const Index = ({ user }) => {
               <span>Last Physical:</span> {lastPhysical}
             </p>
             <p>
-              <span>Allergies:</span> {capitalizeFirstLetter(allergies)}
-            </p>
-            <p>
               <span>Active Medications:</span>{' '}
               {activeMedications
                 ? capitalizeFirstLetter(activeMedications)
@@ -193,17 +190,6 @@ const Index = ({ user }) => {
                 : 'Left Blank'}
             </p>{' '}
             <p>
-              <span>Medical Conditions:</span>{' '}
-              {user.registryData.medicalHistory.medicalConditions.symptoms
-                .length == 0
-                ? 'No conditions'
-                : user.registryData.medicalHistory.medicalConditions.symptoms.map(
-                    (cond) => {
-                      return <>{cond} </>;
-                    }
-                  )}
-            </p>
-            <p>
               <span>Other Conditions:</span>{' '}
               {user.registryData.medicalHistory.medicalConditions
                 .otherConditions
@@ -212,16 +198,45 @@ const Index = ({ user }) => {
                       .otherConditions
                   )
                 : 'Left Blank'}
-            </p>{' '}
+            </p>
             <p>
-              <span>Staph:</span> {capitalizeFirstLetter(staph)}
+              <span>Medical Conditions:</span>{' '}
+              {user.registryData.medicalHistory.medicalConditions.symptoms
+                .length == 0
+                ? 'No conditions'
+                : user.registryData.medicalHistory.medicalConditions.symptoms.map(
+                    (cond, i) => {
+                      return (
+                        <span style={{ color: 'rgba(128,128,128)' }} key={i}>
+                          {cond}
+                        </span>
+                      );
+                    }
+                  )}
             </p>
             <p>
               <span>Alcohol Drinker:</span>{' '}
-              {alcoholDrinker ? capitalizeFirstLetter(alcoholDrinker) : ''}
+              {typeof alcoholDrinker == 'string'
+                ? capitalizeFirstLetter(alcoholDrinker)
+                : `Yes, ${alcoholDrinker.howManyDrinks} ${
+                    alcoholDrinker.howManyDrinks < 2 ? 'drink' : 'drinks'
+                  } a week`}
             </p>
             <p>
-              <span>Smoker:</span> {smoker ? capitalizeFirstLetter(smoker) : ''}
+              <span>Smoker:</span>{' '}
+              {typeof smoker == 'string'
+                ? capitalizeFirstLetter(smoker)
+                : `Yes, ${smoker.packsPerDay} ${
+                    smoker.packsPerDay < 2 ? 'pack' : 'packs'
+                  } a day and has been smoking for ${smoker.howLong} ${
+                    smoker.howLong < 2 ? 'year' : 'years'
+                  }`}
+            </p>
+            <p>
+              <span>Allergies:</span> {capitalizeFirstLetter(allergies)}
+            </p>
+            <p>
+              <span>Staph:</span> {capitalizeFirstLetter(staph)}
             </p>
             <p className={styles.hrHeader}>Emergency Contact</p>
             <p>
