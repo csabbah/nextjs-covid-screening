@@ -3,6 +3,7 @@ import styles from '../styles/Forms.module.css';
 import ScreeningForm from './ScreeningForm';
 import RegistryForm from './RegistryForm';
 import PostSubmission from './PostSubmission';
+import Navbar from './Navbar';
 
 const Forms = () => {
   const [showForm, setShowForm] = useState(1);
@@ -59,23 +60,28 @@ const Forms = () => {
   });
 
   return (
-    <div className={styles.container}>
-      {showForm == 1 ? (
-        <ScreeningForm
-          setShowForm={setShowForm}
-          setFormData={setFormData}
-          formData={formData}
-        />
-      ) : showForm == 2 ? (
-        <RegistryForm
-          setShowForm={setShowForm}
-          setFormData={setFormData}
-          formData={formData}
-        />
-      ) : (
-        <PostSubmission formData={formData} className={styles.container} />
-      )}
-    </div>
+    <>
+      <Navbar
+        header={showForm == 1 ? 'Screening' : showForm == 2 ? 'Registry' : ''}
+      />
+      <div className={styles.container}>
+        {showForm == 1 ? (
+          <ScreeningForm
+            setShowForm={setShowForm}
+            setFormData={setFormData}
+            formData={formData}
+          />
+        ) : showForm == 2 ? (
+          <RegistryForm
+            setShowForm={setShowForm}
+            setFormData={setFormData}
+            formData={formData}
+          />
+        ) : (
+          <PostSubmission formData={formData} className={styles.container} />
+        )}
+      </div>
+    </>
   );
 };
 

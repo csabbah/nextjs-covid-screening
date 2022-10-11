@@ -6,6 +6,7 @@ import styles from '../../../styles/Patient.module.css';
 import { useRouter } from 'next/router';
 import { AiFillStepBackward } from 'react-icons/ai';
 import { server } from '../../../utils/config.js';
+import Navbar from '../../../components/Navbar';
 
 const Index = ({ user }) => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const Index = ({ user }) => {
           content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"
         />
       </Head>
+      <Navbar boolean={true} header={'Login'} />
       <div className={styles.container}>
         <button onClick={() => router.push('/admin')}>
           <AiFillStepBackward /> Back

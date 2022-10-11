@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from '../../styles/Login.module.css';
 import Head from 'next/head';
+import Navbar from '../../components/Navbar';
 
 import { server } from '../../utils/config.js';
 
@@ -38,6 +39,7 @@ const Login = () => {
           content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"
         />
       </Head>
+      <Navbar boolean={true} header={'Login'} />
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <h1 className={styles.title}>Admin Dashboard</h1>
