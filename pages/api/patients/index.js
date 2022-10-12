@@ -1,5 +1,6 @@
 import dbConnect from '../../../utils/mongo';
 import Patient from '../../../models/Patient';
+import cookie from 'cookie';
 
 export default async function handler(req, res) {
   // Establish DB connection
@@ -8,7 +9,7 @@ export default async function handler(req, res) {
   // Extract request method
   const { method, cookies } = req;
 
-  const token = cookies.token;
+  // const token = cookies.token;
 
   if (method === 'GET') {
     try {
@@ -20,8 +21,18 @@ export default async function handler(req, res) {
   }
   if (method === 'POST') {
     try {
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize('submitted', process.env.SUBMITTED, {
+          maxAge: 60 * 60,
+          sameSite: 'strict',
+          path: '/',
+        })
+      );
+      // console.log(res.getHeaders());
+
       const patient = await Patient.create(req.body);
-      console.log(patient);
+      // Set up a custom cookie for form submission
       res.status(201).json(patient);
     } catch (err) {
       res.status(500).json(err);
