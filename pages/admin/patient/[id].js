@@ -291,7 +291,7 @@ const Index = ({ user }) => {
             <Image src={signature} width={300} height={175} alt=""></Image>
           </div>
 
-          <p>Records added at {date.toDateString()}</p>
+          <p>Records added on {date.toDateString()}</p>
         </div>
       </div>
     </>

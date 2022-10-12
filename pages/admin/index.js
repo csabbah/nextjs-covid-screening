@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import Head from 'next/head';
@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import { server } from '../../utils/config.js';
 
 const Index = ({ userData }) => {
+  const [patientList, setPatientList] = useState(userData);
+
   const router = useRouter();
 
   const logout = async () => {
@@ -21,6 +23,18 @@ const Index = ({ userData }) => {
         .replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
     });
     router.reload(window.location.pathname);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${server}/api/patients/${id}`);
+
+      // Normally, when we delete something from the database, it doesn't show right away
+      // So, we update the pizzaList useState object which reflects realtime changes
+      setPatientList(patientList.filter((patient) => patient._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -56,14 +70,14 @@ const Index = ({ userData }) => {
                 </th>
               </tr>
             </thead>
-            {userData.length == 0 || userData == undefined ? (
+            {patientList.length == 0 || patientList == undefined ? (
               <tbody>
                 <td>#</td>
                 <td>No Data</td>
                 <td>No Data</td>
               </tbody>
             ) : (
-              userData.map((patient) => {
+              patientList.map((patient) => {
                 let { firstName, lastName } = patient.screeningData;
 
                 return (
@@ -84,7 +98,9 @@ const Index = ({ userData }) => {
                           <AiFillFolderOpen />
                         </button>
                         <button>
-                          <AiFillDelete />
+                          <AiFillDelete
+                            onClick={() => handleDelete(patient._id)}
+                          />
                         </button>
                       </td>
                     </tr>
