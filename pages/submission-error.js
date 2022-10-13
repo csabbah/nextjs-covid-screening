@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useRouter } from 'next/router';
 
 const submissionError = () => {
   let router = useRouter();
 
-  const logout = async () => {
+  useEffect(() => {
     document.cookie.split(';').forEach(function (c) {
       document.cookie = c
         .replace(/^ +/, '')
         .replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
     });
-  };
-  logout();
+  }, []);
 
   return (
     <>
