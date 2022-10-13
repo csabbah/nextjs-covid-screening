@@ -36,7 +36,10 @@ const submissionError = () => {
             Failed to submit data, possible reason: Weak or no internet service.
             Please try again!
           </span>
-          <button style={{ width: '175px' }} onClick={() => router.push('/')}>
+          <button
+            style={{ width: '150px', marginTop: '10px' }}
+            onClick={() => router.push('/')}
+          >
             Go back
           </button>
         </div>
