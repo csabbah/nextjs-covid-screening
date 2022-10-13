@@ -12,9 +12,9 @@ export default async function handler(req, res) {
   const token = cookies.token;
 
   if (method === 'GET') {
-    if (!token || token !== process.env.TOKEN) {
-      return res.status(401).json('Not authenticated');
-    }
+    // if (!token || token !== process.env.TOKEN) {
+    //   return res.status(401).json('Not authenticated');
+    // }
     try {
       const patient = await Patient.find();
       res.status(200).json(patient);
