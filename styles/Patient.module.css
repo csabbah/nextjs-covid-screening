@@ -1,11 +1,13 @@
 .container {
-  margin-top: 75px;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 50px 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 35px;
+  padding-bottom: 50px;
 }
 
 .container button {
@@ -23,17 +25,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 20px;
   margin-top: 20px;
+  border: 3px solid rgba(0, 0, 0, 0.02);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
 }
 
 .innerWrapper {
-  width: 80%;
+  width: 90%;
   margin: 8px 10px;
   background-color: white;
-  padding: 15px;
-  border-radius: 15px;
+  padding: 20px 30px;
+  border-radius: 10px;
 }
 
 .innerWrapper span {
@@ -52,18 +56,17 @@
 
 .wrapperHeader {
   text-align: center;
-  opacity: 0.8;
-  padding-bottom: 10px;
-  font-size: 20px !important;
+  padding-bottom: 20px;
+  font-size: 22px !important;
 }
 
 .hrHeader {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 1px;
-  word-spacing: 3px;
+  word-spacing: 2px;
   margin-top: 22px !important;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .certificateWrapper {
@@ -77,11 +80,11 @@
   align-items: flex-start;
 }
 
-@media (max-width: 900px) {
-  .innerWrapper:first-child {
-    margin-bottom: 25px;
-  }
+.innerWrapper:first-child {
+  margin-bottom: 28px;
+}
 
+@media (max-width: 900px) {
   .innerWrapper {
     text-align: left;
     margin: 8px 0px;
@@ -90,7 +93,6 @@
 
   .container {
     text-align: center;
-    padding: 50px 10px;
   }
 }
 

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import axios from 'axios';
 import Head from 'next/head';
 import styles from '../../styles/Admin.module.css';
-import Navbar from '../../components/Navbar';
 
 import { AiFillFolderOpen, AiFillDelete } from 'react-icons/ai';
 
@@ -46,7 +44,6 @@ const Index = ({ userData }) => {
           content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"
         />
       </Head>
-      <Navbar boolean={true} header={'Admin Dashboard'} />
       <div className={styles.container}>
         <div className={styles.header}>
           <div>Admin</div>

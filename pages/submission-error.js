@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Navbar from '../components/Navbar';
 import { useRouter } from 'next/router';
 
 const submissionError = () => {
@@ -15,10 +14,8 @@ const submissionError = () => {
 
   return (
     <>
-      <Navbar boolean={true} header={'Submission Error'} />
       <div
         style={{
-          height: '100vh',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',

@@ -1,13 +1,15 @@
 import React from 'react';
-import FormCompleted from '../components/FormCompleted';
-import Navbar from '../components/Navbar';
+import styles from '../styles/FormCompleted.module.css';
 
-const formCompleted = ({ myCookie }) => {
+const formCompleted = () => {
   return (
-    <>
-      <Navbar boolean={true} header={'Form Submitted'} />
-      <FormCompleted submitted={myCookie.submitted} />
-    </>
+    <div>
+      <div className={styles.container}>
+        <p>
+          Thank you for filling the forms, your information has been uploaded.
+        </p>
+      </div>
+    </div>
   );
 };
 

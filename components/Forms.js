@@ -3,7 +3,6 @@ import styles from '../styles/Forms.module.css';
 import ScreeningForm from './ScreeningForm';
 import RegistryForm from './RegistryForm';
 import PostSubmission from './PostSubmission';
-import Navbar from './Navbar';
 
 const Forms = () => {
   const [showForm, setShowForm] = useState(1);
@@ -61,9 +60,6 @@ const Forms = () => {
 
   return (
     <>
-      <Navbar
-        header={showForm == 1 ? 'Screening' : showForm == 2 ? 'Registry' : ''}
-      />
       <div className={styles.container}>
         {showForm == 1 ? (
           <ScreeningForm
