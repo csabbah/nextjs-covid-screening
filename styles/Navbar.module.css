@@ -5,6 +5,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  z-index: 1;
 }
 
 .listItem {

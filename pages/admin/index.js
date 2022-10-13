@@ -66,15 +66,17 @@ const Index = ({ userData }) => {
                 </th>
 
                 <th>
-                  <span>Actions</span>
+                  <span></span>
                 </th>
               </tr>
             </thead>
             {patientList.length == 0 || patientList == undefined ? (
               <tbody>
-                <td>#</td>
-                <td>No Data</td>
-                <td>No Data</td>
+                <tr>
+                  <td>#</td>
+                  <td>No Data</td>
+                  <td>No Data</td>
+                </tr>
               </tbody>
             ) : (
               patientList.map((patient) => {
