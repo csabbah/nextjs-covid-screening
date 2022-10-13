@@ -25,10 +25,11 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     phoneNum: egPhoneNum,
     address: egAddress,
     relationship,
-    fullName,
+    fullName: egFullname,
   } = formData.registryData.emergencyContact;
 
   const {
+    fullName,
     hearAboutUs,
     reasonForConsult,
     maritalStat,
@@ -111,6 +112,19 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
     }
   };
 
+  function checkEmail(email) {
+    const re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  function checkNum(num) {
+    const re =
+      /^[\+]?([0-9][\s]?|[0-9]?)([(][0-9]{3}[)][\s]?|[0-9]{3}[-\s\.]?)[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
+    return re.test(String(num));
+  }
+
   const checkData = () => {
     if (
       date == '' ||
@@ -120,30 +134,35 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
       alcoholDrinker == null ||
       smoker == null ||
       lastPhysical == '' ||
-      weight > 1000 ||
+      weight > 2000 ||
       weight < 1 ||
-      height > 1000 ||
-      height < 10 ||
       egCellNum == '' ||
+      checkNum(egCellNum) == false ||
       egWorkNum == '' ||
+      checkNum(egWorkNum) == false ||
       egPhoneNum == '' ||
+      checkNum(egPhoneNum) == false ||
       egAddress == '' ||
       relationship == '' ||
       fullName == '' ||
+      egFullname == '' ||
       hearAboutUs == '' ||
       reasonForConsult == '' ||
       maritalStat == '' ||
       occupation == '' ||
       email == '' ||
+      checkEmail(email) == false ||
       cellNum == '' ||
+      checkNum(cellNum) == false ||
       workNum == '' ||
+      checkNum(workNum) == false ||
       homeNum == '' ||
+      checkNum(homeNum) == false ||
       DOB == '' ||
       address == '' ||
       sex == '' ||
       age < 1 ||
-      age > 150 ||
-      fullName == ''
+      age > 200
     ) {
       return setSubmitted(false);
     }
@@ -170,7 +189,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
         return setSubmitted(false);
       }
     }
-
     // Take the signature, push it and extract the image direct link via cloudinary
     // Then update the formData with that link
     extractImg();
@@ -352,7 +370,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="29"
             type="number"
           />
-          {displayErr && (age < 1 || age > 150) && (
+          {displayErr && (age < 1 || age > 200) && (
             <p className={styles.errorMsg}>Missing or Invalid Data</p>
           )}
         </div>
@@ -442,11 +460,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
               setDisplayErr(false);
             }}
             id="homeNum"
-            placeholder="435 544 3953"
+            placeholder="+1 (435) 544 3953"
             type="text"
           />
           {displayErr && homeNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
+          )}
+          {displayErr && homeNum != '' && checkNum(homeNum) == false && (
+            <p className={styles.errorMsg}>Invalid Number</p>
           )}
         </div>
         <div className={`${styles.inputWrapper}`}>
@@ -463,11 +484,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
               setDisplayErr(false);
             }}
             id="workNum"
-            placeholder="416 134 5266"
+            placeholder="123-456-7890"
             type="text"
           />
           {displayErr && workNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
+          )}
+          {displayErr && workNum != '' && checkNum(workNum) == false && (
+            <p className={styles.errorMsg}>Invalid Number</p>
           )}
         </div>
         <div className={`${styles.inputWrapper}`}>
@@ -490,6 +514,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           {displayErr && cellNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
+          {displayErr && cellNum != '' && checkNum(cellNum) == false && (
+            <p className={styles.errorMsg}>Invalid Number</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper} ${styles.fullCol}`}>
           <label htmlFor="email">E-mail:</label>
@@ -510,6 +537,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           />
           {displayErr && email == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
+          )}
+          {displayErr && email != '' && checkEmail(email) == false && (
+            <p className={styles.errorMsg}>Invalid Email</p>
           )}
         </div>
         <div className={`${styles.inputWrapper} ${styles.medCol}`}>
@@ -640,7 +670,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="John Doe"
             type="text"
           />
-          {displayErr && fullName == '' && (
+          {displayErr && egFullname == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
         </div>
@@ -715,6 +745,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           {displayErr && egPhoneNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
           )}
+          {displayErr && egPhoneNum != '' && checkNum(egPhoneNum) == false && (
+            <p className={styles.errorMsg}>Invalid Number</p>
+          )}
         </div>
         <div className={`${styles.inputWrapper}`}>
           <label htmlFor="emergeWork">Work #</label>
@@ -733,11 +766,14 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
               setDisplayErr(false);
             }}
             id="emergeWork"
-            placeholder="416 134 5266"
+            placeholder="+1 (416) 134 5266"
             type="text"
           />
           {displayErr && egWorkNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
+          )}
+          {displayErr && egWorkNum != '' && checkNum(egWorkNum) == false && (
+            <p className={styles.errorMsg}>Invalid Number</p>
           )}
         </div>
         <div className={`${styles.inputWrapper}`}>
@@ -762,6 +798,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           />
           {displayErr && egCellNum == '' && (
             <p className={styles.errorMsg}>Missing Data</p>
+          )}
+          {displayErr && egCellNum != '' && checkNum(egCellNum) == false && (
+            <p className={styles.errorMsg}>Invalid Number</p>
           )}
         </div>
         <hr className={styles.hr}></hr>
@@ -810,7 +849,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="185"
             type="number"
           />
-          {displayErr && (weight > 1000 || weight < 1) && (
+          {displayErr && (weight > 2000 || weight < 1) && (
             <p className={styles.errorMsg}>Missing or invalid Data</p>
           )}
         </div>
@@ -1433,30 +1472,35 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           alcoholDrinker == null ||
           smoker == null ||
           lastPhysical == '' ||
-          weight > 1000 ||
+          weight > 2000 ||
           weight < 1 ||
-          height > 1000 ||
-          height < 10 ||
           egCellNum == '' ||
           egWorkNum == '' ||
+          checkNum(egWorkNum) == false ||
           egPhoneNum == '' ||
+          checkNum(egPhoneNum) == false ||
           egAddress == '' ||
+          checkNum(egAddress) == false ||
           relationship == '' ||
           fullName == '' ||
+          egFullname == '' ||
           hearAboutUs == '' ||
           reasonForConsult == '' ||
           maritalStat == '' ||
           occupation == '' ||
           email == '' ||
+          checkEmail(email) == false ||
           cellNum == '' ||
+          checkNum(cellNum) == false ||
           workNum == '' ||
+          checkNum(workNum) == false ||
           homeNum == '' ||
+          checkNum(homeNum) == false ||
           DOB == '' ||
           address == '' ||
           sex == '' ||
           age < 1 ||
-          age > 150 ||
-          fullName == '') ? (
+          age > 200) ? (
           <p className={styles.mainErrorMsg}>Please fill all missing Data</p>
         ) : displayErr && staph != null && staph != 'no' && staph.length < 1 ? (
           <p className={styles.mainErrorMsg}>Please fill all missing Data</p>

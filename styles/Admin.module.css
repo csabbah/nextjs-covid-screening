@@ -49,3 +49,9 @@
 .td button:first-child {
   margin-right: 10px;
 }
+
+@media (max-width: 468px) {
+  .td button {
+    font-size: 20px !important;
+  }
+}

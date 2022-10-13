@@ -12,7 +12,7 @@ const RegistrationForm = ({ formData }) => {
       await axios.post(`${server}/api/patients`, formData);
       router.push('/form-completed');
     } catch (err) {
-      console.log(err);
+      router.push('/submission-error');
     }
   };
 

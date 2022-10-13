@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     query: { id },
     cookies,
   } = req;
-  const token = cookies.token;
 
   if (method === 'GET') {
     if (!token || token !== process.env.TOKEN) {
