@@ -717,7 +717,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   ...formData.registryData,
                   emergencyContact: {
                     ...formData.registryData.emergencyContact,
-                    phoneNum: e.target.value.trim(),
+                    phoneNum: e.target.value,
                   },
                 },
               });
@@ -741,7 +741,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   ...formData.registryData,
                   emergencyContact: {
                     ...formData.registryData.emergencyContact,
-                    workNum: e.target.value.trim(),
+                    workNum: e.target.value,
                   },
                 },
               });
@@ -765,7 +765,7 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
                   ...formData.registryData,
                   emergencyContact: {
                     ...formData.registryData.emergencyContact,
-                    cellNum: e.target.value.trim(),
+                    cellNum: e.target.value,
                   },
                 },
               });
