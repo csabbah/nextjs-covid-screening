@@ -136,12 +136,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
       lastPhysical == '' ||
       weight > 2000 ||
       weight < 1 ||
-      egCellNum == '' ||
-      checkNum(egCellNum) == false ||
-      egWorkNum == '' ||
-      checkNum(egWorkNum) == false ||
-      egPhoneNum == '' ||
-      checkNum(egPhoneNum) == false ||
+      (egWorkNum != '' && checkNum(egWorkNum) == false) ||
+      (egPhoneNum != '' && checkNum(egPhoneNum) == false) ||
+      (egCellNum != '' && checkNum(egCellNum) == false) ||
       egAddress == '' ||
       relationship == '' ||
       fullName == '' ||
@@ -152,12 +149,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
       occupation == '' ||
       email == '' ||
       checkEmail(email) == false ||
-      cellNum == '' ||
-      checkNum(cellNum) == false ||
-      workNum == '' ||
-      checkNum(workNum) == false ||
-      homeNum == '' ||
-      checkNum(homeNum) == false ||
+      (cellNum != '' && checkNum(cellNum) == false) ||
+      (workNum != '' && checkNum(workNum) == false) ||
+      (homeNum != '' && checkNum(homeNum) == false) ||
       DOB == '' ||
       address == '' ||
       sex == '' ||
@@ -463,9 +457,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="+1 (435) 544 3953"
             type="text"
           />
-          {displayErr && homeNum == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
           {displayErr && homeNum != '' && checkNum(homeNum) == false && (
             <p className={styles.errorMsg}>Invalid Number</p>
           )}
@@ -487,9 +478,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="123-456-7890"
             type="text"
           />
-          {displayErr && workNum == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
           {displayErr && workNum != '' && checkNum(workNum) == false && (
             <p className={styles.errorMsg}>Invalid Number</p>
           )}
@@ -511,9 +499,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="905 562 6353"
             type="text"
           />
-          {displayErr && cellNum == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
           {displayErr && cellNum != '' && checkNum(cellNum) == false && (
             <p className={styles.errorMsg}>Invalid Number</p>
           )}
@@ -742,9 +727,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="435 544 3953"
             type="text"
           />
-          {displayErr && egPhoneNum == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
           {displayErr && egPhoneNum != '' && checkNum(egPhoneNum) == false && (
             <p className={styles.errorMsg}>Invalid Number</p>
           )}
@@ -769,9 +751,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="+1 (416) 134 5266"
             type="text"
           />
-          {displayErr && egWorkNum == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
           {displayErr && egWorkNum != '' && checkNum(egWorkNum) == false && (
             <p className={styles.errorMsg}>Invalid Number</p>
           )}
@@ -796,9 +775,6 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
             placeholder="905 562 6353"
             type="text"
           />
-          {displayErr && egCellNum == '' && (
-            <p className={styles.errorMsg}>Missing Data</p>
-          )}
           {displayErr && egCellNum != '' && checkNum(egCellNum) == false && (
             <p className={styles.errorMsg}>Invalid Number</p>
           )}
@@ -1474,13 +1450,10 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           lastPhysical == '' ||
           weight > 2000 ||
           weight < 1 ||
-          egCellNum == '' ||
-          egWorkNum == '' ||
-          checkNum(egWorkNum) == false ||
-          egPhoneNum == '' ||
-          checkNum(egPhoneNum) == false ||
+          (egWorkNum != '' && checkNum(egWorkNum) == false) ||
+          (egPhoneNum != '' && checkNum(egPhoneNum) == false) ||
+          (egCellNum != '' && checkNum(egCellNum) == false) ||
           egAddress == '' ||
-          checkNum(egAddress) == false ||
           relationship == '' ||
           fullName == '' ||
           egFullname == '' ||
@@ -1490,12 +1463,9 @@ const RegistryForm = ({ formData, setFormData, setShowForm }) => {
           occupation == '' ||
           email == '' ||
           checkEmail(email) == false ||
-          cellNum == '' ||
-          checkNum(cellNum) == false ||
-          workNum == '' ||
-          checkNum(workNum) == false ||
-          homeNum == '' ||
-          checkNum(homeNum) == false ||
+          (cellNum != '' && checkNum(cellNum) == false) ||
+          (workNum != '' && checkNum(workNum) == false) ||
+          (homeNum != '' && checkNum(homeNum) == false) ||
           DOB == '' ||
           address == '' ||
           sex == '' ||

@@ -170,13 +170,13 @@ const Index = ({ user }) => {
               <span>Address:</span> {capitalizeFirstLetter(address)}
             </p>
             <p>
-              <span>Cell number:</span> {cellNum}
+              <span>Cell number:</span> {cellNum ? cellNum : 'Left Blank'}
             </p>
             <p>
-              <span>Home number:</span> {homeNum}
+              <span>Home number:</span> {homeNum ? homeNum : 'Left Blank'}
             </p>
             <p>
-              <span>Work number:</span> {workNum}
+              <span>Work number:</span> {workNum ? workNum : 'Left Blank'}
             </p>
             <p className={styles.hrHeader}>Medical History</p>
             <p>
@@ -266,13 +266,13 @@ const Index = ({ user }) => {
               <span>Address:</span> {capitalizeFirstLetter(ecAddress)}
             </p>
             <p>
-              <span>Cell Number:</span> {capitalizeFirstLetter(ecCellNum)}
+              <span>Cell Number:</span> {ecCellNum ? ecCellNum : 'Left Blank'}
             </p>
             <p>
-              <span>Phone Num:</span> {capitalizeFirstLetter(phoneNum)}
+              <span>Phone Num:</span> {phoneNum ? phoneNum : 'Left Blank'}
             </p>
             <p>
-              <span>Work Number:</span> {capitalizeFirstLetter(ecWorkNum)}
+              <span>Work Number:</span> {ecWorkNum ? ecWorkNum : 'Left Blank'}
             </p>
             <hr></hr>
             <p>
