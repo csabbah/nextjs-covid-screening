@@ -10,6 +10,8 @@ import { server } from '../../../utils/config.js';
 const Index = ({ user }) => {
   const router = useRouter();
 
+  // console.log(router.asPath.split('/')[3])
+
   let date = new Date(user.createdAt);
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -299,7 +301,13 @@ const Index = ({ user }) => {
 export default Index;
 
 export const getServerSideProps = async ({ params }) => {
-  const res = await axios.get(`${server}/api/patients/${params.id}`);
+
+
+  const res = await axios.get(`${server}/api/patients/${params.id}`, {    
+    withCredentials: true,
+    headers: {
+        Cookie: process.env.TOKEN
+    }})
   return {
     props: {
       user: res.data,

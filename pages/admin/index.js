@@ -132,7 +132,11 @@ export const getServerSideProps = async (ctx) => {
       },
     };
   }
-  const users = await axios.get(`${server}/api/patients`);
+  const users = await axios.get(`${server}/api/patients`, {    
+    withCredentials: true,
+    headers: {
+        Cookie: myCookie
+    }});
 
   return {
     props: {

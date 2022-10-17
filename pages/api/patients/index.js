@@ -7,20 +7,22 @@ export default async function handler(req, res) {
   await dbConnect();
 
   // Extract request method
-  const { method, cookies } = req;
+  const { method } = req;
 
-  const token = cookies.token;
+  let token = req.headers.cookie
 
   if (method === 'GET') {
-    // if (!token || token !== process.env.TOKEN) {
-    //   return res.status(401).json('Not authenticated');
-    // }
+    if (!token || token !== process.env.TOKEN) {
+      return res.status(401).json('Not authenticated');
+    }
     try {
       const patient = await Patient.find();
       res.status(200).json(patient);
     } catch (err) {
       res.status(500).json(err);
     }
+    
+    
   }
   if (method === 'POST') {
     try {
@@ -32,7 +34,6 @@ export default async function handler(req, res) {
           path: '/',
         })
       );
-      // console.log(res.getHeaders());
 
       const patient = await Patient.create(req.body);
       // Set up a custom cookie for form submission

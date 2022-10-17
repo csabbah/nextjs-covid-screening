@@ -23,6 +23,7 @@ const Login = () => {
         username,
         password,
       });
+      localStorage.setItem('Token', process.env.TOKEN)
       router.push('/admin');
     } catch (err) {
       setError([true, 'Incorrect Credentials']);
@@ -42,7 +43,7 @@ const Login = () => {
         <div className={styles.wrapper}>
           <h1 className={styles.title}>Admin Dashboard</h1>
           <input
-            placeholder="username"
+            placeholder="Username"
             className={styles.input}
             onChange={(e) => {
               setError([false, '']);
@@ -50,7 +51,7 @@ const Login = () => {
             }}
           />
           <input
-            placeholder="password"
+            placeholder="Password"
             type="password"
             className={styles.input}
             onChange={(e) => {
