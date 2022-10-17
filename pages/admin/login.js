@@ -23,7 +23,6 @@ const Login = () => {
         username,
         password,
       });
-      localStorage.setItem('Token', process.env.TOKEN)
       router.push('/admin');
     } catch (err) {
       setError([true, 'Incorrect Credentials']);
